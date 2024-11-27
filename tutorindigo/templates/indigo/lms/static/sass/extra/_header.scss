@@ -1,0 +1,225 @@
+$color-olive: #808C48; // Vert Olive
+
+$color-white: #FFFFFF; // Blanc
+
+$color-cream: #EFECE2; // Beige clair pour les effets de survol
+
+$color-creamsoft: #FAF3E0; // Fond crème
+
+$text-color-dark: #4B5563; // Texte sombre pour contraste
+
+$hover-cream: darken(#EFECE2, 10%);
+
+$hover-olive: darken(#808C48, 10%);
+
+$hover-creamsoft: darken(#FAF3E0, 10%);
+
+$color-orange: #D4903D;
+
+$color-grey: #7F7D7D;
+
+header.global-header {
+    background-color: $color-olive;
+    border: none;
+    padding: 0;
+    overflow: visible;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
+    &:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+    .main-header {
+position: relative;
+        display: flex;
+        align-items: center;
+        height: 50px;
+        justify-content: space-between;
+
+        @include media-breakpoint-up(lg) {
+            display: flex;
+            height: auto;
+        }
+    }
+    .header-logo {
+        margin: 20px auto;
+        display: flex; // Assure un alignement central si nécessaire
+        align-items: center; // Aligne le logo verticalement
+        width: auto; // Laisse le conteneur s'adapter automatiquement
+        margin-right: auto; // Ajoute un espace entre le logo et les autres éléments
+        position: relative;
+         a {
+            margin: 15px 0 15px 35px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;            
+@include media-breakpoint-up(lg) {
+                margin: 0;
+                margin: 20px 0 0;
+            }
+            .logo {
+                width: 160px; // Augmente la largeur du logo
+    height: 50px; // Hauteur du logo
+    object-fit: contain;
+            }
+        }
+        .course-header {
+            display: none;
+        }
+    }
+    .nav-links {
+        width: 100%;
+        .main {
+            margin: 0 0 0 38px;
+            .nav-tab {
+                a {
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 22px;
+                    padding: 20px 0;
+                    color: $color-cream; // Updated to white for contrast
+                    margin: 0 16px 0 0;
+                    border-bottom: 2px solid transparent;
+                    &.active, &:hover {
+                        color: $color-orange; // Updated hover color
+                        border-bottom: 2px solid $color-olive; // Updated for visibility
+                    }
+                }
+            }
+        }
+        .secondary {
+            margin: 0;
+            position: relative;
+            justify-content: end;
+            
+            // Updated styles for login button
+            .sign-in-btn {
+                color: $color-olive;
+                background-color: $color-creamsoft;
+                &:hover {
+                    background-color: $color-orange;
+                }
+            }
+            
+            // Updated styles for register button
+            .register-btn {
+                background-color: $color-cream;
+                color: $color-olive;
+                border: 1px solid white;
+                &:hover {
+                    background-color: $color-orange;
+                }
+            }
+
+            .toggle-user-dropdown {
+                padding: 9px 15px;
+                background: $color-creamsoft;
+                color: $color-grey;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                border-radius: 6px;
+                margin: 12px 0;
+                &:after {
+                    margin: 4px 0 0 4px;
+                    border: 2px solid #808C48;
+                    border-width: 2px 2px 0 0;
+                    transform: rotate(135deg);
+                    content: "";
+                    height: 5px;
+                    position: relative;
+                    top: 2px;
+                    width: 5px;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+
+                &:hover { 
+                       background: hover-creamsoft; // Beige clair au survol 
+            color: $text-color-dark; // Texte sombre au survol
+        }
+            }
+            .dropdown-user-menu {
+                position: absolute;
+                right: 0;
+                top: 60px;
+                width: 224px;
+                border-radius: 6px;
+                background-color: $color-cream;
+color: $color-grey ;
+                box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05), 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);
+                border: 1px solid $color-olive;
+                overflow: hidden;
+                .dropdown-item {
+                    border: none !important;
+                       &.hide-desktop {
+                        @include media-breakpoint-up(lg) {
+                            display: none;
+                        }
+                    }
+                    a {
+                        box-sizing: border-box;
+                        padding: 10px;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: $color-grey ;
+                        &:hover {
+                            background: $hover-cream;
+                           color: $color-grey;                                              }
+                    }
+                }
+            }
+        }
+    }
+}
+    
+  .hamburger-menu {
+    display: flex; // Toujours visible
+    position: absolute;
+    left: 15px;
+    top: 15px;
+      width: 30px;
+    height: 20px;
+    z-index: 1100; 
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .line {
+        height: 3px;
+        width: 100%;
+        background-color: $color-cream; // Couleur vi       
+ transition: transform 0.3s ease, opacity 0.3s ease; // Animation fluide
+        }    
+    @media (min-width: 769px) {
+        display: flex; // Assure la visibilité sur desktop
+    }
+}
+
+// Updated mobile menu styles to match new theme
+.mobile-menu {
+    position: absolute;
+    left: 0;
+    top: 54px;
+    z-index: 9999;
+    margin: 0;
+    border: none;
+    border-bottom: 2px solid #808C48;
+    width: 100%;
+    background-color: #808C48;
+    .mobile-nav-link {
+        a {
+            font-weight: normal;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 20px;
+            color: $color-cream;
+            border: none;
+            &:hover, &.active {
+                background: $hover-cream;
+                color: $text-color-dark;
+            }
+        }
+    }
+}

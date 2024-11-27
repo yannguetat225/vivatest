@@ -1,0 +1,54 @@
+$primary: {{ INDIGO_PRIMARY_COLOR }};
+$primary-light: #EFECE2;
+
+$color-olive: #808C48; // Vert Olive
+
+$color-white: #FFFFFF; // Blanc
+
+$color-cream: #EFECE2; // Beige clair pour les effets de survol
+
+$color-creamsoft: #FAF3E0; // Fond crème
+
+$text-color-dark: #4B5563; // Texte sombre pour contraste
+
+$hover-cream: darken(#EFECE2, 10%);
+
+$hover-olive: darken(#808C48, 10%);
+
+$hover-creamsoft: darken(#FAF3E0, 10%);
+
+$color-orange: #D4903D;
+
+$color-grey: #7F7D7D;
+
+
+// Theme fonts
+$font-family-title: 'Inter', sans-serif;;
+$serif: Crimson;
+$f-sans-serif: Crimson, 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+// Initialize the Open edX Bootstrap theme
+@import 'edx-bootstrap/sass/open-edx/theme';
+
+
+// Introducing new variables
+
+$dark: #111827;
+$light-dark: #374151;
+$big-screen: 1200px;
+
+
+
+// Introducing dark-theme variables
+
+$primary-d: #AEC7F6;
+$primary-light-d: #292A2C;
+$light-drak-d: #374151;
+$text-color-d: #F8F8F8;
+$text-color-primary: #DDDFE2;
+$border-color-d: #777792;
+$light-overlay-d: #36383B;
+$danger-d: #FFA07A;
+$success-d: #54CF5E;
+$btn-color-d: #112F6B;
+$body-bg-d:#0D0D0E;

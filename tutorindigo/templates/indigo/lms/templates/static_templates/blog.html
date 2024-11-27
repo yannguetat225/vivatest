@@ -1,0 +1,88 @@
+<%namespace name='static' file='../static_content.html'/>
+<%page expression_filter="h"/>
+<%! from django.utils.translation import gettext as _ %>
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Pour Entreprises")}</%block>
+
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
+    <!-- Section Héros -->
+    <section class="container business-hero">
+        <header class="hero-header">
+            <div class="hero-content">
+                <h1>${_("Vivons l'Apprentissage, Façonnons l'Avenir !")}</h1>
+                <p>${_("Maîtrisez l'Intelligence Artificielle, le Design Graphique et l'E-commerce grâce à des cours en ligne accessibles à tous.")}</p>
+                <a href="#" class="cta-button">${_("Découvrez nos formations")}</a>
+            </div>
+        </header>
+    </section>
+
+    <!-- Section Avantages pour les Entreprises -->
+    <section class="container advantages-section">
+        <h2>${_("Avantages pour les Entreprises")}</h2>
+        <div class="advantage-item">
+            <img src="${static.url('images/customized-learning.png')}" alt="${_("Apprentissage Personnalisé")}">
+            <div class="advantage-content">
+                <h3>${_("Apprentissage Personnalisé")}</h3>
+                <p>${_("Offrez à vos employés un parcours de formation adapté à leurs besoins spécifiques, permettant un développement continu et ciblé des compétences.")}</p>
+            </div>
+        </div>
+        <div class="advantage-item reverse">
+            <img src="${static.url('images/employee-engagement.png')}" alt="${_("Engagement des Employés")}">
+            <div class="advantage-content">
+                <h3>${_("Engagement des Employés")}</h3>
+                <p>${_("Améliorez la rétention et la satisfaction de vos employés grâce à des formations engageantes et interactives qui stimulent leur motivation.")}</p>
+            </div>
+        </div>
+        <div class="advantage-item">
+            <img src="${static.url('images/cost-effective.png')}" alt="${_("Solution Rentable")}">
+            <div class="advantage-content">
+                <h3>${_("Solution Rentable")}</h3>
+                <p>${_("Réduisez les coûts de formation en offrant une solution en ligne flexible qui permet à vos employés d'apprendre à leur propre rythme.")}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Avantages pour les Employés -->
+    <section class="container employee-perks-section">
+        <h2>${_("Avantages pour les Employés")}</h2>
+        <div class="perk-item">
+            <img src="${static.url('images/skills-development.png')}" alt="${_("Développement des Compétences")}">
+            <div class="perk-content">
+                <h3>${_("Développement des Compétences")}</h3>
+                <p>${_("Accédez à un large éventail de formations qui couvrent des compétences techniques, soft skills, et bien plus encore.")}</p>
+            </div>
+        </div>
+        <div class="perk-item reverse">
+            <img src="${static.url('images/career-growth.png')}" alt="${_("Évolution de Carrière")}">
+            <div class="perk-content">
+                <h3>${_("Évolution de Carrière")}</h3>
+                <p>${_("Préparez votre prochaine étape professionnelle avec des formations qui vous aident à évoluer et à atteindre vos objectifs de carrière.")}</p>
+            </div>
+        </div>
+        <div class="perk-item">
+            <img src="${static.url('images/flexible-learning.png')}" alt="${_("Apprentissage Flexible")}">
+            <div class="perk-content">
+                <h3>${_("Apprentissage Flexible")}</h3>
+                <p>${_("Apprenez à votre propre rythme, selon votre emploi du temps, grâce à une plateforme accessible 24/7 depuis n'importe quel appareil.")}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Témoignages (Optionnelle) -->
+    <section class="container testimonials-section">
+        <h2>${_("Ce que disent nos partenaires")}</h2>
+        <div class="testimonial-item">
+            <blockquote>
+                <p>${_("La plateforme VivaLearn a transformé notre approche de la formation en entreprise. Nos employés sont plus engagés et leurs compétences ont considérablement évolué.")}</p>
+                <footer>${_("Jean Dupont, Directeur RH chez TechCorp")}</footer>
+            </blockquote>
+        </div>
+        <div class="testimonial-item">
+            <blockquote>
+                <p>${_("Les outils proposés par VivaLearn sont exceptionnels. Nos équipes sont désormais autonomes dans leur apprentissage et leur développement personnel.")}</p>
+                <footer>${_("Marie Curie, Responsable Formation chez Innovatech")}</footer>
+            </blockquote>
+        </div>
+    </section>
+</main>

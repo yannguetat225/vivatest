@@ -1,0 +1,73 @@
+<%namespace name='static' file='../static_content.html'/>
+<%page expression_filter="h"/>
+<%! from django.utils.translation import gettext as _ %>
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Politique de Confidentialité")}</%block>
+
+<main id="main" class="main-beige"  aria-label="Content" tabindex="-1">
+    <section class="container privacy-policy">
+        <h1>${_("Politique de Confidentialité de VivaLearn")}</h1>
+        <p>${_("Dernière mise à jour : 18 novembre 2024")}</p>
+
+        <!-- Introduction -->
+        <h2>${_("Introduction")}</h2>
+        <p>${_("Chez VivaLearn, nous accordons une grande importance à la protection de vos données personnelles et à leur utilisation responsable. Cette politique détaille les informations que nous collectons, leur utilisation et vos droits.")}</p>
+
+        <!-- Informations collectées -->
+        <h2>${_("Informations collectées")}</h2>
+        <h3>${_("Données fournies par l'utilisateur")}</h3>
+        <p>${_("Nous collectons des données lorsque vous interagissez avec nos services, notamment :")}</p>
+        <ul>
+            <li>${_("Nom, prénom, adresse e-mail, mot de passe pour créer votre compte")}</li>
+            <li>${_("Inscriptions aux cours et données pédagogiques (notes, participations, certificats)")}</li>
+            <li>${_("Messages postés dans les forums ou réponses aux enquêtes")}</li>
+        </ul>
+
+        <h3>${_("Données collectées automatiquement")}</h3>
+        <p>${_("Certaines informations sont collectées automatiquement, comme :")}</p>
+        <ul>
+            <li>${_("Historique de navigation, interactions avec les cours")}</li>
+            <li>${_("Adresse IP, type d'appareil, système d'exploitation, localisation approximative")}</li>
+        </ul>
+
+        <!-- Utilisation des données -->
+        <h2>${_("Utilisation des données")}</h2>
+        <p>${_("Vos données sont utilisées pour :")}</p>
+        <ul>
+            <li>${_("Personnaliser votre expérience d'apprentissage")}</li>
+            <li>${_("Gérer vos inscriptions, paiements, et certificats")}</li>
+            <li>${_("Analyser les performances des cours et améliorer nos services")}</li>
+            <li>${_("Envoyer des communications sur les mises à jour et événements")}</li>
+        </ul>
+
+        <!-- Partage des informations -->
+        <h2>${_("Partage des informations")}</h2>
+        <p>${_("Nous partageons vos données uniquement dans les cas suivants :")}</p>
+        <ul>
+            <li>${_("Avec des partenaires éducatifs pour gérer les certifications")}</li>
+            <li>${_("Avec des prestataires de services pour l'hébergement et le traitement des paiements")}</li>
+            <li>${_("Si requis par la loi ou pour protéger nos droits")}</li>
+        </ul>
+
+        <!-- Sécurité des données -->
+        <h2>${_("Sécurité des données")}</h2>
+        <p>${_("Nous mettons en œuvre des mesures strictes pour protéger vos informations :")}</p>
+        <ul>
+            <li>${_("Cryptage des données sensibles pendant la transmission et le stockage")}</li>
+            <li>${_("Limitation de l'accès aux données aux personnes autorisées")}</li>
+        </ul>
+
+        <!-- Vos droits -->
+        <h2>${_("Vos droits")}</h2>
+        <p>${_("Vous pouvez demander à accéder, corriger ou supprimer vos données personnelles. Contactez-nous à l'adresse suivante :")} <a href="mailto:privacy@vivalearn.com">privacy@vivalearn.com</a></p>
+
+        <!-- Cookies -->
+        <h2>${_("Cookies")}</h2>
+        <p>${_("Nous utilisons des cookies pour améliorer votre expérience. Vous pouvez gérer vos préférences dans les paramètres de votre navigateur.")}</p>
+
+        <!-- Contact -->
+        <h2>${_("Nous contacter")}</h2>
+        <p>${_("Pour toute question concernant cette politique de confidentialité, contactez-nous à :")} <a href="mailto:privacy@vivalearn.com">privacy@vivalearn.com</a></p>
+    </section>
+</main>

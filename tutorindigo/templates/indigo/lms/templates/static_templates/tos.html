@@ -1,0 +1,79 @@
+<%namespace name='static' file='../static_content.html'/>
+<%page expression_filter="h"/>
+<%! from django.utils.translation import gettext as _ %>
+
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Terms of Service and Legal Notices")}</%block>
+
+<main id="main" class="main-beige"  aria-label="Content" tabindex="-1">
+    <section class="container terms">
+        <h1>
+            <%block name="pageheader">${page_header or _("Terms of Service and Legal Notices")}</%block>
+        </h1>
+        
+        <!-- Introduction Section -->
+        <h2>1. Introduction</h2>
+        <p>
+            ${_("Ces conditions générales régissent l'utilisation de notre plateforme. En accédant ou en utilisant nos services, vous acceptez ces termes. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser la plateforme.")}
+        </p>
+
+        <!-- Service Description Section -->
+        <h2>2. Description des Services</h2>
+        <p>
+            ${_("Nous offrons des services éducatifs en ligne, comprenant des cours, des ressources pédagogiques, et des certifications. Les services sont accessibles sous réserve de disponibilité et peuvent être modifiés sans préavis.")}
+        </p>
+
+        <!-- User Accounts Section -->
+        <h2>3. Comptes Utilisateurs</h2>
+        <ul>
+            <li>${_("Chaque utilisateur est responsable de la confidentialité de ses identifiants.")}</li>
+            <li>${_("Les comptes ne doivent pas être partagés ou utilisés par plusieurs personnes.")}</li>
+            <li>${_("Nous nous réservons le droit de suspendre ou de résilier tout compte en cas de non-respect des conditions.")}</li>
+        </ul>
+
+        <!-- Intellectual Property Rights Section -->
+        <h2>4. Droits de Propriété Intellectuelle</h2>
+        <p>
+            ${_("Tous les contenus de la plateforme, y compris les textes, images, vidéos, et logiciels, sont protégés par les lois sur le droit d'auteur. Vous ne pouvez pas copier, distribuer ou modifier ces contenus sans autorisation explicite.")}
+        </p>
+
+        <!-- Acceptable Use Policy Section -->
+        <h2>5. Utilisation Acceptable</h2>
+        <ul>
+            <li>${_("Les utilisateurs doivent respecter toutes les lois applicables lors de l'utilisation des services.")}</li>
+            <li>${_("Il est interdit de télécharger des contenus nuisibles, frauduleux, ou violant les droits d'autrui.")}</li>
+            <li>${_("Tout comportement perturbateur ou abusif peut entraîner une suspension de votre accès.")}</li>
+        </ul>
+
+        <!-- Limitation of Liability Section -->
+        <h2>6. Limitation de Responsabilité</h2>
+        <p>
+            ${_("Nous ne sommes pas responsables des pertes ou dommages résultant de l'utilisation ou de l'incapacité à utiliser la plateforme, sauf en cas de négligence grave ou de faute intentionnelle.")}
+        </p>
+
+        <!-- Terms Modification Section -->
+        <h2>7. Modification des Termes</h2>
+        <p>
+            ${_("Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications seront publiées sur cette page, et il est de votre responsabilité de consulter régulièrement les termes mis à jour.")}
+        </p>
+
+        <!-- Governing Law Section -->
+        <h2>8. Loi Applicable</h2>
+        <p>
+            ${_("Ces conditions sont régies par les lois en vigueur dans votre juridiction. En cas de litige, les tribunaux compétents seront ceux de notre siège social.")}
+        </p>
+
+        <!-- Contact Section -->
+        <h2>9. Contact</h2>
+        <p>
+            ${_("Pour toute question ou préoccupation concernant ces termes, veuillez nous contacter via l'adresse email mentionnée sur la page de contact.")}
+        </p>
+
+        <!-- Visual Support Graphics -->
+        <div class="graphic-img">
+            <img src="${static.url('images/terms.svg')}" alt="${_("Illustration sur les Conditions d'Utilisation")}" />
+            <img class="dark" src="${static.url('images/terms-dark.svg')}" alt="${_("Illustration sur les Conditions d'Utilisation")}" />
+        </div>
+    </section>
+</main>
