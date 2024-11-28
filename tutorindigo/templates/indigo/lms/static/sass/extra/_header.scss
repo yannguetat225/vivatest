@@ -33,7 +33,8 @@ header.global-header {
 position: relative;
         display: flex;
         align-items: center;
-        height: 50px;
+      height: auto; // Laisser le header s'adapter dynamiquement
+    padding: 5px 0; // Réduire les paddings verticaux
         justify-content: space-between;
 
         @include media-breakpoint-up(lg) {
@@ -42,14 +43,14 @@ position: relative;
         }
     }
     .header-logo {
-        margin: 20px auto;
+        margin: 5px auto;
         display: flex; // Assure un alignement central si nécessaire
         align-items: center; // Aligne le logo verticalement
         width: auto; // Laisse le conteneur s'adapter automatiquement
         margin-right: auto; // Ajoute un espace entre le logo et les autres éléments
         position: relative;
          a {
-            margin: 15px 0 15px 35px;
+            margin: 15px 0 15px 15px;
             height: auto;
             display: flex;
             justify-content: center;
@@ -189,12 +190,10 @@ color: $color-grey ;
     .line {
         height: 3px;
         width: 100%;
-        background-color: $color-cream; // Couleur vi       
+        background: $color-orange; // Couleur vi       
  transition: transform 0.3s ease, opacity 0.3s ease; // Animation fluide
         }    
-    @media (min-width: 769px) {
-        display: flex; // Assure la visibilité sur desktop
-    }
+
 }
 
 // Updated mobile menu styles to match new theme
@@ -207,14 +206,14 @@ color: $color-grey ;
     border: none;
     border-bottom: 2px solid #808C48;
     width: 100%;
-    background-color: #808C48;
+    background: $color-olive;
     .mobile-nav-link {
         a {
             font-weight: normal;
             padding: 16px;
             font-size: 14px;
             line-height: 20px;
-            color: $color-cream;
+            color: $color-grey;
             border: none;
             &:hover, &.active {
                 background: $hover-cream;
