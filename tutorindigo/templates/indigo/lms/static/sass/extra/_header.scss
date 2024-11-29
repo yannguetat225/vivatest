@@ -19,8 +19,10 @@ $color-orange: #D4903D;
 $color-grey: #7F7D7D;
 
 header.global-header {
+position: relative;
     background-color: $color-olive;
-    border: none;
+  min-height: 70px;   
+ border: none;
     padding: 0;
     overflow: visible;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
@@ -30,7 +32,6 @@ header.global-header {
         display: block;
     }
     .main-header {
-position: relative;
         display: flex;
         align-items: center;
       height: auto; // Laisser le header s'adapter dynamiquement
@@ -43,13 +44,11 @@ position: relative;
         }
     }
     .header-logo {
-        margin: 5px auto;
         display: flex; // Assure un alignement central si nécessaire
         align-items: center; // Aligne le logo verticalement
         width: auto; // Laisse le conteneur s'adapter automatiquement
-        margin-right: auto; // Ajoute un espace entre le logo et les autres éléments
-        position: relative;
-         a {
+        
+       a {
             margin: 15px 0 15px 15px;
             height: auto;
             display: flex;
@@ -69,6 +68,22 @@ position: relative;
             display: none;
         }
     }
+
+@media (max-width: 768px) {
+    .header-logo {
+        position: absolute;
+        top: 10px; // Ajustement vertical
+        left: 200px; // Position à droite du bouton hamburger
+        width: 160px;
+    }
+}
+
+@media (min-width: 769px) {
+    .header-logo {
+        position: relative; // Le logo reste dans le flux normal
+        margin: 5px auto; // Centre le logo horizontalement avec une petite marge
+    }
+}
     .nav-links {
         width: 100%;
         .main {
@@ -178,9 +193,9 @@ color: $color-grey ;
   .hamburger-menu {
     display: flex; // Toujours visible
     position: absolute;
-    left: 15px;
-    top: 15px;
-      width: 30px;
+     top: 10px;
+left: 10px;
+     width: 30px;
     height: 20px;
     z-index: 1100; 
     cursor: pointer;
@@ -190,10 +205,23 @@ color: $color-grey ;
     .line {
         height: 3px;
         width: 100%;
-        background: $color-orange; // Couleur vi       
+    
  transition: transform 0.3s ease, opacity 0.3s ease; // Animation fluide
         }    
+    @media (min-width: 769px) {
+        display: flex; // Assure la visibilité sur desktop
+    }
+}
 
+@media (max-width: 768px) {
+    .hamburger-menu {
+         position: absolute;
+    top: 20px; // Ajustez la valeur pour l'alignement vertical
+    left: 92.5px; // Ajustez la valeur pour l'alignement horizontal
+    width: 30px;
+    height: 20px;
+    z-index: 1100;
+    }
 }
 
 // Updated mobile menu styles to match new theme
@@ -206,14 +234,14 @@ color: $color-grey ;
     border: none;
     border-bottom: 2px solid #808C48;
     width: 100%;
-    background: $color-olive;
+    color: $text-color-dark;
     .mobile-nav-link {
         a {
             font-weight: normal;
             padding: 16px;
             font-size: 14px;
             line-height: 20px;
-            color: $color-grey;
+            color: $color-cream;
             border: none;
             &:hover, &.active {
                 background: $hover-cream;
