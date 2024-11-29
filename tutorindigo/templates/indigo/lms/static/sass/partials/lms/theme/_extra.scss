@@ -95,7 +95,7 @@ h1, h2, h3, h1 span, h2 span, h3 span, .nav-item {
 /////////////////// Register/Sign in header
 header.global-header {
   @include media-breakpoint-up(lg) {
-    position: fixed;
+    position: relative;
     top: 0;
     z-index: 200; // necessary to keep the header on top of other elements
     overflow: visible;  // fix for Safari
@@ -109,7 +109,7 @@ header.global-header .nav-links .secondary .user-image-frame {
 }
 
 header.global-header .nav-links .secondary .dropdown-user-menu {
-  position: fixed;
+  position: relative;
 }
 
 /////////////////// Sign in form
