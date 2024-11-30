@@ -51,6 +51,26 @@ input:-webkit-autofill:active{
         font-size: 2rem; // Taille personnalisée
     }
 
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.section-img {
+    display: block;
+    margin: 0 auto 20px auto;
+    max-width: 100%;
+}
+
+
     p {
         color: #4B5563; // Texte en sombre
         line-height: 1.6; // Espacement pour améliorer la lisibilité
@@ -64,8 +84,67 @@ input:-webkit-autofill:active{
         background-color: #FFA500; // Couleur orange au survol
         color: white; // Couleur du texte au survol
                 }
-              
-            }  
+}
+
+.padding-section {
+    padding: 40px 20px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+section.container {
+    padding: 40px 20px;
+    margin-bottom: 20px;
+}
+
+.advantage-img {
+    float: left;
+    margin-right: 15px;
+    width: 100px;
+}
+.cta-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    &:hover {
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.form-control {
+    border: 1px solid $color-grey;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.form-button {
+    background-color: #0056b3;
+    color: $white;
+    font-size: 1.2rem;
+
+    &:hover {
+background-color: darken(#0056b3, 10%);
+    }
+}
+
+.terms h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.terms ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+ li {
+    margin-bottom: 10px;
+}
+  
 
 }
 
@@ -110,6 +189,15 @@ header.global-header .nav-links .secondary .user-image-frame {
 
 header.global-header .nav-links .secondary .dropdown-user-menu {
   position: relative;
+}
+
+@media (max-width: 768px) {
+    .global-header {
+        position: sticky;
+        top: 0;
+        z-index: 300;
+        height: auto;
+    }
 }
 
 /////////////////// Sign in form

@@ -26,10 +26,11 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
         # To remove all links, run:
         # tutor config save --set INDIGO_FOOTER_NAV_LINKS=[]
         "FOOTER_NAV_LINKS": [
-            {"title": "A Propos", "url": "/about"},
+            {"title": "Accueil", "url": "/"},
+            {"title": "Qui Sommes-nous ?", "url": "/about"},
             {"title": "Cours", "url": "/courses"},
             {"title": "Pour Entreprises", "url": "/donate"},
-            {"title": "Aide", "url": "/help"},
+            {"title": "FAQ", "url": "/help"},
             {"title": "Mentions Légales", "url": "/tos"},
             {"title": "Politique de Confidentialité", "url": "/privacy"},
             {"title": "Contactez-nous", "url": "/contact"},

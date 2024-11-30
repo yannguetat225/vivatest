@@ -25,7 +25,8 @@ position: relative;
  border: none;
     padding: 0;
     overflow: visible;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
+    margin-bottom: 0;   
+ box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
     &:after {
         content: "";
         clear: both;
@@ -72,11 +73,13 @@ position: relative;
 @media (max-width: 768px) {
     .header-logo {
         position: absolute;
-        top: 10px; // Ajustement vertical
-        left: 200px; // Position à droite du bouton hamburger
+        top: 5px; // Ajustement vertical
+        left: 50px; // Position à droite du bouton hamburger
         width: 160px;
     }
 }
+
+
 
 @media (min-width: 769px) {
     .header-logo {
@@ -131,15 +134,17 @@ position: relative;
             .toggle-user-dropdown {
                 padding: 9px 15px;
                 background: $color-creamsoft;
-                color: $color-grey;
+                color: $text-color-dark;
+		box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
                 font-size: 14px;
                 font-weight: 500;
                 line-height: 20px;
                 border-radius: 6px;
                 margin: 12px 0;
-                &:after {
+                border: 3px solid $color-olive;
+		 &:after {
                     margin: 4px 0 0 4px;
-                    border: 2px solid #808C48;
+                    border: 2px solid $color-olive;
                     border-width: 2px 2px 0 0;
                     transform: rotate(135deg);
                     content: "";
@@ -153,7 +158,7 @@ position: relative;
 
                 &:hover { 
                        background: hover-creamsoft; // Beige clair au survol 
-            color: $text-color-dark; // Texte sombre au survol
+            color: $color-white; // Texte sombre au survol
         }
             }
             .dropdown-user-menu {
@@ -163,7 +168,7 @@ position: relative;
                 width: 224px;
                 border-radius: 6px;
                 background-color: $color-cream;
-color: $color-grey ;
+                color: $text-color-dark;
                 box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05), 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);
                 border: 1px solid $color-olive;
                 overflow: hidden;
@@ -179,18 +184,32 @@ color: $color-grey ;
                         padding: 10px;
                         font-size: 14px;
                         line-height: 20px;
-                        color: $color-grey ;
+                        color: $text-color-dark;
+			transition: background 0.3s ease, color 0.3s ease;
                         &:hover {
-                            background: $hover-cream;
-                           color: $color-grey;                                              }
+                            background: $hover-creamsoft;
+                           color: $color-white;                                              }
                     }
                 }
             }
         }
     }
 }
-    
-  .hamburger-menu {
+
+@media (max-width: 768px) {
+    .global-header {
+        position: sticky;
+        top: 0;
+        z-index: 300;
+        height: auto;
+    }
+}
+
+#content {
+    padding-top: calc(#{$header-height} + 10px); // Ajoute un espacement cohérent sous le header
+}
+
+ .hamburger-menu {
     display: flex; // Toujours visible
     position: absolute;
      top: 10px;
@@ -234,15 +253,17 @@ left: 10px;
     border: none;
     border-bottom: 2px solid #808C48;
     width: 100%;
-    color: $text-color-dark;
+    background: $hover-creamsoft;
+    color: $text-color-dark; // Texte sombre pour contraste
+    box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
     .mobile-nav-link {
         a {
             font-weight: normal;
             padding: 16px;
             font-size: 14px;
             line-height: 20px;
-            color: $color-cream;
-            border: none;
+            color: $text-color-dark;
+            border: 2px solid $color-olive;
             &:hover, &.active {
                 background: $hover-cream;
                 color: $text-color-dark;

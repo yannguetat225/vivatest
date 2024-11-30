@@ -1,6 +1,27 @@
 $primary: {{ INDIGO_PRIMARY_COLOR }};
 $secondary: #F2F7F8;
 
+$color-olive: #808C48; // Vert Olive
+
+$color-white: #FFFFFF; // Blanc
+
+$color-cream: #EFECE2; // Beige clair pour les effets de survol
+
+$color-creamsoft: #FAF3E0; // Fond crème
+
+$text-color-dark: #4B5563; // Texte sombre pour contraste
+
+$hover-cream: darken(#EFECE2, 10%);
+
+$hover-olive: darken(#808C48, 10%);
+
+$hover-creamsoft: darken(#FAF3E0, 10%);
+
+$color-orange: #D4903D;
+
+$color-grey: #7F7D7D;
+
+
 $blue: $primary !default;
 $m-blue-d1: mix(white, $primary, 5%) !default;
 $m-blue-d2: mix(white, $primary, 15%) !default;
