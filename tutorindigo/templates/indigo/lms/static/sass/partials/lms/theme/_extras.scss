@@ -174,10 +174,12 @@ h1, h2, h3, h1 span, h2 span, h3 span, .nav-item {
 /////////////////// Register/Sign in header
 header.global-header {
   @include media-breakpoint-up(lg) {
-    position: relative;
+    position: sticky;
     top: 0;
+    height: auto;
     z-index: 200; // necessary to keep the header on top of other elements
     overflow: visible;  // fix for Safari
+    padding-bottom: 0 !important;
   }
   //background-color: #4c61bf;
   box-shadow: none;
