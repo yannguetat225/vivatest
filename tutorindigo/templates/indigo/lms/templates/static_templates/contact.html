@@ -3,27 +3,33 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Contact Us")}</%block>
+<%block name="pagetitle">${_("Contactez-nous")}</%block>
 
-<main id="main" class="main-beige"  aria-label="Content" tabindex="-1">
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
+
+ <section class="header-image">
+    <img src="${static.url('images/vivalearn_contact5.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+</section>
+
     <section class="container contact">
-        <h1>
-            <%block name="pageheader">${page_header or _("Contactez-nous")}</%block>
-        </h1>
-        <p>
-            <%block name="pagecontent">${page_content or _("Vous avez une question ou vous voulez simplement dire bonjour ? Nous serions ravis d’avoir de vos nouvelles.")}</%block>
-        </p>
+        <h1>${_("Contactez-nous")}</h1>
+        <p>${_("Besoin d’aide ou d’informations ? Découvrez les différents moyens de nous contacter.")}</p>
 
         <!-- Informations de contact -->
         <div class="contact-item">
             <h3>${_("Messagerie électronique")}</h3>
             <p>contact@vivalearn.com</p>
-            <a href="mailto:communication@afrilearnx.com" class="cta-button">${_("Envoyez-nous un e-mail")}</a>
+            <a href="mailto:contact@vivalearn.com" class="cta-button">${_("Envoyez-nous un e-mail")}</a>
         </div>
         <div class="contact-item">
             <h3>${_("Téléphone")}</h3>
             <p>+225 01 51 54 48 89</p>
-            <a href="tel:+971508803295" class="cta-button">${_("Appelez-nous")}</a>
+            <a href="tel:+2250151544889" class="cta-button">${_("Appelez-nous")}</a>
+        </div>
+        <div class="contact-item">
+            <h3>${_("WhatsApp")}</h3>
+            <p>${_("Contactez-nous directement sur WhatsApp pour une assistance rapide.")}</p>
+            <a href="https://wa.me/+2250151544889" target="_blank" class="cta-button">${_("Contacter sur WhatsApp")}</a>
         </div>
         <div class="contact-item">
             <h3>${_("Emplacement")}</h3>
@@ -31,12 +37,18 @@
             <a href="#" class="cta-button" id="map-link">${_("Consultez la carte")}</a>
         </div>
         <div id="map" class="map"></div>
-
-        <!-- Illustrations -->
-        <div class="graphic-img">
-            <img src="${static.url('images/contact.svg')}" alt="${_("Illustration Contact")}" />
-            <img class="dark" src="${static.url('images/contact-dark.svg')}" alt="${_("Illustration Contact en Mode Sombre")}" />
-        </div>
+    </section>
+<!-- Section FAQ -->
+    <section class="container faq">
+        <h2>${_("Questions fréquentes")}</h2>
+        <p>${_("Consultez notre FAQ pour trouver rapidement des réponses aux questions les plus courantes.")}</p>
+        <a href="/faq.html" class="cta-button">${_("Accéder à la FAQ")}</a>
+    </section>
+    <!-- Section Événements -->
+    <section class="container events">
+        <h2>${_("Événements et webinaires")}</h2>
+        <p>${_("Participez à nos événements mensuels pour découvrir les nouveautés et échanger avec la communauté éducative.")}</p>
+        <a href="/events.html" class="cta-button">${_("Voir le calendrier des événements")}</a>
     </section>
 
     <!-- Formulaire de contact -->
@@ -52,8 +64,12 @@
                 <input type="email" id="email" name="email" required class="form-control">
             </div>
             <div class="form-group">
-                <label for="subject">${_("Objet")}</label>
-                <input type="text" id="subject" name="subject" required class="form-control">
+                <label for="type">${_("Type de demande")}</label>
+                <select id="type" name="type" required class="form-control">
+                    <option value="general">${_("Demande générale")}</option>
+                    <option value="partnership">${_("Collaboration ou partenariat")}</option>
+                    <option value="technical">${_("Problème technique")}</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="message">${_("Entrez votre message")}</label>
@@ -61,32 +77,38 @@
             </div>
             <div class="form-group">
                 <label class="checkbox">
-                    <input type="checkbox" id="terms" name="terms" required class="form-control">
-                    ${_("Je suis d’accord avec les")} <a href="cgu.html">${_("conditions générales")}</a>
+                    <input type="checkbox" id="terms" name="terms" required>
+                    ${_("Je suis d’accord avec les")} <a href="cgu.html">${_("conditions générales")}</a>.
                 </label>
             </div>
-            <button type="submit" class="cta-button form-button">${_("Envoyez votre message")}</button>
+            <button type="submit" class="cta-button form-button">${_("Envoyer votre message")}</button>
         </form>
     </section>
+   
+<p><em>“Le savoir, quand il est partagé, devient une flamme qui ne s’éteint jamais.”</em></p>
+  <div class="graphic-img">
+        <img src="${static.url('images/vivalearn_feu.png')}" alt="FAQ" />
+    </div>
+
+
+    <!-- Script pour intégrer la carte Google Maps -->
+    <script>
+        function initMap() {
+            var location = {lat: 5.345317, lng: -4.024429}; // Coordonnées d'Abidjan
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+
+        document.getElementById('map-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            initMap();
+            document.getElementById('map').scrollIntoView({behavior: 'smooth'});
+        });
+    </script>
 </main>
-
-<!-- Script pour intégrer la carte Google Maps -->
-<script>
-    function initMap() {
-        var location = {lat: 5.345317, lng: -4.024429}; // Coordonnées d'Abidjan
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: location
-        });
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map
-        });
-    }
-
-    document.getElementById('map-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        initMap();
-        document.getElementById('map').scrollIntoView({behavior: 'smooth'});
-    });
-</script>

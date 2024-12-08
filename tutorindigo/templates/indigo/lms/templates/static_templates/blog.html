@@ -3,86 +3,230 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Pour Entreprises")}</%block>
+<%block name="pagetitle">${_("Comment pouvons-nous vous aider ?")}</%block>
 
-<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
-    <!-- Section Héros -->
-    <section class="container business-hero">
-        <header class="hero-header">
-            <div class="hero-content">
-                <h1>${_("Vivons l'Apprentissage, Façonnons l'Avenir !")}</h1>
-                <p>${_("Maîtrisez l'Intelligence Artificielle, le Design Graphique et l'E-commerce grâce à des cours en ligne accessibles à tous.")}</p>
-                <a href="#" class="cta-button large-button">${_("Découvrez nos formations")}</a>
-            </div>
-        </header>
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="container about">
+        <h1>
+            Comment pouvons-nous vous aider ?
+        </h1>
+        <p>
+            Vous souhaitez explorer tout le potentiel de Vivalearn ou trouver des solutions personnalisées pour vos besoins éducatifs ? Remplissez le formulaire ci-dessous, et notre équipe se fera un plaisir de vous accompagner.
+        </p>
+
+        <h2>Formulaire de contact :</h2>
+        <ul>
+            <li><strong>Prénom</strong></li>
+            <li><strong>Nom</strong></li>
+            <li><strong>Email</strong></li>
+            <li><strong>Comment pouvons-nous vous aider ? (sélectionnez une option) :</strong>
+                <ul>
+                    <li>Collaborer avec Vivalearn</li>
+                    <li>Découvrir la plateforme Vivalearn</li>
+                    <li>Obtenir une recommandation de programme ou de certification</li>
+                    <li>Devenir un partenaire éducatif ou technologique de Vivalearn</li>
+                    <li>Assistance pour intégrer nos outils pédagogiques</li>
+                    <li>Autre</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Astuce :</strong> Plus vos détails sont précis, plus notre réponse sera rapide et adaptée !</p>
+
+        <h2>Une réponse rapide via WhatsApp</h2>
+        <p>
+            Envie d’une assistance immédiate ou d’une conversation directe avec notre équipe ? Contactez-nous sur WhatsApp et obtenez des réponses en temps réel.
+        </p>
+        <p><a href="#">Rejoindre notre WhatsApp</a></p>
+
+        <h2>Événements Vivalearn : Connectez-vous à la communauté éducative</h2>
+        <p>
+            Chez Vivalearn, nous croyons en la force des échanges et de l’apprentissage collaboratif. Participez à nos événements mensuels, où experts en éducation et leaders technologiques partagent leurs expériences et innovations.
+        </p>
+        <ul>
+            <li><strong>Optimisez vos compétences :</strong> Découvrez des astuces pour exploiter au mieux la plateforme Vivalearn et ses certifications blockchain.</li>
+            <li><strong>Échangez et collaborez :</strong> Connectez-vous avec des éducateurs, des professionnels et des partenaires partageant les mêmes ambitions.</li>
+            <li><strong>Faites partie de la révolution éducative :</strong> Rejoignez notre communauté qui façonne l’avenir de l’éducation.</li>
+        </ul>
+        <p>Les meetups mensuels se déroulent en ligne via une plateforme immersive. Consultez notre <a href="#">calendrier des événements</a> pour en savoir plus !</p>
+
+        <h2>Forum d’échange Vivalearn</h2>
+        <p>
+            Nos forums sont faits pour vous : que vous soyez éducateur, professionnel ou passionné par l’innovation pédagogique, vous trouverez votre place ici :
+        </p>
+        <ul>
+            <li><strong>Communauté :</strong> Présentez-vous, partagez vos idées ou vos projets, et découvrez des opportunités.</li>
+            <li><strong>Éducateurs :</strong> Explorez les meilleures pratiques en conception de cours, techniques d’apprentissage, et plus encore.</li>
+            <li><strong>Annonces :</strong> Suivez les actualités officielles et les nouveautés de Vivalearn.</li>
+            <li><strong>Développement :</strong> Discutez des améliorations de la plateforme, proposez des fonctionnalités, ou collaborez sur des projets éducatifs innovants.</li>
+            <li><strong>Techniques & Intégrations :</strong> Apprenez à tirer le meilleur parti des outils de Vivalearn grâce à des conseils d’experts.</li>
+        </ul>
+        <p>Rejoignez la discussion sur <a href="#">notre forum</a>.</p>
+
+        <h2>Rejoignez-nous sur WhatsApp !</h2>
+        <p>
+            Pour une discussion conviviale ou des questions rapides, notre communauté et notre équipe sont disponibles sur WhatsApp. Avec Vivalearn, l'éducation est aussi interactive que connectée.
+        </p>
+        <p><a href="#">Rejoindre WhatsApp</a></p>
+
+        <h2>Vivalearn : L’éducation réinventée</h2>
+        <p>
+            À travers des certifications blockchain, une collaboration avec des partenaires éducatifs de premier plan, et des outils d’apprentissage en ligne, Vivalearn est votre plateforme pour transformer vos compétences et atteindre vos objectifs professionnels.
+        </p>
+        <p>
+            Nous sommes là pour vous accompagner à chaque étape de votre parcours éducatif. Que ce soit via nos événements, nos forums ou WhatsApp, l’équipe Vivalearn est à votre écoute.
+        </p>
     </section>
+    
+    <section class="container about">
+        <h1>Comment pouvons-nous vous aider ?</h1>
+        <p>
+            Chez Vivalearn, nous avons à cœur de répondre aux besoins spécifiques de chacun, que vous soyez apprenant, éducateur, ou partenaire. Retrouvez ci-dessous les options adaptées à votre profil.
+        </p>
 
-    <!-- Section Avantages pour les Entreprises -->
-    <section class="container advantages-section">
-        <h2>${_("Avantages pour les Entreprises")}</h2>
-        <div class="advantage-item">
-            <img src="${static.url('images/customized-learning.png')}" alt="${_("Apprentissage Personnalisé")}" class="advantage-img">
-            <div class="advantage-content">
-                <h3>${_("Apprentissage Personnalisé")}</h3>
-                <p>${_("Offrez à vos employés un parcours de formation adapté à leurs besoins spécifiques, permettant un développement continu et ciblé des compétences.")}</p>
-            </div>
-        </div>
-        <div class="advantage-item reverse">
-            <img src="${static.url('images/employee-engagement.png')}" alt="${_("Engagement des Employés")}">
-            <div class="advantage-content">
-                <h3>${_("Engagement des Employés")}</h3>
-                <p>${_("Améliorez la rétention et la satisfaction de vos employés grâce à des formations engageantes et interactives qui stimulent leur motivation.")}</p>
-            </div>
-        </div>
-        <div class="advantage-item">
-            <img src="${static.url('images/cost-effective.png')}" alt="${_("Solution Rentable")}">
-            <div class="advantage-content">
-                <h3>${_("Solution Rentable")}</h3>
-                <p>${_("Réduisez les coûts de formation en offrant une solution en ligne flexible qui permet à vos employés d'apprendre à leur propre rythme.")}</p>
-            </div>
-        </div>
+        <!-- Section pour les apprenants -->
+        <h2>Pour les apprenants :</h2>
+        <p>
+            Si vous suivez nos cours et avez besoin d'assistance, plusieurs options s'offrent à vous :
+        </p>
+        <ul>
+            <li>
+                <strong>Besoin d'une réponse rapide ?</strong> Contactez-nous sur WhatsApp pour obtenir une aide immédiate.
+                <br /><a href="#">Rejoindre notre WhatsApp</a>
+            </li>
+            <li>
+                <strong>Questions fréquentes :</strong> Consultez notre FAQ pour trouver des réponses aux questions courantes sur les cours, les certifications, et l'accès à votre compte.
+                <br /><a href="#">Accéder à la FAQ</a>
+            </li>
+            <li>
+                <strong>Certifications :</strong> Apprenez-en davantage sur nos certifications blockchain, leur reconnaissance et leur vérification.
+                <br /><a href="#">Découvrir les certifications</a>
+            </li>
+        </ul>
+
+        <!-- Section pour les professionnels et partenaires -->
+        <h2>Pour les éducateurs et partenaires :</h2>
+        <p>
+            Si vous êtes un professionnel de l'éducation, un partenaire ou souhaitez collaborer avec Vivalearn, nous avons mis en place des espaces dédiés pour répondre à vos besoins :
+        </p>
+        <ul>
+            <li>
+                <strong>Groupe Telegram :</strong> Rejoignez notre communauté Telegram pour échanger, collaborer, et rester informé des dernières nouveautés.
+                <br /><a href="#">Rejoindre notre groupe Telegram</a>
+            </li>
+            <li>
+                <strong>Collaborations :</strong> Discutez de projets éducatifs, de partenariats technologiques ou de développement de nouveaux outils pédagogiques avec notre équipe.
+                <br /><a href="#">Proposer une collaboration</a>
+            </li>
+            <li>
+                <strong>Actualités :</strong> Recevez les annonces officielles, les mises à jour de la plateforme et les informations sur les prochains événements.
+                <br /><a href="#">Voir les annonces</a>
+            </li>
+        </ul>
+
+        <!-- Section événements -->
+        <h2>Événements et rencontres Vivalearn :</h2>
+        <p>
+            Rejoignez nos événements mensuels pour découvrir les nouveautés de la plateforme, apprendre des experts en éducation, et échanger avec notre communauté.
+        </p>
+        <ul>
+            <li><strong>Optimisez vos compétences :</strong> Explorez les astuces pour maximiser votre expérience sur Vivalearn.</li>
+            <li><strong>Partagez et apprenez :</strong> Connectez-vous avec des éducateurs et des partenaires autour d’initiatives innovantes.</li>
+        </ul>
+        <p>
+            Consultez notre <a href="#">calendrier des événements</a> pour ne rien manquer.
+        </p>
     </section>
+     <section class="container about">
+        <h1>Comment pouvons-nous vous aider ?</h1>
+        <p>
+            Cette page vous permet d'accéder aux différentes ressources et supports mis à disposition par Vivalearn en fonction de votre profil.
+        </p>
 
-    <!-- Section Avantages pour les Employés -->
-    <section class="container employee-perks-section">
-        <h2>${_("Avantages pour les Employés")}</h2>
-        <div class="perk-item">
-            <img src="${static.url('images/skills-development.png')}" alt="${_("Développement des Compétences")}">
-            <div class="perk-content">
-                <h3>${_("Développement des Compétences")}</h3>
-                <p>${_("Accédez à un large éventail de formations qui couvrent des compétences techniques, soft skills, et bien plus encore.")}</p>
-            </div>
-        </div>
-        <div class="perk-item reverse">
-            <img src="${static.url('images/career-growth.png')}" alt="${_("Évolution de Carrière")}">
-            <div class="perk-content">
-                <h3>${_("Évolution de Carrière")}</h3>
-                <p>${_("Préparez votre prochaine étape professionnelle avec des formations qui vous aident à évoluer et à atteindre vos objectifs de carrière.")}</p>
-            </div>
-        </div>
-        <div class="perk-item">
-            <img src="${static.url('images/flexible-learning.png')}" alt="${_("Apprentissage Flexible")}">
-            <div class="perk-content">
-                <h3>${_("Apprentissage Flexible")}</h3>
-                <p>${_("Apprenez à votre propre rythme, selon votre emploi du temps, grâce à une plateforme accessible 24/7 depuis n'importe quel appareil.")}</p>
-            </div>
-        </div>
-    </section>
+        <!-- Section pour les apprenants -->
+        <h2>Pour les apprenants :</h2>
+        <p>
+            Si vous suivez nos cours, voici les principales ressources disponibles :
+        </p>
+        <ul>
+            <li>
+                <strong>Assistance rapide :</strong> Contactez-nous directement via WhatsApp pour toute question ou difficulté.
+                <br /><a href="#">Rejoindre notre WhatsApp</a>
+            </li>
+            <li>
+                <strong>Foire aux questions (FAQ) :</strong> Consultez la FAQ pour des réponses aux questions courantes, notamment sur les cours, les certifications ou les accès.
+                <br /><a href="#">Accéder à la FAQ</a>
+            </li>
+            <li>
+                <strong>Informations sur les certifications :</strong> Découvrez le fonctionnement et la valeur de nos certifications.
+                <br /><a href="#">En savoir plus sur les certifications</a>
+            </li>
+        </ul>
 
-    <!-- Section Témoignages (Optionnelle) -->
-    <section class="container testimonials-section">
-        <h2>${_("Ce que disent nos partenaires")}</h2>
-        <div class="testimonial-item">
-            <blockquote>
-                <p>${_("La plateforme VivaLearn a transformé notre approche de la formation en entreprise. Nos employés sont plus engagés et leurs compétences ont considérablement évolué.")}</p>
-                <footer>${_("Jean Dupont, Directeur RH chez TechCorp")}</footer>
-            </blockquote>
-        </div>
-        <div class="testimonial-item">
-            <blockquote>
-                <p>${_("Les outils proposés par VivaLearn sont exceptionnels. Nos équipes sont désormais autonomes dans leur apprentissage et leur développement personnel.")}</p>
-                <footer>${_("Marie Curie, Responsable Formation chez Innovatech")}</footer>
-            </blockquote>
-        </div>
+        <!-- Section pour les professionnels et partenaires -->
+        <h2>Pour les éducateurs et partenaires :</h2>
+        <p>
+            Les éducateurs et partenaires ont accès aux outils et espaces suivants :
+        </p>
+        <ul>
+            <li>
+                <strong>Groupe Telegram :</strong> Rejoignez notre groupe Telegram pour échanger des idées, collaborer et rester informé.
+                <br /><a href="#">Rejoindre le groupe Telegram</a>
+            </li>
+            <li>
+                <strong>Propositions de collaboration :</strong> Discutez de partenariats ou de projets éducatifs avec notre équipe.
+                <br /><a href="#">Proposer une collaboration</a>
+            </li>
+            <li>
+                <strong>Actualités et mises à jour :</strong> Retrouvez les dernières annonces sur la plateforme et les événements à venir.
+                <br /><a href="#">Voir les annonces</a>
+            </li>
+        </ul>
+
+        <!-- Section événements -->
+        <h2>Événements et rencontres Vivalearn :</h2>
+        <p>
+            Vivalearn organise des événements mensuels en ligne pour présenter des nouveautés, partager des pratiques pédagogiques et favoriser les échanges.
+        </p>
+        <ul>
+            <li><strong>Améliorer vos compétences :</strong> Des conseils pour optimiser votre utilisation de la plateforme.</li>
+            <li><strong>Échanger avec la communauté :</strong> Des discussions autour des innovations éducatives et des projets en cours.</li>
+        </ul>
+        <p>
+            Consultez notre <a href="#">calendrier des événements</a> pour les prochaines dates.
+        </p>
+         <h2>Formulaire de contact :</h2>
+<p>Remplissez les champs ci-dessous pour nous envoyer votre demande :</p>
+<form action="/submit-contact-form" method="POST">
+    <div>
+        <label for="firstname"><strong>Prénom :</strong></label>
+        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" required>
+    </div>
+    <div>
+        <label for="lastname"><strong>Nom :</strong></label>
+        <input type="text" id="lastname" name="lastname" placeholder="Votre nom" required>
+    </div>
+    <div>
+        <label for="email"><strong>Email :</strong></label>
+        <input type="email" id="email" name="email" placeholder="Votre email" required>
+    </div>
+    <div>
+        <label for="help"><strong>Comment pouvons-nous vous aider ?</strong></label>
+        <select id="help" name="help">
+            <option value="collaborate">Collaborer avec Vivalearn</option>
+            <option value="discover">Découvrir la plateforme Vivalearn</option>
+            <option value="recommendation">Obtenir une recommandation de programme ou de certification</option>
+            <option value="partner">Devenir un partenaire éducatif ou technologique de Vivalearn</option>
+            <option value="assistance">Assistance pour intégrer nos outils pédagogiques</option>
+            <option value="other">Autre</option>
+        </select>
+    </div>
+    <div>
+        <label for="details"><strong>Détails :</strong></label>
+        <textarea id="details" name="details" placeholder="Décrivez votre demande ici..." rows="5" required></textarea>
+    </div>
+    <button type="submit">Envoyer</button>
+</form>
+<p><strong>Astuce :</strong> Plus vos détails sont précis, plus notre réponse sera rapide et adaptée !</p>
+
     </section>
 </main>

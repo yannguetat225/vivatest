@@ -6,6 +6,10 @@
 <%block name="pagetitle">${_("About")}</%block>
 
 <main id="main" class="main-beige"  aria-label="Content" tabindex="-1">
+   <section class="header-image">
+    <img src="${static.url('images/vivalearn_banner1.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+</section>
+
     <section class="container about">
         <h1>
             <%block name="pageheader">${page_header or _("Vivons l'Apprentissage, Façonnons l'Avenir !")}</%block>
@@ -13,59 +17,63 @@
         <p>
             <%block name="pagecontent">${page_content or _("Gagnez en Productivité, en Compétences et en Performances grâce à des cours en ligne accessibles à tous.")}</%block>
         </p>
-        <div class="graphic-img">
-            <img src="${static.url('images/logo_vivalearnv1bis.png')}" alt="Logo VivaLearn" class="section-img" />
-        </div>
-    </section>
+       </section>
 
        <!-- Section : Qui sommes-nous ? -->
     <section class="container who-we-are">
         <h1>${_("Qui sommes-nous ?")}</h2>
-        <p>${_("VIVALEARN est né de la conviction que l'apprentissage doit être accessible, engageant et pertinent pour tous, en particulier pour les formateurs qui jouent un rôle crucial dans la transmission des connaissances. Depuis notre création, notre mission a été de créer une plateforme qui non seulement démocratise l'accès au savoir, mais qui le fait de manière innovante et efficace. Notre vision est d'être un acteur majeur dans la transformation de l'éducation en ligne, en mettant l'accent sur des méthodes d'apprentissage éprouvées et participatives.")}</p>
-        <img src="${static.url('images/whoweare.jpg')}" alt="Qui sommes-nous ?">
+        <p>${_("Nous sommes une entreprise dédiée à rendre l'éducation accessible et pertinente pour tous en transformant l'apprentissage solitaire en une expérience interactive.")}</p>
+        <img src="${static.url('images/vivalearn_group5.png')}" alt="Qui sommes-nous ?">
     </section>
 
     <!-- Autres sections ajoutées selon about.html -->
  <section class="container kolb-method">
-        <h2>${_("Le Cycle de Kolb : Au Centre de Notre Méthodologie")}</h2>
-        <p>${_("Notre approche pédagogique s'appuie fortement sur le cycle de Kolb, un modèle éprouvé d'apprentissage expérientiel qui se compose de quatre étapes : l'expérience concrète, la réflexion sur l'expérience, la conceptualisation abstraite, et l'expérimentation active. Chez VIVALEARN, chaque MOOC est conçu pour guider les apprenants à travers ces étapes, alignant ainsi notre vision de l'apprentissage avec des pratiques pédagogiques solides et efficaces. Cette méthode permet non seulement de comprendre les concepts théoriques, mais aussi de les appliquer dans des situations réelles, facilitant ainsi un apprentissage plus profond et durable")}</p>
-        <img src="${static.url('images/kolb-cycle.jpg')}" alt="Le Cycle de Kolb">
+        <h2>${_("VivaLearn, où l’apprentissage rencontre l’innovation ")}</h2>
+        <p>${_("VivaLearn se distinge en combinant technologie (Zoom, IA, blockchain) et apprentissage expérientiel pour permettre aux formateurs et aux apprenant de surmonter leurs limites technologiques, alignant ainsi notre vision de l'apprentissage avec des pratiques pédagogiques solides et efficaces. Cette méthode permet non seulement de comprendre les concepts théoriques, mais aussi de les appliquer dans des situations réelles, facilitant ainsi un apprentissage plus profond et durable")}</p>
+        <img src="${static.url('images/vivalearn_tools2.png')}" alt="Le Cycle de Kolb">
     </section>
 
-
-<!-- Autres sections ajoutées selon about.html -->
- <section class="container kolb-method">
-        <h2>${_("Le Cycle de Kolb : Au Centre de Notre Méthodologie")}</h2>
-        <p>${_("Notre approche pédagogique repose sur un modèle d'apprentissage expérientiel.")}</p>
-        <img src="${static.url('images/kolb-cycle.jpg')}" alt="Le Cycle de Kolb" class="section-img">
-    </section>
-<!-- Autres sections ajoutées selon about.html -->
 
  <section class="container engagement">
         <h2>${_("Engagement Participatif : Objectif Principal")}</h2>
-        <p>${_("Nous croyons fermement que l'apprentissage des adultes est le plus efficace lorsque les participants sont activement engagés. C'est pourquoi, chez VIVALEARN, l'engagement participatif est un objectif central. Nous avons mis en place des outils et des techniques pour maximiser la participation active des apprenants, que ce soit à travers des discussions, des travaux pratiques, ou des projets collaboratifs. Cela permet de créer une communauté d'apprentissage dynamique où chacun peut apprendre des autres et contribuer à l'enrichissement collectif.")}</p>
-        <img src="${static.url('images/engagement.jpg')}" alt="Engagement Participatif">
+        <p>${_("Nous croyons fermement que l'apprentissage des adultes est le plus efficace lorsque les participants sont activement engagés. C'est pourquoi, chez VIVALEARN, l'engagement participatif est un objectif central. Nous avons mis en place des outils et des techniques pour maximiser la participation active des apprenants, que ce soit à travers des discussions, des travaux pratiques, ou des projets collaboratifs. Cela permet de créer une communauté d'apprentissage dynamique où chacun peut apprendre des autres et contribuer à l'enrichissement collectif.VivaLearn se distinge en combinant technologie (Zoom, IA, blockchain) et apprentissage expérientiel pour permettres aux formateurs et aux apprenant de surmonter leurs limites technologiques et géographiques tout en renforçant leur compétitivité face aux acteurs internationaux.")}</p>
+        <img src="${static.url('images/vivalearn_group2.png')}" alt="Engagement Participatif">
     </section>
 
 <!-- Autres sections ajoutées selon about.html -->
  <section class="container impact">
-        <h2>${_("Impact Pédagogique")}</h2>
-        <p>${_("Notre approche pédagogique repose sur un modèle d'apprentissage expérientiel.")}</p>
-        <img src="${static.url('images/impact.jpg')}" alt="Impact Pédagogique">
+        <h2>${_("Les MOOCs : Un Outil Puissant")}</h2>
+        <p>${_("Les Massive Open Online Courses (MOOCs) sont au cœur de notre stratégie pour atteindre cette vision. Ils permettent de toucher un large public tout en offrant une flexibilité essentielle pour les apprenants. Pour les formateurs, les MOOCs sont un outil puissant pour transmettre des compétences à grande échelle, tout en offrant des moyens variés d'évaluer et d'améliorer les performances des participants. VIVALEARN se distingue en intégrant des MOOCs qui ne sont pas seulement informatifs, mais qui sont également construits autour d'une méthodologie d'apprentissage rigoureuse. Nos méthodes participatives et expérientielles ont démontré leur efficacité non seulement dans l'acquisition de nouvelles compétences, mais aussi dans leur application pratique. Cette approche garantit que les apprenants sont non seulement formés, mais aussi préparés à appliquer ce qu'ils ont appris dans des contextes réels.")}</p>
+        <img src="${static.url('images/vivalearn_mooc.png')}" alt="Impact Pédagogique">
     </section>
 
 <!-- Autres sections ajoutées selon about.html -->
  <section class="container kolb-method">
-        <h2>${_("Accompagnement des Formateurs")}</h2>
-        <p>${_("Chez VIVALEARN, nous comprenons que le rôle du formateur est central dans le processus d'apprentissage. C'est pourquoi nous offrons un accompagnement dédié pour aider les formateurs à tirer le meilleur parti de notre plateforme. Que ce soit pour la création de contenu, l'animation de cours, ou l'évaluation des apprenants, nous fournissons les outils et le soutien nécessaires pour que chaque formateur puisse se concentrer sur l'essentiel : enseigner. Nous croyons que cet accompagnement est crucial pour garantir la qualité de l'apprentissage et pour permettre aux formateurs de se sentir valorisés et soutenus dans leur mission.")}</p>
-        <img src="${static.url('images/support.jpg')}" alt="Accompagnement des Formateurs">
+        <h2>${_("Notre Ambition")}</h2>
+        <p>${_("VivaLearn aspire à bâtir un écosystème éducatif où chaque apprenant peut accéder à des formations de qualité supérieure, où chaque formateur a la capacité de transformer ses connaissances en impact tangible, et où l'éducation devient une force véritablement unificatrice et transformatrice.")}</p>
+        <img src="${static.url('images/vivalearn_group3.png')}" alt="Accompagnement des Formateurs">
     </section>
 
+    <!-- Autres sections ajoutées selon about.html -->
+ <section class="container kolb-method">
+        <h2>${_("Apprendre, enseigner, évoluer – Avec VivaLearn, tout devient possible")}</h2>
+        <p>${_("C'est bien plus qu'un simple espace d'apprentissage : c'est une communauté vivante où chaque interaction génère un impact réel et mesurable. Nous croyons profondément que l'apprentissage doit être une expérience active et totalement engageante. C'est pourquoi nous mettons tout en œuvre pour que chaque cours soit une opportunité concrète de mettre en pratique vos connaissances.")}</p>
+        <img src="${static.url('images/vivalearn_group4.png')}" alt="Accompagnement des Formateurs">
+    </section>
+
+    <!-- Autres sections ajoutées selon about.html -->
+ <section class="container kolb-method">
+        <h2>${_("Apprentissage pour tous, soutenu par l’innovation.")}</h2>
+        <p>${_("Nous transformons l'apprentissage en une expérience vivante et significative, vous permettant de développer des compétences directement applicables dans votre quotidien professionnel et personnel. Nous faisons bien plus qu'enseigner : nous créons des expériences. Que vous soyez étudiant, professionnel ou formateur, VivaLearn est votre partenaire pour un apprentissage dynamique, pertinent et véritablement transformateur.")}</p>
+        <img src="${static.url('images/vivalearn_tools1.png')}" alt="Accompagnement des Formateurs">
+    </section>
+
+    
 <!-- Autres sections ajoutées selon about.html -->
  <section class="container kolb-method">
         <h2>${_("Rejoignez-nous")}</h2>
-        <p>${_("VIVALEARN est plus qu'une simple plateforme d'apprentissage ; c'est une communauté de formateurs engagés qui cherchent à transformer l'éducation en ligne. Nous vous invitons à nous rejoindre et à apporter votre expertise à notre plateforme. Ensemble, nous pouvons créer des expériences d'apprentissage enrichissantes, efficaces et accessibles à tous. Devenez acteur du changement avec VIVALEARN et participez à la révolution de l'apprentissage en ligne.")}</p>
-        <img src="${static.url('images/join-us.jpg')}" alt="Rejoignez-nous">
+        <p>${_("Rejoignez VivaLearn dès aujourd'hui et découvrez une nouvelle façon d'apprendre, d'enseigner et de collaborer. Ensemble, nous pouvons créer des expériences d'apprentissage enrichissantes, efficaces et accessibles à tous. Devenez acteur du changement avec VIVALEARN et participez à la révolution de l'apprentissage en ligne.")}</p>
+        <img src="${static.url('images/vivalearn_join1.png')}" alt="Rejoignez-nous">
     </section>
 
 

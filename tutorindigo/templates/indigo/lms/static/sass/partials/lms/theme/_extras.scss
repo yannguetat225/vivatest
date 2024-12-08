@@ -45,12 +45,18 @@ input:-webkit-autofill:active{
 .main-beige {
     background-color: #FAF3E0; // Fond beige
     color: #4B5563; // Texte sombre
+.header-image img {
+    display: block;
+    margin: 0 auto;
+    width: 100%; /* Ajustez selon vos besoins */
+    max-width: 1200px; /* Limite la largeur maximale */
+    height: auto; /* Maintient les proportions */
+}
 
     h1 {
         color: #000000; // Titre en noir
         font-size: 2rem; // Taille personnalisée
     }
-
 
 h2 {
     font-size: 1.8rem;

@@ -4,76 +4,115 @@
 
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Terms of Service and Legal Notices")}</%block>
+<%block name="pagetitle">${_("Conditions Générales d'Utilisation de VivaLearn")}</%block>
 
-<main id="main" class="main-beige"  aria-label="Content" tabindex="-1">
-    <section class="container terms">
-        <h1>
-            <%block name="pageheader">${page_header or _("Terms of Service and Legal Notices")}</%block>
-        </h1>
-        
-        <!-- Introduction Section -->
-        <h2>1. Introduction</h2>
-        <p>
-            ${_("Ces conditions générales régissent l'utilisation de notre plateforme. En accédant ou en utilisant nos services, vous acceptez ces termes. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser la plateforme.")}
-        </p>
+<main id="main" class="main-beige" aria-label="Conditions Générales d'Utilisation" tabindex="-1">
+ <section class="header-image">
+    <img src="${static.url('images/vivalearn_pres1.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+</section>
 
-        <!-- Service Description Section -->
-        <h2>2. Description des Services</h2>
-        <p>
-            ${_("Nous offrons des services éducatifs en ligne, comprenant des cours, des ressources pédagogiques, et des certifications. Les services sont accessibles sous réserve de disponibilité et peuvent être modifiés sans préavis.")}
-        </p>
 
-        <!-- User Accounts Section -->
-        <h2>3. Comptes Utilisateurs</h2>
-        <ul>
-            <li>${_("Chaque utilisateur est responsable de la confidentialité de ses identifiants.")}</li>
-            <li>${_("Les comptes ne doivent pas être partagés ou utilisés par plusieurs personnes.")}</li>
-            <li>${_("Nous nous réservons le droit de suspendre ou de résilier tout compte en cas de non-respect des conditions.")}</li>
-        </ul>
+    <section class="terms-section section-padding">
+        <div class="terms-header text-center mb-5">
+            <h1 class="display-4">${_("Conditions Générales d'Utilisation de VivaLearn")}</h1>
+            <p class="text-muted">${_("Version applicable à compter du 18 novembre 2024")}</p>
+        </div>
 
-        <!-- Intellectual Property Rights Section -->
-        <h2>4. Droits de Propriété Intellectuelle</h2>
-        <p>
-            ${_("Tous les contenus de la plateforme, y compris les textes, images, vidéos, et logiciels, sont protégés par les lois sur le droit d'auteur. Vous ne pouvez pas copier, distribuer ou modifier ces contenus sans autorisation explicite.")}
-        </p>
+        <div class="terms-content">
+            <!-- Introduction Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Introduction et Acceptation des Conditions")}</h2>
+                <p class="lead">${_("Les présentes Conditions Générales d'Utilisation (CGU) constituent un contrat légal et opposable entre VivaLearn et ses utilisateurs. En créant un compte ou en accédant à nos services, vous reconnaissez avoir lu, compris et accepté l'intégralité des dispositions suivantes sans réserve.")}</p>
+                <p>${_("Tout accès et utilisation de notre plateforme implique l'adhésion totale et sans condition aux présentes CGU. Si vous n'acceptez pas ces termes, nous vous invitons à ne pas utiliser nos services.")}</p>
+            </article>
 
-        <!-- Acceptable Use Policy Section -->
-        <h2>5. Utilisation Acceptable</h2>
-        <ul>
-            <li>${_("Les utilisateurs doivent respecter toutes les lois applicables lors de l'utilisation des services.")}</li>
-            <li>${_("Il est interdit de télécharger des contenus nuisibles, frauduleux, ou violant les droits d'autrui.")}</li>
-            <li>${_("Tout comportement perturbateur ou abusif peut entraîner une suspension de votre accès.")}</li>
-        </ul>
+            <!-- Service Description Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Description Détaillée des Services")}</h2>
+                <p>${_("VivaLearn propose une plateforme d'apprentissage en ligne offrant :")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("Des cours en ligne dans diverses disciplines")}</li>
+                    <li>• ${_("Des ressources pédagogiques interactives")}</li>
+                    <li>• ${_("Des certifications et attestations de formation")}</li>
+                    <li>• ${_("Des outils d'évaluation et de suivi des apprentissages")}</li>
+                </ul>
+                <p>${_("Nous nous réservons expressément le droit de modifier, suspendre ou interrompre tout ou partie de nos services, temporairement ou définitivement, sans préavis ni indemnité.")}</p>
+            </article>
 
-        <!-- Limitation of Liability Section -->
-        <h2>6. Limitation de Responsabilité</h2>
-        <p>
-            ${_("Nous ne sommes pas responsables des pertes ou dommages résultant de l'utilisation ou de l'incapacité à utiliser la plateforme, sauf en cas de négligence grave ou de faute intentionnelle.")}
-        </p>
+            <!-- User Accounts Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Gestion des Comptes Utilisateurs")}</h2>
+                <p>${_("La création et l'utilisation d'un compte sur VivaLearn sont soumises aux conditions suivantes :")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("L'utilisateur garantit la véracité et l'exactitude des informations fournies lors de l'inscription")}</li>
+                    <li>• ${_("Chaque compte est strictement personnel et non transmissible")}</li>
+                    <li>• ${_("L'utilisateur est entièrement responsable de la confidentialité de ses identifiants")}</li>
+                    <li>• ${_("Toute connexion ou activité réalisée depuis un compte sera réputée effectuée par son titulaire")}</li>
+                    <li>• ${_("Nous nous réservons le droit de vérifier l'identité de l'utilisateur et de suspendre tout compte suspect")}</li>
+                </ul>
+            </article>
 
-        <!-- Terms Modification Section -->
-        <h2>7. Modification des Termes</h2>
-        <p>
-            ${_("Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications seront publiées sur cette page, et il est de votre responsabilité de consulter régulièrement les termes mis à jour.")}
-        </p>
+            <!-- Intellectual Property Rights Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Propriété Intellectuelle")}</h2>
+                <p>${_("L'intégralité des contenus présents sur la plateforme VivaLearn (textes, images, vidéos, cours, logiciels, interfaces) constituent des œuvres protégées par le droit de la propriété intellectuelle.")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("Toute reproduction, représentation, diffusion ou exploitation commerciale est formellement interdite")}</li>
+                    <li>• ${_("Une autorisation écrite et préalable est nécessaire pour toute utilisation des contenus")}</li>
+                    <li>• ${_("Les utilisateurs disposent uniquement d'un droit d'usage personnel et non cessible")}</li>
+                </ul>
+            </article>
 
-        <!-- Governing Law Section -->
-        <h2>8. Loi Applicable</h2>
-        <p>
-            ${_("Ces conditions sont régies par les lois en vigueur dans votre juridiction. En cas de litige, les tribunaux compétents seront ceux de notre siège social.")}
-        </p>
+            <!-- Acceptable Use Policy Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Règles d'Utilisation")}</h2>
+                <p>${_("L'utilisation de VivaLearn implique le respect des principes suivants :")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("Respect absolu des lois et réglementations en vigueur")}</li>
+                    <li>• ${_("Interdiction de tout contenu à caractère diffamatoire, injurieux, ou portant atteinte aux droits d'autrui")}</li>
+                    <li>• ${_("Prohibition de toute forme de harcèlement ou de comportement malveillant")}</li>
+                    <li>• ${_("Engagement de ne pas perturber le fonctionnement normal de la plateforme")}</li>
+                    <li>• ${_("Toute violation expose l'utilisateur à des sanctions pouvant aller jusqu'à la résiliation de son compte")}</li>
+                </ul>
+            </article>
 
-        <!-- Contact Section -->
-        <h2>9. Contact</h2>
-        <p>
-            ${_("Pour toute question ou préoccupation concernant ces termes, veuillez nous contacter via l'adresse email mentionnée sur la page de contact.")}
-        </p>
+            <!-- Limitation of Liability Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Limitation de Responsabilité")}</h2>
+                <p>${_("VivaLearn ne pourra être tenu responsable des dommages directs ou indirects résultant :")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("De l'utilisation des services")}</li>
+                    <li>• ${_("De l'impossibilité temporaire d'accéder aux services")}</li>
+                    <li>• ${_("Des contenus publiés par les utilisateurs")}</li>
+                    <li>• ${_("Des modifications ou interruptions des services")}</li>
+                </ul>
+                <p>${_("Notre responsabilité est limitée au montant versé par l'utilisateur, sauf en cas de faute grave caractérisée.")}</p>
+            </article>
 
-        <!-- Visual Support Graphics -->
-        <div class="graphic-img">
-            <img src="${static.url('images/terms.svg')}" alt="${_("Illustration sur les Conditions d'Utilisation")}" />
-            <img class="dark" src="${static.url('images/terms-dark.svg')}" alt="${_("Illustration sur les Conditions d'Utilisation")}" />
+            <!-- Terms Modification Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Évolution des Conditions")}</h2>
+                <p>${_("Nous nous réservons le droit de modifier les présentes conditions à tout moment :")}</p>
+                <ul class="list-unstyled pl-3">
+                    <li>• ${_("Les modifications seront publiées sur cette page")}</li>
+                    <li>• ${_("La date de dernière mise à jour sera systématiquement indiquée")}</li>
+                    <li>• ${_("L'utilisation continued de nos services vaut acceptation des nouvelles conditions")}</li>
+                </ul>
+            </article>
+
+                  <!-- Contact Section -->
+            <article class="mb-5">
+                <h2 class="section-title"> ${_("Contact et Réclamations")}</h2>
+                <p>${_("Pour toute question relative aux présentes conditions, réclamation ou demande d'information, nous vous invitons à nous contacter :")}</p>
+                <ul class="list-unstyled">
+                    <li>${_("Par email : ")} <a href="mailto:contact@vivalearn.org">contact@vivalearn.org</a></li>
+                </ul>
+            </article>
+
+            <!-- Visual Support Graphics -->
+            <div class="terms-graphics text-center mt-5">
+          <img src="${static.url('images/vivalearn_certif6.png')}" alt="${_("Illustration des Conditions d'Utilisation")}" class="img-fluid dark-mode" />
+            </div>
         </div>
     </section>
 </main>

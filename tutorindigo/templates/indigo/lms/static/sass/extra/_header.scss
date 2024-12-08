@@ -55,10 +55,7 @@ position: sticky;
             display: flex;
             justify-content: center;
             align-items: center;            
-@include media-breakpoint-up(lg) {
-                margin: 0;
-                margin: 20px 0 0;
-            }
+
             .logo {
                 width: 160px; // Augmente la largeur du logo
     height: 50px; // Hauteur du logo
