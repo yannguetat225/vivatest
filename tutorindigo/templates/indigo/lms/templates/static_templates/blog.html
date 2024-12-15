@@ -1,232 +1,189 @@
-<%namespace name='static' file='../static_content.html'/>
 <%page expression_filter="h"/>
+<%namespace name='static' file='../static_content.html'/>
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Comment pouvons-nous vous aider ?")}</%block>
+<%block name="pagetitle">${_("Certifications VivaLearn")}</%block>
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-        <h1>
-            Comment pouvons-nous vous aider ?
-        </h1>
-        <p>
-            Vous souhaitez explorer tout le potentiel de Vivalearn ou trouver des solutions personnalisées pour vos besoins éducatifs ? Remplissez le formulaire ci-dessous, et notre équipe se fera un plaisir de vous accompagner.
-        </p>
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
+   
+<section class="header-image">
+    <img src="${static.url('images/vivalearn_block5.png')}" alt="Image illustr">
+    <div class="header-text">
+        <h1>CERTIFICATIONS</h1>
+        <p>Vos compétences méritent une reconnaissance fiable et internationale.</p>
+    </div>
+</section>
 
-        <h2>Formulaire de contact :</h2>
+
+    <!-- Pourquoi nos certifications sont différentes -->
+    <section class="container difference">
+        <h2>La différence VivaLearn</h2>
         <ul>
-            <li><strong>Prénom</strong></li>
-            <li><strong>Nom</strong></li>
-            <li><strong>Email</strong></li>
-            <li><strong>Comment pouvons-nous vous aider ? (sélectionnez une option) :</strong>
-                <ul>
-                    <li>Collaborer avec Vivalearn</li>
-                    <li>Découvrir la plateforme Vivalearn</li>
-                    <li>Obtenir une recommandation de programme ou de certification</li>
-                    <li>Devenir un partenaire éducatif ou technologique de Vivalearn</li>
-                    <li>Assistance pour intégrer nos outils pédagogiques</li>
-                    <li>Autre</li>
+            <li>
+                <strong>Sécurité Blockchain :</strong> Chaque certificat est enregistré de manière sécurisée, garantissant son authenticité.
+            </li>
+           
+            <li>
+                <strong>Reconnaissance par les Employeurs :</strong> Nos certifications sont reconnues par un réseau croissant d'entreprises partenaires.
+            </li>
+            <li>
+                <strong>Accès Facile :</strong> Vos certifications sont toujours disponibles en ligne, accessibles à tout moment.
+            </li>
+        </ul>
+        <div class="graphic-img">
+            <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences"/>
+        </div>
+    </section>
+
+    <!-- Nos services de certification -->
+    <section class="container services">
+        <h2>Nos Services de Certification</h2>
+        <ul>
+            <li>
+                <strong>Certifications Internes :</strong> Obtenez des certifications directement de VivaLearn après avoir complété nos cours.
+            </li>
+            <li>
+                <strong>Certifications Co-délivrées :</strong> Des programmes spéciaux où nous collaborons avec des institutions renommées pour offrir des certifications conjointes.
+            </li>
+            <li>
+                <strong>Certifications Professionnelles :</strong> Des parcours de formation menant à des certifications professionnelles reconnues dans l'industrie.
+            </li>
+        </ul>
+        <div class="graphic-img">
+            <img src="${static.url('images/Six_Sigma_black_belt.png')}" alt="Illustration des services de certification"/>
+            <img src="${static.url('images/aws-ccp-logo.png')}" alt="Illustration des services de certification"/>
+            <img src="${static.url('images/cfa-logo.png')}" alt="Illustration des services de certification"/>
+        </div>
+    </section>
+
+    <!-- Fonctionnement de la certification via Blockchain -->
+    <section class="container blockchain">
+        <h2>Comment Fonctionne la Certification via Blockchain</h2>
+        <ol>
+            <li>
+                <strong>Achèvement du cours :</strong> Vous complétez un cours ou une formation.
+            </li>
+            <li>
+                <strong>Délivrance du certificat :</strong> Un certificat unique est émis et enregistré sur la blockchain.
+            </li>
+            <li>
+                <strong>Vérification publique :</strong> Employeurs et tiers peuvent vérifier l'authenticité en ligne.
+            </li>
+        </ol>
+        <div class="graphic-img">
+            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Processus Blockchain"/>
+        </div>
+    </section>
+    <!-- Section de vérification -->
+    <section class="container verification">
+        <h2>Vérification en Ligne</h2>
+        <p>Saisissez le code de votre certificat ou scannez le QR code pour vérifier son authenticité.</p>
+        
+        <!-- Formulaire de vérification -->
+        <div style="max-width: 800px; margin: 20px auto;">
+            <form method="post" action="/verify-certificate">
+                <div class="form-group mb-3">
+                    <input type="text" name="code" class="form-control form-control-lg" placeholder="Code du certificat" style="height: 50px; font-size: 16px;" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Vérifier</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <p>Ou scannez le QR code de votre certificat :</p>
+                <button class="btn btn-secondary btn-lg">Scanner le QR Code</button>
+            </div>
+        </div>
+
+        <!-- Zone de résultat -->
+        <div style="max-width: 800px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <div class="text-center mb-4" style="padding: 10px; background: #f8f9fa; border-radius: 10px;">
+                <p class="text-muted mb-0" style="font-style: italic;">
+                    Zone d'affichage des informations du certificat
+                </p>
+            </div>
+
+            <div class="text-center mb-4">
+                <img src="${static.url('images/verified-badge.png')}" alt="Badge de vérification" style="width: 80px; height: 80px;">
+                <h3 class="text-success mt-3">Certificat Authentique</h3>
+                <p class="text-muted">Vérifié sur la blockchain</p>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5 class="text-muted">Titulaire</h5>
+                    <p class="h4 text-muted">Exemple: Jean Dupont</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-muted">Formation</h5>
+                    <p class="h4 text-muted">Exemple: Développement Web Avancé</p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5 class="text-muted">Date d'obtention</h5>
+                    <p class="h4 text-muted">Exemple: 15/11/2024</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-muted">Formateur</h5>
+                    <p class="h4 text-muted">Exemple: Dr. Marie Martin</p>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-muted">Compétences validées</h5>
+                <ul class="list-unstyled text-muted">
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>HTML5 et CSS3 avancés</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>JavaScript ES6+</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>React.js</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Node.js</li>
                 </ul>
-            </li>
-        </ul>
-        <p><strong>Astuce :</strong> Plus vos détails sont précis, plus notre réponse sera rapide et adaptée !</p>
+            </div>
 
-        <h2>Une réponse rapide via WhatsApp</h2>
-        <p>
-            Envie d’une assistance immédiate ou d’une conversation directe avec notre équipe ? Contactez-nous sur WhatsApp et obtenez des réponses en temps réel.
-        </p>
-        <p><a href="#">Rejoindre notre WhatsApp</a></p>
-
-        <h2>Événements Vivalearn : Connectez-vous à la communauté éducative</h2>
-        <p>
-            Chez Vivalearn, nous croyons en la force des échanges et de l’apprentissage collaboratif. Participez à nos événements mensuels, où experts en éducation et leaders technologiques partagent leurs expériences et innovations.
-        </p>
-        <ul>
-            <li><strong>Optimisez vos compétences :</strong> Découvrez des astuces pour exploiter au mieux la plateforme Vivalearn et ses certifications blockchain.</li>
-            <li><strong>Échangez et collaborez :</strong> Connectez-vous avec des éducateurs, des professionnels et des partenaires partageant les mêmes ambitions.</li>
-            <li><strong>Faites partie de la révolution éducative :</strong> Rejoignez notre communauté qui façonne l’avenir de l’éducation.</li>
-        </ul>
-        <p>Les meetups mensuels se déroulent en ligne via une plateforme immersive. Consultez notre <a href="#">calendrier des événements</a> pour en savoir plus !</p>
-
-        <h2>Forum d’échange Vivalearn</h2>
-        <p>
-            Nos forums sont faits pour vous : que vous soyez éducateur, professionnel ou passionné par l’innovation pédagogique, vous trouverez votre place ici :
-        </p>
-        <ul>
-            <li><strong>Communauté :</strong> Présentez-vous, partagez vos idées ou vos projets, et découvrez des opportunités.</li>
-            <li><strong>Éducateurs :</strong> Explorez les meilleures pratiques en conception de cours, techniques d’apprentissage, et plus encore.</li>
-            <li><strong>Annonces :</strong> Suivez les actualités officielles et les nouveautés de Vivalearn.</li>
-            <li><strong>Développement :</strong> Discutez des améliorations de la plateforme, proposez des fonctionnalités, ou collaborez sur des projets éducatifs innovants.</li>
-            <li><strong>Techniques & Intégrations :</strong> Apprenez à tirer le meilleur parti des outils de Vivalearn grâce à des conseils d’experts.</li>
-        </ul>
-        <p>Rejoignez la discussion sur <a href="#">notre forum</a>.</p>
-
-        <h2>Rejoignez-nous sur WhatsApp !</h2>
-        <p>
-            Pour une discussion conviviale ou des questions rapides, notre communauté et notre équipe sont disponibles sur WhatsApp. Avec Vivalearn, l'éducation est aussi interactive que connectée.
-        </p>
-        <p><a href="#">Rejoindre WhatsApp</a></p>
-
-        <h2>Vivalearn : L’éducation réinventée</h2>
-        <p>
-            À travers des certifications blockchain, une collaboration avec des partenaires éducatifs de premier plan, et des outils d’apprentissage en ligne, Vivalearn est votre plateforme pour transformer vos compétences et atteindre vos objectifs professionnels.
-        </p>
-        <p>
-            Nous sommes là pour vous accompagner à chaque étape de votre parcours éducatif. Que ce soit via nos événements, nos forums ou WhatsApp, l’équipe Vivalearn est à votre écoute.
-        </p>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px;">
+                <h5 class="text-muted">Informations Blockchain</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Hash du certificat :</strong></p>
+                        <small class="text-muted">Exemple: 0x8f23...7d1c</small>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Date de vérification :</strong></p>
+                        <small class="text-muted">Exemple: 10/12/2024</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    
-    <section class="container about">
-        <h1>Comment pouvons-nous vous aider ?</h1>
-        <p>
-            Chez Vivalearn, nous avons à cœur de répondre aux besoins spécifiques de chacun, que vous soyez apprenant, éducateur, ou partenaire. Retrouvez ci-dessous les options adaptées à votre profil.
-        </p>
-
-        <!-- Section pour les apprenants -->
-        <h2>Pour les apprenants :</h2>
-        <p>
-            Si vous suivez nos cours et avez besoin d'assistance, plusieurs options s'offrent à vous :
-        </p>
+    <!-- Section FAQ -->
+    <section class="container faq">
+        <h2>FAQ</h2>
         <ul>
             <li>
-                <strong>Besoin d'une réponse rapide ?</strong> Contactez-nous sur WhatsApp pour obtenir une aide immédiate.
-                <br /><a href="#">Rejoindre notre WhatsApp</a>
+                <strong>Comment vérifier mon certificat ?</strong>
+                <p>Pour vérifier votre certificat numérique, utilisez notre plateforme en ligne. Entrez le code unique inscrit sur votre certificat numérique, puis cliquez sur "Vérifier".</p>
             </li>
             <li>
-                <strong>Questions fréquentes :</strong> Consultez notre FAQ pour trouver des réponses aux questions courantes sur les cours, les certifications, et l'accès à votre compte.
-                <br /><a href="#">Accéder à la FAQ</a>
+                <strong>Quels types de certificats sont disponibles ?</strong>
+                <p>Nous proposons trois types de certificats : internes (émis par VivaLearn), co-délivrés (en partenariat avec des institutions renommées), et professionnels (reconnus par l'industrie). Chacun répond à des besoins spécifiques.</p>
             </li>
             <li>
-                <strong>Certifications :</strong> Apprenez-en davantage sur nos certifications blockchain, leur reconnaissance et leur vérification.
-                <br /><a href="#">Découvrir les certifications</a>
+                <strong>Comment les employeurs peuvent-ils vérifier mes certifications ?</strong>
+                <p>Les employeurs peuvent scanner le QR code ou entrer le code unique du certificat numérique sur notre plateforme pour en vérifier l'authenticité en temps réel.</p>
             </li>
         </ul>
-
-        <!-- Section pour les professionnels et partenaires -->
-        <h2>Pour les éducateurs et partenaires :</h2>
-        <p>
-            Si vous êtes un professionnel de l'éducation, un partenaire ou souhaitez collaborer avec Vivalearn, nous avons mis en place des espaces dédiés pour répondre à vos besoins :
-        </p>
-        <ul>
-            <li>
-                <strong>Groupe Telegram :</strong> Rejoignez notre communauté Telegram pour échanger, collaborer, et rester informé des dernières nouveautés.
-                <br /><a href="#">Rejoindre notre groupe Telegram</a>
-            </li>
-            <li>
-                <strong>Collaborations :</strong> Discutez de projets éducatifs, de partenariats technologiques ou de développement de nouveaux outils pédagogiques avec notre équipe.
-                <br /><a href="#">Proposer une collaboration</a>
-            </li>
-            <li>
-                <strong>Actualités :</strong> Recevez les annonces officielles, les mises à jour de la plateforme et les informations sur les prochains événements.
-                <br /><a href="#">Voir les annonces</a>
-            </li>
-        </ul>
-
-        <!-- Section événements -->
-        <h2>Événements et rencontres Vivalearn :</h2>
-        <p>
-            Rejoignez nos événements mensuels pour découvrir les nouveautés de la plateforme, apprendre des experts en éducation, et échanger avec notre communauté.
-        </p>
-        <ul>
-            <li><strong>Optimisez vos compétences :</strong> Explorez les astuces pour maximiser votre expérience sur Vivalearn.</li>
-            <li><strong>Partagez et apprenez :</strong> Connectez-vous avec des éducateurs et des partenaires autour d’initiatives innovantes.</li>
-        </ul>
-        <p>
-            Consultez notre <a href="#">calendrier des événements</a> pour ne rien manquer.
-        </p>
+        <div class="graphic-img">
+            <img src="${static.url('images/vivalearn_faq3.png')}" alt="FAQ"/>
+        </div>
     </section>
-     <section class="container about">
-        <h1>Comment pouvons-nous vous aider ?</h1>
-        <p>
-            Cette page vous permet d'accéder aux différentes ressources et supports mis à disposition par Vivalearn en fonction de votre profil.
-        </p>
 
-        <!-- Section pour les apprenants -->
-        <h2>Pour les apprenants :</h2>
-        <p>
-            Si vous suivez nos cours, voici les principales ressources disponibles :
-        </p>
-        <ul>
-            <li>
-                <strong>Assistance rapide :</strong> Contactez-nous directement via WhatsApp pour toute question ou difficulté.
-                <br /><a href="#">Rejoindre notre WhatsApp</a>
-            </li>
-            <li>
-                <strong>Foire aux questions (FAQ) :</strong> Consultez la FAQ pour des réponses aux questions courantes, notamment sur les cours, les certifications ou les accès.
-                <br /><a href="#">Accéder à la FAQ</a>
-            </li>
-            <li>
-                <strong>Informations sur les certifications :</strong> Découvrez le fonctionnement et la valeur de nos certifications.
-                <br /><a href="#">En savoir plus sur les certifications</a>
-            </li>
-        </ul>
-
-        <!-- Section pour les professionnels et partenaires -->
-        <h2>Pour les éducateurs et partenaires :</h2>
-        <p>
-            Les éducateurs et partenaires ont accès aux outils et espaces suivants :
-        </p>
-        <ul>
-            <li>
-                <strong>Groupe Telegram :</strong> Rejoignez notre groupe Telegram pour échanger des idées, collaborer et rester informé.
-                <br /><a href="#">Rejoindre le groupe Telegram</a>
-            </li>
-            <li>
-                <strong>Propositions de collaboration :</strong> Discutez de partenariats ou de projets éducatifs avec notre équipe.
-                <br /><a href="#">Proposer une collaboration</a>
-            </li>
-            <li>
-                <strong>Actualités et mises à jour :</strong> Retrouvez les dernières annonces sur la plateforme et les événements à venir.
-                <br /><a href="#">Voir les annonces</a>
-            </li>
-        </ul>
-
-        <!-- Section événements -->
-        <h2>Événements et rencontres Vivalearn :</h2>
-        <p>
-            Vivalearn organise des événements mensuels en ligne pour présenter des nouveautés, partager des pratiques pédagogiques et favoriser les échanges.
-        </p>
-        <ul>
-            <li><strong>Améliorer vos compétences :</strong> Des conseils pour optimiser votre utilisation de la plateforme.</li>
-            <li><strong>Échanger avec la communauté :</strong> Des discussions autour des innovations éducatives et des projets en cours.</li>
-        </ul>
-        <p>
-            Consultez notre <a href="#">calendrier des événements</a> pour les prochaines dates.
-        </p>
-         <h2>Formulaire de contact :</h2>
-<p>Remplissez les champs ci-dessous pour nous envoyer votre demande :</p>
-<form action="/submit-contact-form" method="POST">
-    <div>
-        <label for="firstname"><strong>Prénom :</strong></label>
-        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" required>
-    </div>
-    <div>
-        <label for="lastname"><strong>Nom :</strong></label>
-        <input type="text" id="lastname" name="lastname" placeholder="Votre nom" required>
-    </div>
-    <div>
-        <label for="email"><strong>Email :</strong></label>
-        <input type="email" id="email" name="email" placeholder="Votre email" required>
-    </div>
-    <div>
-        <label for="help"><strong>Comment pouvons-nous vous aider ?</strong></label>
-        <select id="help" name="help">
-            <option value="collaborate">Collaborer avec Vivalearn</option>
-            <option value="discover">Découvrir la plateforme Vivalearn</option>
-            <option value="recommendation">Obtenir une recommandation de programme ou de certification</option>
-            <option value="partner">Devenir un partenaire éducatif ou technologique de Vivalearn</option>
-            <option value="assistance">Assistance pour intégrer nos outils pédagogiques</option>
-            <option value="other">Autre</option>
-        </select>
-    </div>
-    <div>
-        <label for="details"><strong>Détails :</strong></label>
-        <textarea id="details" name="details" placeholder="Décrivez votre demande ici..." rows="5" required></textarea>
-    </div>
-    <button type="submit">Envoyer</button>
-</form>
-<p><strong>Astuce :</strong> Plus vos détails sont précis, plus notre réponse sera rapide et adaptée !</p>
-
+    <!-- Appel à l'action -->
+    <section class="container cta">
+        <h2>Besoin de plus d'informations sur nos certifications ? Nous sommes à votre écoute.</h2>
+        <button>Contactez-nous</button>
+        <p><em>"Nous croyons en un monde où l’éducation n’a pas de limites, où chacun peut apprendre, enseigner et s’épanouir, peu importe son origine ou son niveau.”</em></p>
     </section>
 </main>

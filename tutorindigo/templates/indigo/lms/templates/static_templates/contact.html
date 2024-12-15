@@ -7,38 +7,94 @@
 
 <main id="main" class="main-beige" aria-label="Content" tabindex="-1">
 
- <section class="header-image">
-    <img src="${static.url('images/vivalearn_contact5.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+<section class="header-image">
+    <img src="${static.url('images/vivalearn_contact5.png')}" alt="Image illustr">
+    <div class="header-text">
+        <h1>CONTACT</h1>
+        <p>Votre avis, vos questions ou vos projets sont importants pour nous. Parlons-en !</p>
+    </div>
 </section>
 
-    <section class="container contact">
-        <h1>${_("Contactez-nous")}</h1>
-        <p>${_("Besoin d’aide ou d’informations ? Découvrez les différents moyens de nous contacter.")}</p>
+  
 
-        <!-- Informations de contact -->
-        <div class="contact-item">
-            <h3>${_("Messagerie électronique")}</h3>
-            <p>contact@vivalearn.com</p>
-            <a href="mailto:contact@vivalearn.com" class="cta-button">${_("Envoyez-nous un e-mail")}</a>
+    <!-- Formulaire de contact -->
+    <section class="contact-form-section">
+        <div class="contact-form-container">
+            <div class="contact-layout">
+                <!-- Colonne de gauche avec le texte -->
+                <div class="contact-info">
+                    <h1>${_("Contactez-nous")}</h1>
+                    <p class="lead-text">${_("Découvrez comment VivaLearn peut vous aider à transformer votre approche de l'apprentissage en ligne.")}</p>
+                    
+                    <div class="contact-points">
+                        <h3>${_("Contactez-nous pour discuter :")}</h3>
+                        <ul>
+                            <li>${_("Des solutions adaptées à vos besoins spécifiques")}</li>
+                            <li>${_("De notre approche pédagogique innovante")}</li>
+                            <li>${_("Des tarifs et options disponibles")}</li>
+                            <li>${_("De votre projet de formation en ligne")}</li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-channels">
+                        <h3>${_("Nos canaux de communication :")}</h3>
+                        <ul>
+                            <li>${_("E-mail : contact@vivalearn.com")}</li>
+                            <li>${_("Téléphone : +225 01 51 54 48 89")}</li>
+                            <li>${_("WhatsApp : +225 01 51 54 48 89")}</li>
+                            <li>${_("Groupe Telegram : ")} <a href="https://t.me/+votre_groupe" target="_blank">${_("Rejoignez notre communauté")}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Colonne de droite avec le formulaire -->
+                <h2 class="text-center">${_("Formulaire de contact")}</h2>
+
+                <div class="contact-form-wrapper">
+                    <form action="/submit-contact" method="post" class="contact-form" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <div class="form-group mb-4">
+                            <label for="nom" class="form-label h5 mb-2">${_("Votre nom")}</label>
+                            <input type="text" id="nom" name="nom" class="form-control form-control-lg" placeholder="${_("Votre nom")}" style="height: 50px; font-size: 16px;" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="email" class="form-label h5 mb-2">${_("Votre adresse e-mail")}</label>
+                            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="${_("Votre email")}" style="height: 50px; font-size: 16px;" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="type" class="form-label h5 mb-2">${_("Type de demande")}</label>
+                            <select id="type" name="type" class="form-select form-select-lg" style="height: 50px; font-size: 16px;" required>
+                                <option value="">${_("Sélectionner...")}</option>
+                                <option value="general">${_("Demande générale")}</option>
+                                <option value="technique">${_("Support technique")}</option>
+                                <option value="commercial">${_("Question commerciale")}</option>
+                                <option value="autre">${_("Autre demande")}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="message" class="form-label h5 mb-2">${_("Entrez votre message")}</label>
+                            <textarea id="message" name="message" class="form-control" rows="6" placeholder="${_("Votre message...")}" style="font-size: 16px;" required></textarea>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" id="conditions" name="conditions" class="form-check-input" required>
+                                <label class="form-check-label" for="conditions" style="font-size: 14px;">
+                                    ${_("Je suis d'accord avec les")} <a href="/conditions-generales">${_("conditions générales")}</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3" style="font-size: 18px;">${_("Envoyer Votre Message")}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="contact-item">
-            <h3>${_("Téléphone")}</h3>
-            <p>+225 01 51 54 48 89</p>
-            <a href="tel:+2250151544889" class="cta-button">${_("Appelez-nous")}</a>
-        </div>
-        <div class="contact-item">
-            <h3>${_("WhatsApp")}</h3>
-            <p>${_("Contactez-nous directement sur WhatsApp pour une assistance rapide.")}</p>
-            <a href="https://wa.me/+2250151544889" target="_blank" class="cta-button">${_("Contacter sur WhatsApp")}</a>
-        </div>
-        <div class="contact-item">
-            <h3>${_("Emplacement")}</h3>
-            <p>${_("Abidjan, Côte d'Ivoire")}</p>
-            <a href="#" class="cta-button" id="map-link">${_("Consultez la carte")}</a>
-        </div>
-        <div id="map" class="map"></div>
     </section>
-<!-- Section FAQ -->
     <section class="container faq">
         <h2>${_("Questions fréquentes")}</h2>
         <p>${_("Consultez notre FAQ pour trouver rapidement des réponses aux questions les plus courantes.")}</p>
@@ -51,46 +107,30 @@
         <a href="/events.html" class="cta-button">${_("Voir le calendrier des événements")}</a>
     </section>
 
-    <!-- Formulaire de contact -->
-    <section class="contact-form">
-        <h2>${_("Formulaire de contact")}</h2>
-        <form action="/submit-contact" method="post">
-            <div class="form-group">
-                <label for="name">${_("Votre nom")}</label>
-                <input type="text" id="name" name="name" required class="form-control">
+    <div class="container graphic-grid">
+        <div class="grid-row">
+            <div class="grid-item">
+                <h2 class="h2">${_("Support technique")}</h2>
+                <p>${_("Une assistance technique disponible pour vous accompagner.")}</p>
+                <div class="graphic-img">
+                    <img src="${static.url('images/vivalearn_support.png')}" alt="Support technique" />
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">${_("Votre adresse e-mail")}</label>
-                <input type="email" id="email" name="email" required class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="type">${_("Type de demande")}</label>
-                <select id="type" name="type" required class="form-control">
-                    <option value="general">${_("Demande générale")}</option>
-                    <option value="partnership">${_("Collaboration ou partenariat")}</option>
-                    <option value="technical">${_("Problème technique")}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="message">${_("Entrez votre message")}</label>
-                <textarea id="message" name="message" rows="5" required class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label class="checkbox">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    ${_("Je suis d’accord avec les")} <a href="cgu.html">${_("conditions générales")}</a>.
-                </label>
-            </div>
-            <button type="submit" class="cta-button form-button">${_("Envoyer votre message")}</button>
-        </form>
-    </section>
-   
-<p><em>“Le savoir, quand il est partagé, devient une flamme qui ne s’éteint jamais.”</em></p>
-  <div class="graphic-img">
-        <img src="${static.url('images/vivalearn_feu.png')}" alt="FAQ" />
+        </div>
     </div>
 
+    <!-- Autres sections -->
+    
+   
+  <div class="graphic-img">
+        <img src="${static.url('images/vivalearn_feu.png')}" alt="FAQ"/>
+    </div>
 
+    <section class="container cta">
+        <p><em>“Le savoir, quand il est partagé, devient une flamme qui ne s’éteint jamais.”</em></p>
+        <h2>Besoin de plus d'informations ?</h2>
+        <button>Contactez-nous</button>
+    </section>
     <!-- Script pour intégrer la carte Google Maps -->
     <script>
         function initMap() {

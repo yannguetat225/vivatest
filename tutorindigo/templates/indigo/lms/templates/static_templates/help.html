@@ -8,15 +8,16 @@
 <main id="main" class="main-beige" aria-label="Content" tabindex="-1">
 
 <section class="header-image">
-    <img src="${static.url('images/vivalearn_banner2.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+    <img src="${static.url('images/vivalearn_banner2.png')}" alt="Image illustr">
+    <div class="header-text">
+        <h1>AIDE</h1>
+        <p>Comment pouvons-nous vous aider ?</p>
+    </div>
 </section>
+
     
      <section class="container about">
-        <h1>Comment pouvons-nous vous aider ?</h1>
-        <p>
-            Cette page vous permet d'accéder aux différentes ressources et supports mis à disposition par Vivalearn en fonction de votre profil.
-        </p>
-
+       
         <!-- Section pour les apprenants -->
         <h2>Pour les apprenants :</h2>
         <p>
@@ -80,39 +81,44 @@
         </p>
  <h2>Formulaire de contact :</h2>
 <p>Remplissez les champs ci-dessous pour nous envoyer votre demande :</p>
-<form action="/submit-contact-form" method="POST">
-    <div>
-        <label for="firstname"><strong>Prénom :</strong></label>
-        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" required>
+<form action="" method="post" class="contact-form" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <div class="form-group mb-4">
+        <label for="prenom" class="form-label h5 mb-2">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" class="form-control form-control-lg" placeholder="Votre prénom" style="height: 50px; font-size: 16px;">
     </div>
-    <div>
-        <label for="lastname"><strong>Nom :</strong></label>
-        <input type="text" id="lastname" name="lastname" placeholder="Votre nom" required>
+
+    <div class="form-group mb-4">
+        <label for="nom" class="form-label h5 mb-2">Nom :</label>
+        <input type="text" id="nom" name="nom" class="form-control form-control-lg" placeholder="Votre nom" style="height: 50px; font-size: 16px;">
     </div>
-    <div>
-        <label for="email"><strong>Email :</strong></label>
-        <input type="email" id="email" name="email" placeholder="Votre email" required>
+
+    <div class="form-group mb-4">
+        <label for="email" class="form-label h5 mb-2">Email :</label>
+        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Votre email" style="height: 50px; font-size: 16px;">
     </div>
-    <div>
-        <label for="help"><strong>Comment pouvons-nous vous aider ?</strong></label>
-        <select id="help" name="help">
-            <option value="collaborate">Collaborer avec Vivalearn</option>
-            <option value="discover">Découvrir la plateforme Vivalearn</option>
-            <option value="recommendation">Obtenir une recommandation de programme ou de certification</option>
-            <option value="partner">Devenir un partenaire éducatif ou technologique de Vivalearn</option>
-            <option value="assistance">Assistance pour intégrer nos outils pédagogiques</option>
-            <option value="other">Autre</option>
+
+    <div class="form-group mb-4">
+        <label for="sujet" class="form-label h5 mb-2">Comment pouvons-nous vous aider ?</label>
+        <select id="sujet" name="sujet" class="form-select form-select-lg" style="height: 50px; font-size: 16px;">
+            <option value="">Collaborer avec Vivalearn</option>
+            <option value="technique">Support technique</option>
+            <option value="commercial">Question commerciale</option>
+            <option value="autre">Autre demande</option>
         </select>
     </div>
-    <div>
-        <label for="details"><strong>Détails :</strong></label>
-        <textarea id="details" name="details" placeholder="Décrivez votre demande ici..." rows="5" required></textarea>
+
+    <div class="form-group mb-4">
+        <label for="message" class="form-label h5 mb-2">Détails :</label>
+        <textarea id="message" name="message" class="form-control" rows="6" placeholder="Décrivez votre demande..." style="font-size: 16px;"></textarea>
     </div>
-    <button type="submit">Envoyer</button>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg px-5 py-3" style="font-size: 18px;">Envoyer</button>
+    </div>
 </form>
 
   <div class="terms-graphics text-center mt-5">
-          <img src="${static.url('images/vivalearn_pres2.png')}" />
+          <img src="${static.url('images/vivalearn_pres2.png')}" alt="Image illustrative pour la section de termes"/>
             </div>
 
     </section>

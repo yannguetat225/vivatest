@@ -3,148 +3,86 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Certifications VivaLearn")}</%block>
+<%block name="pagetitle">${_("Pour Entreprises")}</%block>
 
-<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
-<section class="header-image">
-    <img src="${static.url('images/vivalearn_banner_cert.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
-</section>
-    <!-- Section principale avec un titre d'ouverture -->
-    <section class="container intro">
-        <h1>"Vos compétences méritent une reconnaissance fiable et internationale."</h1>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_block5.png')}" alt="Illustration certificat blockchain" />
+<main id="main" aria-label="Content" tabindex="-1">
+    <!-- Section Héros -->
+    <section class="container business-hero">
+        <header class="hero-header">
+            <div class="hero-content">
+                <h1>${_("Vivons l'Apprentissage, Façonnons l'Avenir !")}</h1>
+                <p>${_("Gagnez en Productivité, en Compétences et en Performances grâce à des cours en ligne accessibles à tous.")}</p>
+                <a href="#" class="cta-button">${_("Découvrez nos formations")}</a>
+            </div>
+        </header>
+    </section>
+
+    <!-- Section Avantages pour les Entreprises -->
+    <section class="container advantages-section">
+        <h2>${_("Avantages pour les Entreprises")}</h2>
+        <div class="advantage-item">
+            <img src="${static.url('images/customized-learning.png')}" alt="${_("Apprentissage Personnalisé")}">
+            <div class="advantage-content">
+                <h3>${_("Apprentissage Personnalisé")}</h3>
+                <p>${_("Offrez à vos employés un parcours de formation adapté à leurs besoins spécifiques, permettant un développement continu et ciblé des compétences.")}</p>
+            </div>
+        </div>
+        <div class="advantage-item reverse">
+            <img src="${static.url('images/employee-engagement.png')}" alt="${_("Engagement des Employés")}">
+            <div class="advantage-content">
+                <h3>${_("Engagement des Employés")}</h3>
+                <p>${_("Améliorez la rétention et la satisfaction de vos employés grâce à des formations engageantes et interactives qui stimulent leur motivation.")}</p>
+            </div>
+        </div>
+        <div class="advantage-item">
+            <img src="${static.url('images/cost-effective.png')}" alt="${_("Solution Rentable")}">
+            <div class="advantage-content">
+                <h3>${_("Solution Rentable")}</h3>
+                <p>${_("Réduisez les coûts de formation en offrant une solution en ligne flexible qui permet à vos employés d'apprendre à leur propre rythme.")}</p>
+            </div>
         </div>
     </section>
 
-    <!-- Vérification en ligne -->
-    <!-- Vérification en ligne -->
-    <section class="container verification">
-        <h2>Vérification en Ligne</h2>
-        <p>Saisissez le code de votre certificat ou scannez le QR code pour vérifier son authenticité.</p>
-
-        <!-- Formulaire de vérification -->
-        <form id="verification-form">
-            <input type="text" id="cert-code" placeholder="Code du certificat" required />
-            <button type="submit">Vérifier</button>
-        </form>
-
-        <!-- Scanner QR Code -->
-        <div class="qr-code-scan">
-            <p>Ou scannez le QR code de votre certificat :</p>
-            <button id="scan-qr">Scanner le QR Code</button>
+    <!-- Section Avantages pour les Employés -->
+    <section class="container employee-perks-section">
+        <h2>${_("Avantages pour les Employés")}</h2>
+        <div class="perk-item">
+            <img src="${static.url('images/skills-development.png')}" alt="${_("Développement des Compétences")}">
+            <div class="perk-content">
+                <h3>${_("Développement des Compétences")}</h3>
+                <p>${_("Accédez à un large éventail de formations qui couvrent des compétences techniques, soft skills, et bien plus encore.")}</p>
+            </div>
         </div>
-
-        <!-- Résultat de la vérification -->
-        <div id="verification-result" class="result-box">
-            <!-- Ce contenu sera mis à jour dynamiquement -->
+        <div class="perk-item reverse">
+            <img src="${static.url('images/career-growth.png')}" alt="${_("Évolution de Carrière")}">
+            <div class="perk-content">
+                <h3>${_("Évolution de Carrière")}</h3>
+                <p>${_("Préparez votre prochaine étape professionnelle avec des formations qui vous aident à évoluer et à atteindre vos objectifs de carrière.")}</p>
+            </div>
         </div>
-    </section>
-
-    <!-- Pourquoi nos certifications sont différentes -->
-    <section class="container difference">
-        <h2>La différence VivaLearn</h2>
-        <ul>
-            <li>
-                <strong>Sécurité Blockchain :</strong> Chaque certificat est enregistré de manière sécurisée, garantissant son authenticité.
-            </li>
-           
-            <li>
-                <strong>Reconnaissance par les Employeurs :</strong> Nos certifications sont reconnues par un réseau croissant d'entreprises partenaires.
-            </li>
-            <li>
-                <strong>Accès Facile :</strong> Vos certifications sont toujours disponibles en ligne, accessibles à tout moment.
-            </li>
-        </ul>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences" />
+        <div class="perk-item">
+            <img src="${static.url('images/flexible-learning.png')}" alt="${_("Apprentissage Flexible")}">
+            <div class="perk-content">
+                <h3>${_("Apprentissage Flexible")}</h3>
+                <p>${_("Apprenez à votre propre rythme, selon votre emploi du temps, grâce à une plateforme accessible 24/7 depuis n'importe quel appareil.")}</p>
+            </div>
         </div>
     </section>
 
-    <!-- Nos services de certification -->
-    <section class="container services">
-        <h2>Nos Services de Certification</h2>
-        <ul>
-            <li>
-                <strong>Certifications Internes :</strong> Obtenez des certifications directement de VivaLearn après avoir complété nos cours.
-            </li>
-            <li>
-                <strong>Certifications Co-délivrées :</strong> Des programmes spéciaux où nous collaborons avec des institutions renommées pour offrir des certifications conjointes.
-            </li>
-            <li>
-                <strong>Certifications Professionnelles :</strong> Des parcours de formation menant à des certifications professionnelles reconnues dans l'industrie.
-            </li>
-        </ul>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_cf1.png')}" alt="Illustration des services de certification" />
+    <!-- Section Témoignages (Optionnelle) -->
+    <section class="container testimonials-section">
+        <h2>${_("Ce que disent nos partenaires")}</h2>
+        <div class="testimonial-item">
+            <blockquote>
+                <p>${_("La plateforme VivaLearn a transformé notre approche de la formation en entreprise. Nos employés sont plus engagés et leurs compétences ont considérablement évolué.")}</p>
+                <footer>${_("Jean Dupont, Directeur RH chez TechCorp")}</footer>
+            </blockquote>
+        </div>
+        <div class="testimonial-item">
+            <blockquote>
+                <p>${_("Les outils proposés par VivaLearn sont exceptionnels. Nos équipes sont désormais autonomes dans leur apprentissage et leur développement personnel.")}</p>
+                <footer>${_("Marie Curie, Responsable Formation chez Innovatech")}</footer>
+            </blockquote>
         </div>
     </section>
-
-    <!-- Fonctionnement de la certification via Blockchain -->
-    <section class="container blockchain">
-        <h2>Comment Fonctionne la Certification via Blockchain</h2>
-        <ol>
-            <li>
-                <strong>Achèvement du cours :</strong> Vous complétez un cours ou une formation.
-            </li>
-            <li>
-                <strong>Délivrance du certificat :</strong> Un certificat unique est émis et enregistré sur la blockchain.
-            </li>
-            <li>
-                <strong>Vérification publique :</strong> Employeurs et tiers peuvent vérifier l'authenticité en ligne.
-            </li>
-        </ol>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Processus Blockchain" />
-        </div>
-    </section>
-
-    <!-- Section FAQ -->
-    <section class="container faq">
-    <h2>FAQ</h2>
-    <ul>
-        <li>
-            <strong>Comment vérifier mon certificat ?</strong>
-            <p>Pour vérifier votre certificat numérique, utilisez notre plateforme en ligne. Entrez le code unique inscrit sur votre certificat numérique, puis cliquez sur "Vérifier".</p>
-        </li>
-        <li>
-            <strong>Quels types de certificats sont disponibles ?</strong>
-            <p>Nous proposons trois types de certificats : internes (émis par VivaLearn), co-délivrés (en partenariat avec des institutions renommées), et professionnels (reconnus par l'industrie). Chacun répond à des besoins spécifiques.</p>
-        </li>
-        <li>
-            <strong>Comment les employeurs peuvent-ils vérifier mes certifications ?</strong>
-            <p>Les employeurs peuvent scanner le QR code ou entrer le code unique du certificat numérique sur notre plateforme pour en vérifier l'authenticité en temps réel.</p>
-        </li>
-    </ul>
-    <div class="graphic-img">
-        <img src="${static.url('images/vivalearn_faq3.png')}" alt="FAQ" />
-    </div>
-</section>
-
-
-    <!-- Appel à l'action -->
-    <section class="container cta">
-        <h2>Besoin de plus d'informations sur nos certifications ? Nous sommes à votre écoute.</h2>
-        <button>Contactez-nous</button>
-    </section>
-    <script>
-    document.getElementById("verification-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        const certCode = document.getElementById("cert-code").value;
-
-        // Simuler une vérification (remplacez par une requête API)
-        const resultBox = document.getElementById("verification-result");
-        if (certCode === "VALID1234") {
-            resultBox.innerHTML = "<p style='color: green;'>Certificat valide. Détails : [Nom, Date, etc.]</p>";
-        } else {
-            resultBox.innerHTML = "<p style='color: red;'>Certificat invalide ou non trouvé.</p>";
-        }
-    });
-
-    document.getElementById("scan-qr").addEventListener("click", function() {
-        // Simuler l'ouverture d'un scanner QR (remplacez par html5-qrcode ou autre)
-        alert("Scanner QR Code activé. (À implémenter avec une bibliothèque QR)");
-    });
-</script>
-
 </main>

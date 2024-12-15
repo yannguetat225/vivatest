@@ -7,28 +7,28 @@
 <%block name="pagetitle">${_("Conditions Générales d'Utilisation de VivaLearn")}</%block>
 
 <main id="main" class="main-beige" aria-label="Conditions Générales d'Utilisation" tabindex="-1">
- <section class="header-image">
-    <img src="${static.url('images/vivalearn_pres1.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+
+<section class="header-image">
+    <img src="${static.url('images/vivalearn_pres1.png')}" alt="Image illustr">
+    <div class="header-text">
+        <h1>Conditions Générales d'Utilisation de VivaLearn</h1>
+        <p>Version applicable à compter du 18 novembre 2024</p>
+    </div>
 </section>
 
-
-    <section class="terms-section section-padding">
-        <div class="terms-header text-center mb-5">
-            <h1 class="display-4">${_("Conditions Générales d'Utilisation de VivaLearn")}</h1>
-            <p class="text-muted">${_("Version applicable à compter du 18 novembre 2024")}</p>
-        </div>
+    <section class="terms-section section-padding container">
 
         <div class="terms-content">
             <!-- Introduction Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Introduction et Acceptation des Conditions")}</h2>
+                <h2 class="h2"> ${_("Introduction et Acceptation des Conditions")}</h2>
                 <p class="lead">${_("Les présentes Conditions Générales d'Utilisation (CGU) constituent un contrat légal et opposable entre VivaLearn et ses utilisateurs. En créant un compte ou en accédant à nos services, vous reconnaissez avoir lu, compris et accepté l'intégralité des dispositions suivantes sans réserve.")}</p>
                 <p>${_("Tout accès et utilisation de notre plateforme implique l'adhésion totale et sans condition aux présentes CGU. Si vous n'acceptez pas ces termes, nous vous invitons à ne pas utiliser nos services.")}</p>
             </article>
 
             <!-- Service Description Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Description Détaillée des Services")}</h2>
+                <h2 class="h2"> ${_("Description Détaillée des Services")}</h2>
                 <p>${_("VivaLearn propose une plateforme d'apprentissage en ligne offrant :")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("Des cours en ligne dans diverses disciplines")}</li>
@@ -41,7 +41,7 @@
 
             <!-- User Accounts Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Gestion des Comptes Utilisateurs")}</h2>
+                <h2 class="h2"> ${_("Gestion des Comptes Utilisateurs")}</h2>
                 <p>${_("La création et l'utilisation d'un compte sur VivaLearn sont soumises aux conditions suivantes :")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("L'utilisateur garantit la véracité et l'exactitude des informations fournies lors de l'inscription")}</li>
@@ -54,7 +54,7 @@
 
             <!-- Intellectual Property Rights Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Propriété Intellectuelle")}</h2>
+                <h2 class="h2"> ${_("Propriété Intellectuelle")}</h2>
                 <p>${_("L'intégralité des contenus présents sur la plateforme VivaLearn (textes, images, vidéos, cours, logiciels, interfaces) constituent des œuvres protégées par le droit de la propriété intellectuelle.")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("Toute reproduction, représentation, diffusion ou exploitation commerciale est formellement interdite")}</li>
@@ -65,7 +65,7 @@
 
             <!-- Acceptable Use Policy Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Règles d'Utilisation")}</h2>
+                <h2 class="h2"> ${_("Règles d'Utilisation")}</h2>
                 <p>${_("L'utilisation de VivaLearn implique le respect des principes suivants :")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("Respect absolu des lois et réglementations en vigueur")}</li>
@@ -78,7 +78,7 @@
 
             <!-- Limitation of Liability Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Limitation de Responsabilité")}</h2>
+                <h2 class="h2"> ${_("Limitation de Responsabilité")}</h2>
                 <p>${_("VivaLearn ne pourra être tenu responsable des dommages directs ou indirects résultant :")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("De l'utilisation des services")}</li>
@@ -91,7 +91,7 @@
 
             <!-- Terms Modification Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Évolution des Conditions")}</h2>
+                <h2 class="h2"> ${_("Évolution des Conditions")}</h2>
                 <p>${_("Nous nous réservons le droit de modifier les présentes conditions à tout moment :")}</p>
                 <ul class="list-unstyled pl-3">
                     <li>• ${_("Les modifications seront publiées sur cette page")}</li>
@@ -102,7 +102,7 @@
 
                   <!-- Contact Section -->
             <article class="mb-5">
-                <h2 class="section-title"> ${_("Contact et Réclamations")}</h2>
+                <h2 class="h2"> ${_("Contact et Réclamations")}</h2>
                 <p>${_("Pour toute question relative aux présentes conditions, réclamation ou demande d'information, nous vous invitons à nous contacter :")}</p>
                 <ul class="list-unstyled">
                     <li>${_("Par email : ")} <a href="mailto:contact@vivalearn.org">contact@vivalearn.org</a></li>
@@ -111,7 +111,7 @@
 
             <!-- Visual Support Graphics -->
             <div class="terms-graphics text-center mt-5">
-          <img src="${static.url('images/vivalearn_certif6.png')}" alt="${_("Illustration des Conditions d'Utilisation")}" class="img-fluid dark-mode" />
+          <img src="${static.url('images/vivalearn_certif6.png')}" alt="${_("Illustration des Conditions d'Utilisation")}" style="width: 400px; height: 300px; object-fit: cover; margin: 0 auto; display: block; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
             </div>
         </div>
     </section>

@@ -9,15 +9,19 @@ from openedx.core.djangolib.markup import HTML, Text
 %>
 
 <main id="main" class="main-beige" aria-label="Content" tabindex="-1">
-    <section class="header-image">
+
+<section class="header-image">
     <img src="${static.url('images/vivalearn_banner3.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
+    <div class="header-text">
+        <h1>Bienvenue sur VivaLearn</h1>
+        <p>Vivons l'apprentissage, façonnons l'avenir</p>
+    </div>
 </section>
 
     <section class="home style-logout">
       <header>
         <div class="outer-wrapper">
-            
-            <div class="title">
+          <div class="title">
             <div class="heading-group">
               % if homepage_overlay_html:
                 ${homepage_overlay_html | n, decode.utf8}
@@ -25,6 +29,17 @@ from openedx.core.djangolib.markup import HTML, Text
                 <%include file="index_overlay.html" />
               % endif
             </div>
+	 <section class="container graphic-grid">
+              <div class="grid-row">
+                  <div class="grid-item">
+                      <h2 class="h2">${_("Formation en ligne")}</h2>
+                      <p>${_("Découvrez nos formations en ligne ")}</p>
+                      <div class="graphic-img">
+                          <img src="${static.url('images/vivalearn_online.png')}" alt="Formation en ligne" />
+                      </div>
+                  </div>
+              </div>
+          </section>
             % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
               <div class="course-search">
                 <form method="get" action="/courses">
@@ -55,13 +70,74 @@ from openedx.core.djangolib.markup import HTML, Text
       <%include file="${courses_list}" />
 
     </section>
+   
+    <section class="partners-section">
+      <h2>Nos Partenaires</h2>
+      <div class="partners-carousel">
+          <div class="partners-container">
+              <div class="partner">
+                <img src="${static.url('images/google-logo.png')}" alt="Google" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/amazon-logo.png')}" alt="Amazon" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/the-linux-foundation-logo.png')}" alt="Fondation Linux" />
+              </div>
+
+		<div class="partner">
+                <img src="${static.url('images/google-logo.png')}" alt="Google" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/amazon-logo.png')}" alt="Amazon" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/the-linux-foundation-logo.png')}" alt="Fondation Linux" />
+              </div>
+		 <div class="partner">
+                <img src="${static.url('images/google-logo.png')}" alt="Google" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/amazon-logo.png')}" alt="Amazon" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/the-linux-foundation-logo.png')}" alt="Fondation Linux" />
+              </div>
+
+                <div class="partner">
+                <img src="${static.url('images/google-logo.png')}" alt="Google" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/amazon-logo.png')}" alt="Amazon" />
+              </div>
+              <div class="partner">
+                <img src="${static.url('images/the-linux-foundation-logo.png')}" alt="Fondation Linux" />
+              </div>
+
+              <!-- Ajoutez plus de partenaires ici -->
+          </div>
+      </div>
+  </section>
+   
+    <section class="container graphic-grid">
+        <div class="grid-row">
+            <div class="grid-item">
+                <h2 class="h2">${_("Nos Partenaires")}</h2>
+                   <div class="graphic-img">
+                    <img src="${static.url('images/vivalearn_online.png')}" alt="Formation en ligne" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <section class="container cta">
         <h2>Besoin de plus d'informations ?</h2>
         <button>Contactez-nous</button>
         <p><em>"Nous croyons en un monde où l’éducation n’a pas de limites, où chacun peut apprendre, enseigner et s’épanouir, peu importe son origine ou son niveau.”</em></p>
     </section>
   <div class="graphic-img">
-        <img src="${static.url('images/vivalearn_contact3.png')}" alt="FAQ" />
+        <img src="${static.url('images/vivalearn_contact3.png')}" alt="FAQ"/>
     </div>
 </main>
 
