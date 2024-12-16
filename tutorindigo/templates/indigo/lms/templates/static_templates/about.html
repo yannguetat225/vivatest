@@ -1,0 +1,160 @@
+<%namespace name='static' file='../static_content.html'/>
+<%page expression_filter="h"/>
+<%! from django.utils.translation import gettext as _ %>
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("About")}</%block>
+
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
+    
+<section class="header-image">
+    <img src="${static.url('images/vivalearn_banner3.png')}" alt="Image illustr" class="full-width">
+    <div class="header-text">
+        <h1>QUI SOMMES-NOUS ?</h1>
+        <p>Vous faire gagner en Productivité, en Compétences et en Performance est notre but ultime.</p>
+    </div>
+</section>
+
+
+       <!-- Section : Qui sommes-nous ? -->
+    <section class="advantages-section">
+    <div class="container">
+
+        <h1>${_("Qui sommes-nous ?")}</h2>
+        <div class="advantage-item">
+
+        <p>${_("VIVALEARN est une entreprise né de la conviction que l'apprentissage doit être accessible, engageant et pertinent pour tous, en particulier pour les formateurs qui jouent un rôle crucial dans la transmission des connaissances. Depuis notre création, notre mission a été de créer une plateforme qui non seulement démocratise l'accès au savoir, mais qui le fait de manière innovante et efficace. Notre vision est d'être un acteur majeur dans la transformation de l'éducation en ligne, en mettant l'accent sur des méthodes d'apprentissage éprouvées et participatives.")}</p>
+<div class="graphic-img">
+       <img src="${static.url('images/vivalearn_group5.png')}" alt="Qui sommes-nous ?"/>
+ </div>
+</div>
+</div>
+
+   </section>
+
+<!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("VivaLearn, où l’apprentissage rencontre l’innovation ")}</h2>
+        <div class="advantage-item reverse">       
+ <p>${_("VivaLearn se distinge en combinant technologie (Zoom, IA, blockchain) et apprentissage expérientiel pour permettre aux formateurs et aux apprenant de surmonter leurs limites technologiques.>")}</p>
+<div class="graphic-img">
+       <img src="${static.url('images/vivalearn_tools2.png')}" alt="Le Cycle de Kolb"/>
+</div>
+</div>
+</div>
+
+    </section>
+<!-- Autres sections ajoutées selon about.html -->
+
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("Engagement Participatif : Objectif Principal")}</h2>
+        <div class="advantage-item">
+
+        <p>${_("Nous croyons fermement que l'apprentissage des adultes est le plus efficace lorsque les participants sont activement engagés. C'est pourquoi, chez VIVALEARN, l'engagement participatif est un objectif central. Nous avons mis en place des outils et des techniques pour maximiser la participation active des apprenants, que ce soit à travers des discussions, des travaux pratiques, ou des projets collaboratifs. Cela permet de créer une communauté d'apprentissage dynamique où chacun peut apprendre des autres et contribuer à l'enrichissement collectif tout en renforçant leur compétitivité face aux acteurs internationaux.")}</p>
+<div class="graphic-img">
+        <img src="${static.url('images/vivalearn_group2.png')}" alt="Engagement Participatif"/>
+</div>
+</div>
+</div>
+
+    </section>
+
+<!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("Impact Pédagogique")}</h2>
+        <div class="advantage-item reverse">
+        <p>${_("Notre approche pédagogique repose sur un modèle d'apprentissage expérientiel.")}</p>
+<div class="graphic-img">
+        <img src="${static.url('images/impact.jpg')}" alt="Impact Pédagogique">
+</div>
+</div>
+</div>
+
+    </section>
+ <!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("Les MOOCs : Un Outil Puissant")}</h2>
+        <div class="advantage-item">
+        <p>${_("Les Massive Open Online Courses (MOOCs) sont au cœur de notre stratégie pour atteindre cette vision. Ils permettent de toucher un large public tout en offrant une flexibilité essentielle pour les apprenants. Pour les formateurs, les MOOCs sont un outil puissant pour transmettre des compétences à grande échelle, tout en offrant des moyens variés d'évaluer et d'améliorer les performances des participants. VIVALEARN se distingue en intégrant des MOOCs qui ne sont pas seulement informatifs, mais qui sont également construits autour d'une méthodologie d'apprentissage rigoureuse. Nos méthodes participatives et expérientielles ont démontré leur efficacité non seulement dans l'acquisition de nouvelles compétences, mais aussi dans leur application pratique. Cette approche garantit que les apprenants sont non seulement formés, mais aussi préparés à appliquer ce qu'ils ont appris dans des contextes réels.")}</p>
+      <div class="graphic-img">
+     <img src="${static.url('images/vivalearn_mooc.png')}" alt="Impact Pédagogique"/>
+</div>
+</div>
+</div>
+
+    </section>
+
+<!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("Notre Ambition")}</h2>
+        <div class="advantage-item reverse">
+        <p>${_("VivaLearn aspire à bâtir un écosystème éducatif où chaque apprenant peut accéder à des formations de qualité supérieure, où chaque formateur a la capacité de transformer ses connaissances en impact tangible, et où l'éducation devient une force véritablement unificatrice et transformatrice.")}</p>
+<div class="graphic-img">
+       <img src="${static.url('images/vivalearn_group3.png')}" alt="Accompagnement des Formateurs"/>
+</div>
+</div>
+</div>
+
+    </section>
+
+    <!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+      
+  <h2>${_("Apprendre, enseigner, évoluer – Avec VivaLearn, tout devient possible")}</h2>
+        <div class="advantage-item">       
+ <p>${_("C'est bien plus qu'un simple espace d'apprentissage : c'est une communauté vivante où chaque interaction génère un impact réel et mesurable. Nous croyons profondément que l'apprentissage doit être une expérience active et totalement engageante. C'est pourquoi nous mettons tout en œuvre pour que chaque cours soit une opportunité concrète de mettre en pratique vos connaissances.")}</p>
+<div class="graphic-img">
+       <img src="${static.url('images/vivalearn_group4.png')}" alt="Accompagnement des Formateurs" />
+</div>
+</div>
+</div>
+
+    </section>
+
+    <!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+
+        <h2>${_("Apprentissage pour tous, soutenu par l’innovation.")}</h2>
+
+ <div class="advantage-item reverse">
+        
+<p>${_("Nous transformons l'apprentissage en une expérience vivante et significative, vous permettant de développer des compétences directement applicables dans votre quotidien professionnel et personnel. Nous faisons bien plus qu'enseigner : nous créons des expériences. Que vous soyez étudiant, professionnel ou formateur, VivaLearn est votre partenaire pour un apprentissage dynamique, pertinent et véritablement transformateur.")}</p>
+<div class="graphic-img">
+      <img src="${static.url('images/vivalearn_tools1.png')}" alt="Accompagnement des Formateurs"/>
+</div>
+</div>
+</div>
+
+    </section>
+
+    
+<!-- Autres sections ajoutées selon about.html -->
+ <section class="advantages-section">
+    <div class="container">
+        
+        <h2>${_("Rejoignez-nous")}</h2>
+        <div class="advantage-item">      
+  <p>${_("Rejoignez VivaLearn dès aujourd'hui et découvrez une nouvelle façon d'apprendre, d'enseigner et de collaborer. Ensemble, nous pouvons créer des expériences d'apprentissage enrichissantes, efficaces et accessibles à tous. Devenez acteur du changement avec VIVALEARN et participez à la révolution de l'apprentissage en ligne.")}</p>
+
+<div class="graphic-img">
+    <img src="${static.url('images/vivalearn_join1.png')}" alt="Rejoignez-nous"/>
+
+</div>
+</div>
+</div>
+
+</section>
+
+</main>
