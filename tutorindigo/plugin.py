@@ -27,12 +27,8 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
         # tutor config save --set INDIGO_FOOTER_NAV_LINKS=[]
         "FOOTER_NAV_LINKS": [
 	    {"title": "Accueil", "url": "/"},
-            {"title": "Qui Sommes-nous ?", "url": "/about"},
-            {"title": "Nos Cours", "url": "/courses"},
-            {"title": "Certification", "url": "/blog"},
             {"title": "CGU", "url": "/tos"},
             {"title": "Politique de Confidentialité", "url": "/privacy"},
-            {"title": "Contactez-nous", "url": "/contact"},
         ],
     },
     "unique": {},
