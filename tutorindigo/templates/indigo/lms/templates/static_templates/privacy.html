@@ -18,120 +18,142 @@
     <section class="privacy-policy section-padding container">
 
         <div class="privacy-content">
-            <!-- Introduction -->
-            <article class="mb-5">
-                <h2 class="h2">${_("Introduction")}</h2>
-                <p class="lead">${_("Chez VivaLearn, nous sommes résolument engagés dans la protection et le traitement éthique de vos données personnelles. La présente politique a pour objectif de vous informer de manière transparente et exhaustive sur la collecte, l'utilisation et la gestion de vos informations personnelles.")}</p>
-            </article>
+                  
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Introduction</h2>
+                        <p>Chez VivaLearn, nous sommes résolument engagés dans la protection et le traitement éthique de vos données personnelles. La présente politique a pour objectif de vous informer de manière transparente et exhaustive sur la collecte, l'utilisation et la gestion de vos informations personnelles.</p>
+                    </div>
+                </div>
+            </section>
+
 
             <!-- Informations collectées -->
-            <article class="mb-5">
-                <div class="container graphic-grid">
-                    <div class="grid-row">
-                        <div class="grid-item">
-                            <h2 class="h2">${_("Informations collectées")}</h2>
-                            <p>${_("Nous recueillons les catégories de données personnelles suivantes lors de votre interaction avec nos services :")}</p>
-                            <div class="graphic-img">
-                                <img src="${static.url('images/vivalearn_sec1.png')}" alt="Protection des données"/>
-                            </div>
-                            <ul class="list-unstyled pl-3">
-                                <li>• ${_("Données d'identification : nom, prénom, adresse électronique")}</li>
+                 
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Informations collectées </h2>
+                        <p>Nous recueillons les catégories de données personnelles suivantes lors de votre interaction avec nos services :</p>
+                        <ul class="list-unstyled pl-3">
+                            <li>• ${_("Données d'identification : nom, prénom, adresse électronique")}</li>
                                 <li>• ${_("Données de connexion : mot de passe chiffré")}</li>
                                 <li>• ${_("Données académiques : inscriptions aux cours, progression, notes, certificats")}</li>
                                 <li>• ${_("Données de communication : messages dans les forums, réponses aux enquêtes")}</li>
-                            </ul>
-                        </div>
-                        <div class="grid-item">
-                            <h2 class="h2">${_("Données collectées automatiquement")}</h2>
-                            <p>${_("Nos systèmes collectent automatiquement certaines informations techniques :")}</p>
-                            <div class="graphic-img">
-                                <img src="${static.url('images/vivalearn_sec2.png')}" alt="Sécurité des données"/>
-                            </div>
-                            <ul class="list-unstyled pl-3">
-                                <li>• ${_("Données de connexion : adresse IP, horodatage")}</li>
-                                <li>• ${_("Informations de l'appareil : type, système d'exploitation, navigateur")}</li>
-                                <li>• ${_("Données de navigation : historique d'interactions, parcours sur la plateforme")}</li>
-                                <li>• ${_("Localisation géographique approximative")}</li>
-                            </ul>
+                           </ul>
                         </div>
                     </div>
-                </div>
-            </article>
+                </section>
+          
+            <section class="container graphic-grid">
+                            <div class="grid-row">
+                                <div class="grid-item">
 
-            <!-- Utilisation des données -->
-            <article class="mb-5">
-                <h2 class="h2">${_("Utilisation des données")}</h2>
-                <p>${_("VivaLearn utilise vos données personnelles aux fins suivantes :")}</p>
-                <ul class="list-unstyled pl-3">
-                    <li>• ${_("Personnalisation de votre expérience d'apprentissage")}</li>
-                    <li>• ${_("Gestion des inscriptions, paiements et certifications")}</li>
-                    <li>• ${_("Analyse et amélioration continue de nos services")}</li>
-                    <li>• ${_("Communication relative aux mises à jour, événements et services")}</li>
-                    <li>• ${_("Conformité aux obligations légales et réglementaires")}</li>
-                </ul>
-            </article>
+                           <h2 class="h2"> Données collectées automatiquement </h2>
+                           <ul class="list-unstyled pl-3">
+                           <p>Nos systèmes collectent automatiquement certaines informations techniques :</p>
+                           <li>• ${_("Données de connexion : adresse IP, horodatage")}</li>
+                           <li>• ${_("Informations de l'appareil : type, système d'exploitation, navigateur")}</li>
+                           <li>• ${_("Données de navigation : historique d'interactions, parcours sur la plateforme")}</li>
+                           <li>• ${_("Localisation géographique approximative")}</li>
+                          </ul>
+
+                        </div>
+                </div>
+            </section>
+
+           
+
+         
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Utilisation des données</h2>
+                        <p>VivaLearn utilise vos données personnelles aux fins suivantes :</p>
+                        <ul class="list-unstyled pl-3">
+                            <li>• ${_("Personnalisation de votre expérience d'apprentissage")}</li>
+                            <li>• ${_("Gestion des inscriptions, paiements et certifications")}</li>
+                            <li>• ${_("Analyse et amélioration continue de nos services")}</li>
+                            <li>• ${_("Communication relative aux mises à jour, événements et services")}</li>
+                            <li>• ${_("Conformité aux obligations légales et réglementaires")}</li>
+                         </ul>
+                    </div>
+                </div>
+            </section>
 
             <!-- Partage des informations -->
-            <article class="mb-5">
-                <h2 class="h2">${_("Partage des informations")}</h2>
-                <p>${_("Nous ne partageons vos données personnelles que dans des circonstances spécifiques et contrôlées :")}</p>
-                <ul class="list-unstyled pl-3">
-                    <li>• ${_("Partenaires éducatifs pour la gestion des certifications")}</li>
-                    <li>• ${_("Prestataires de services techniques et de paiement")}</li>
-                    <li>• ${_("Autorités légales sur réquisition judiciaire")}</li>
-                    <li>• ${_("Protection de nos droits et de la sécurité de nos utilisateurs")}</li>
-                </ul>
-            </article>
-
-            <!-- Sécurité des données -->
-            <article class="mb-5">
-                <div class="container graphic-grid">
-                    <div class="grid-row">
-                        <div class="grid-item">
-                            <h2 class="h2">${_("Sécurité des données")}</h2>
-                            <p>${_("Nous mettons en œuvre des mesures de sécurité rigoureuses pour protéger vos informations :")}</p>
-                            <div class="graphic-img">
-                                <img src="${static.url('images/vivalearn_sec2.png')}" alt="Sécurité des données"/>
-                            </div>
-                            <ul class="list-unstyled pl-3">
-                                <li>• ${_("Cryptage des données sensibles en transmission et au repos")}</li>
-                                <li>• ${_("Contrôles d'accès stricts et authentification multifacteur")}</li>
-                                <li>• ${_("Mises à jour régulières des systèmes de sécurité")}</li>
-                                <li>• ${_("Formation continue du personnel aux bonnes pratiques de protection des données")}</li>
-                            </ul>
-                        </div>
-                        <div class="grid-item">
-                            <h2 class="h2">${_("Vos droits")}</h2>
-                            <p>${_("Vous disposez de droits sur vos données personnelles :")}</p>
-                            <div class="graphic-img">
-                                <img src="${static.url('images/vivalearn_sec1.png')}" alt="Protection des données"/>
-                            </div>
-                            <ul class="list-unstyled pl-3">
-                                <li>• ${_("Droit d'accès à vos données")}</li>
-                                <li>• ${_("Droit de rectification")}</li>
-                                <li>• ${_("Droit de suppression")}</li>
-                                <li>• ${_("Droit de limitation du traitement")}</li>
-                                <li>• ${_("Droit à la portabilité de vos données")}</li>
-                            </ul>
-                        </div>
+            
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Partage des informations</h2>
+                        <p>Nous ne partageons vos données personnelles que dans des circonstances spécifiques et contrôlées :</p>
+                        <ul class="list-unstyled pl-3">
+                            <li>• ${_("Partenaires éducatifs pour la gestion des certifications")}</li>
+                            <li>• ${_("Prestataires de services techniques et de paiement")}</li>
+                            <li>• ${_("Autorités légales sur réquisition judiciaire")}</li>
+                            <li>• ${_("Protection de nos droits et de la sécurité de nos utilisateurs")}</li>
+                      </ul>
                     </div>
                 </div>
-            </article>
+            </section>
 
-            <!-- Cookies -->
-            <article class="mb-5">
-                <h2 class="h2">${_("Gestion des Cookies")}</h2>
-                <p>${_("Notre plateforme utilise des cookies pour améliorer votre expérience utilisateur. Vous pouvez gérer vos préférences via les paramètres de votre navigateur.")}</p>
-            </article>
+            <!-- Sécurité des données -->
+                     
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Sécurité des données</h2>
+                        <p>Nous mettons en œuvre des mesures de sécurité rigoureuses pour protéger vos informations :</p>
+                        <ul class="list-unstyled pl-3">
+                            <li>• ${_("Cryptage des données sensibles en transmission et au repos")}</li>
+                            <li>• ${_("Contrôles d'accès stricts et authentification multifacteur")}</li>
+                            <li>• ${_("Mises à jour régulières des systèmes de sécurité")}</li>
+                            <li>• ${_("Formation continue du personnel aux bonnes pratiques de protection des données")}</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">     
+                        <h2 class="h2"> Vos droits</h2>
+                        <p>Vous disposez de droits sur vos données personnelles :</p>
+                        <ul class="list-unstyled pl-3">
+                            <li>• ${_("Droit d'accès à vos données")}</li>
+                            <li>• ${_("Droit de rectification")}</li>
+                            <li>• ${_("Droit de suppression")}</li>
+                            <li>• ${_("Droit de limitation du traitement")}</li>
+                            <li>• ${_("Droit à la portabilité de vos données")}</li>
+                         </ul>
+
+                    </div>
+                </div>
+            </section>
+                     
+        
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Gestion des Cookies</h2>
+                        <p>Notre plateforme utilise des cookies pour améliorer votre expérience utilisateur. Vous pouvez gérer vos préférences via les paramètres de votre navigateur.</p>   
+                    </div>
+                </div>
+            </section>
 
             <!-- Contact -->
-            <article class="mb-5">
-                <h2 class="h2">${_("Nous contacter")}</h2>
-                <p>${_("Pour toute question relative à cette politique de confidentialité :")}</p>
-                <ul class="list-unstyled">
-                    <li>${_("E-mail : ")} <a href="mailto:contact@vivalearn.org">contact@vivalearn.org</a></li>
-                </ul>
-            </article>
+         
+            <section class="container graphic-grid">
+                <div class="grid-row">
+                    <div class="grid-item">
+                        <h2 class="h2"> Nous contacter</h2>
+                        <p> Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter par email à <a href="mailto:contact@vivalearn.org">contact@vivalearn.org</a>.</p>
+                     </div>
+                </div>
+            </section>
+
        <div class="graphic-img">
           <img src="${static.url('images/vivalearn_sec2.png')}" alt="Illustration de la politique de confidentialité" />
        </div>

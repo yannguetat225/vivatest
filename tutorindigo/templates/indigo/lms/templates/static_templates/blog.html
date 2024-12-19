@@ -3,96 +3,124 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Certifications VivaLearn")}</%block>
+<%block name="pagetitle">${_("Service de Certification")}</%block>
 
 <main id="main" class="main-beige" aria-label="Content" tabindex="-1">
    
 <section class="header-image">
     <img src="${static.url('images/vivalearn_banner3.png')}" alt="Image illustr" class="full-width">
     <div class="header-text">
-        <h1>CERTIFICATIONS</h1>
+        <h1>CERTIFICATION</h1>
         <p>Vos compétences méritent une reconnaissance fiable et internationale.</p>
     </div>
 </section>
 
+<section class="container-bis">
+    <h2>Notre Service de Certification</h2>
+    <ul>
+        <li>
+            <strong>Certifications Interne :</strong> Obtenez des certifications directement de VivaLearn après avoir complété nos cours.
+        </li>
+        <li>
+            <strong>Certifications Co-délivrée :</strong> Des programmes spéciaux où nous collaborons avec des institutions renommées pour offrir des certifications conjointes.
+        </li>
+        <li>
+            <strong>Certifications Professionnelle :</strong> Des parcours de formation menant à des certifications professionnelles reconnues dans l'industrie.
+        </li>
+    </ul>
 
-    <!-- Pourquoi nos certifications sont différentes -->
-    <section class="container difference">
-        <h2>La différence VivaLearn</h2>
-        <ul>
-            <li>
-                <strong>Sécurité Blockchain :</strong> Chaque certificat est enregistré de manière sécurisée, garantissant son authenticité.
-            </li>
-           
-            <li>
-                <strong>Reconnaissance par les Employeurs :</strong> Nos certifications sont reconnues par un réseau croissant d'entreprises partenaires.
-            </li>
-            <li>
-                <strong>Accès Facile :</strong> Vos certifications sont toujours disponibles en ligne, accessibles à tout moment.
-            </li>
-        </ul>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences"/>
-        </div>
-    </section>
+</section>
 
-    <!-- Nos services de certification -->
-    <section class="container services">
-        <h2>Nos Services de Certification</h2>
-        <ul>
-            <li>
-                <strong>Certifications Internes :</strong> Obtenez des certifications directement de VivaLearn après avoir complété nos cours.
-            </li>
-            <li>
-                <strong>Certifications Co-délivrées :</strong> Des programmes spéciaux où nous collaborons avec des institutions renommées pour offrir des certifications conjointes.
-            </li>
-            <li>
-                <strong>Certifications Professionnelles :</strong> Des parcours de formation menant à des certifications professionnelles reconnues dans l'industrie.
-            </li>
-        </ul>
-        <div class="graphic-img">
-            <img src="${static.url('images/Six_Sigma_black_belt.png')}" alt="Illustration des services de certification"/>
-            <img src="${static.url('images/aws-ccp-logo.png')}" alt="Illustration des services de certification"/>
-            <img src="${static.url('images/cfa-logo.png')}" alt="Illustration des services de certification"/>
-        </div>
-    </section>
+<div class="graphic-img-bis">
+    <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences"/>
+</div>
 
-    <!-- Fonctionnement de la certification via Blockchain -->
-    <section class="container blockchain">
-        <h2>Comment Fonctionne la Certification via Blockchain</h2>
-        <ol>
-            <li>
-                <strong>Achèvement du cours :</strong> Vous complétez un cours ou une formation.
-            </li>
-            <li>
-                <strong>Délivrance du certificat :</strong> Un certificat unique est émis et enregistré sur la blockchain.
-            </li>
-            <li>
-                <strong>Vérification publique :</strong> Employeurs et tiers peuvent vérifier l'authenticité en ligne.
-            </li>
-        </ol>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Processus Blockchain"/>
+<section class="puissanci">
+    <div class="banner banner-dark">
+        <div class="banner-content">
+            <h2>La différence VivaLearn</h2>
+            <ul>
+                <li>
+                    <strong>Sécurité Blockchain :</strong> Chaque certificat est enregistré de manière sécurisée, garantissant son authenticité.
+                </li>
+               
+                <li>
+                    <strong>Reconnaissance par les Employeurs :</strong> Nos certifications sont reconnues par un réseau croissant d'entreprises partenaires.
+                </li>
+                <li>
+                    <strong>Accès Facile :</strong> Vos certifications sont toujours disponibles en ligne, accessibles à tout moment.
+                </li>
+            </ul>     
         </div>
-    </section>
+        <div class="banner-image">
+            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Illustration des différences"/>
+
+           </div>
+    </div>
+        <!-- Fonctionnement de la certification via Blockchain -->
+
+    <div class="banner banner-red">
+        <div class="banner-content">
+            <h2>Comment Fonctionne la Certification via Blockchain</h2>
+            <ol>
+                <li>
+                    <strong>Achèvement du cours :</strong> Vous complétez un cours ou une formation.
+                </li>
+                <li>
+                    <strong>Délivrance du certificat :</strong> Un certificat unique est émis et enregistré sur la blockchain.
+                </li>
+                <li>
+                    <strong>Vérification publique :</strong> Employeurs et tiers peuvent vérifier l'authenticité en ligne.
+                </li>
+            </ol>
+         </div>
+        <div class="banner-image">
+            <img src="${static.url('images/vivalearn_block5.png')}" alt="Processus Blockchain"/>
+        </div>
+    </div>
+    <div class="banner banner-dark">
+        <div class="banner-content">
+            <h2>FAQ</h2>
+            <ul>
+                <li>
+                    <strong>Comment vérifier mon certificat ?</strong>
+                    <p>Pour vérifier votre certificat numérique, utilisez notre plateforme en ligne. Entrez le code unique inscrit sur votre certificat numérique, puis cliquez sur "Vérifier".</p>
+                </li>
+                <li>
+                    <strong>Quels types de certificats sont disponibles ?</strong>
+                    <p>Nous proposons trois types de certificats : internes (émis par VivaLearn), co-délivrés (en partenariat avec des institutions renommées), et professionnels (reconnus par l'industrie). Chacun répond à des besoins spécifiques.</p>
+                </li>
+                <li>
+                    <strong>Comment les employeurs peuvent-ils vérifier mes certifications ?</strong>
+                    <p>Les employeurs peuvent scanner le QR code ou entrer le code unique du certificat numérique sur notre plateforme pour en vérifier l'authenticité en temps réel.</p>
+                </li>
+            </ul>
+          
+        </div>
+        <div class="banner-image">
+            <img src="${static.url('images/vivalearn_faq3.png')}" alt="FAQ"/>
+           </div>
+    </div>
+</section>
+    
+
+    
     <!-- Section de vérification -->
     <section class="container verification">
-        <h2>Vérification en Ligne</h2>
-        <p>Saisissez le code de votre certificat ou scannez le QR code pour vérifier son authenticité.</p>
+        <h2 class="section-title">Service de Vérification </h2>
+        <p style="text-align: center; font-weight: bold;">  Veuillez saisir le code de votre certificat ou scanner le QR code pour vérifier son authenticité.</p>
         
         <!-- Formulaire de vérification -->
-        <div style="max-width: 800px; margin: 20px auto;">
-            <form method="post" action="/verify-certificate">
+        <div style="max-width: 800px; margin: 20px auto; display: flex; align-items: center;">
+            <form method="post" action="/verify-certificate" style="flex: 1;">
                 <div class="form-group mb-3">
-                    <input type="text" name="code" class="form-control form-control-lg" placeholder="Code du certificat" style="height: 50px; font-size: 16px;" required>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Vérifier</button>
+                    <input type="text" name="code" class="form-control form-control-lg" placeholder="Code du certificat (ex: 18122024)" style="height: 50px; font-size: 16px;" required>
                 </div>
             </form>
-
-            <div class="text-center mt-4">
-                <p>Ou scannez le QR code de votre certificat :</p>
+            <div style="flex: 1; text-align: right;">
+                <button type="submit" class="btn btn-primary btn-lg">Vérifier</button>
+            </div>
+            <div style="flex: 1; text-align: right;">
                 <button class="btn btn-secondary btn-lg">Scanner le QR Code</button>
             </div>
         </div>
@@ -106,9 +134,7 @@
             </div>
 
             <div class="text-center mb-4">
-                <img src="${static.url('images/verified-badge.png')}" alt="Badge de vérification" style="width: 80px; height: 80px;">
-                <h3 class="text-success mt-3">Certificat Authentique</h3>
-                <p class="text-muted">Vérifié sur la blockchain</p>
+                <h3 class="text-success mt-3">Certificat 18122024</h3>
             </div>
 
             <div class="row mb-4">
@@ -159,31 +185,15 @@
         </div>
     </section>
     <!-- Section FAQ -->
-    <section class="container faq">
-        <h2>FAQ</h2>
-        <ul>
-            <li>
-                <strong>Comment vérifier mon certificat ?</strong>
-                <p>Pour vérifier votre certificat numérique, utilisez notre plateforme en ligne. Entrez le code unique inscrit sur votre certificat numérique, puis cliquez sur "Vérifier".</p>
-            </li>
-            <li>
-                <strong>Quels types de certificats sont disponibles ?</strong>
-                <p>Nous proposons trois types de certificats : internes (émis par VivaLearn), co-délivrés (en partenariat avec des institutions renommées), et professionnels (reconnus par l'industrie). Chacun répond à des besoins spécifiques.</p>
-            </li>
-            <li>
-                <strong>Comment les employeurs peuvent-ils vérifier mes certifications ?</strong>
-                <p>Les employeurs peuvent scanner le QR code ou entrer le code unique du certificat numérique sur notre plateforme pour en vérifier l'authenticité en temps réel.</p>
-            </li>
-        </ul>
-        <div class="graphic-img">
-            <img src="${static.url('images/vivalearn_faq3.png')}" alt="FAQ"/>
-        </div>
-    </section>
+  
 
-    <!-- Appel à l'action -->
-    <section class="container cta">
-        <h2>Besoin de plus d'informations sur nos certifications ? Nous sommes à votre écoute.</h2>
-        <button>Contactez-nous</button>
-        <p><em>"Nous croyons en un monde où l’éducation n’a pas de limites, où chacun peut apprendre, enseigner et s’épanouir, peu importe son origine ou son niveau.”</em></p>
-    </section>
+   
+    <h2 class="section-title">Besoin de plus d'informations sur notre service de certification ?</h2>
+
+
+    <div class="graphic-img-bis">
+      <img src="${static.url('images/vivalearn_contact3.png')}" alt="FAQ"/>
+        <button class="contact-button">CONTACTEZ-NOUS</button>
+    </div>
+
 </main>

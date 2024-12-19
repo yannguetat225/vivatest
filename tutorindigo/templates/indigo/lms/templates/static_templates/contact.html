@@ -15,53 +15,34 @@
     </div>
 </section>
 
-  
+<section class="container-bis">
+    <h2 > Contactez-nous pour discuter </h2>
+    <ul >
+        <li>${_("Des solutions adaptées à vos besoins spécifiques")}</li>
+        <li>${_("De notre approche pédagogique innovante")}</li>
+        <li>${_("Des tarifs et options disponibles")}</li>
+        <li>${_("De votre projet de formation en ligne")}</li>
+    </ul>
+</section>
+
+
+<h2 class="text-center">${_("Formulaire de contact")}</h2>
 
     <!-- Formulaire de contact -->
     <section class="contact-form-section">
         <div class="contact-form-container">
             <div class="contact-layout">
-                <!-- Colonne de gauche avec le texte -->
-                <div class="contact-info">
-                    <h1>${_("Contactez-nous")}</h1>
-                    <p class="lead-text">${_("Découvrez comment VivaLearn peut vous aider à transformer votre approche de l'apprentissage en ligne.")}</p>
-                    
-                    <div class="contact-points">
-                        <h3>${_("Contactez-nous pour discuter :")}</h3>
-                        <ul>
-                            <li>${_("Des solutions adaptées à vos besoins spécifiques")}</li>
-                            <li>${_("De notre approche pédagogique innovante")}</li>
-                            <li>${_("Des tarifs et options disponibles")}</li>
-                            <li>${_("De votre projet de formation en ligne")}</li>
-                        </ul>
-                    </div>
-
-                    <div class="contact-channels">
-                        <h3>${_("Nos canaux de communication :")}</h3>
-                        <ul>
-                            <li>${_("E-mail : contact@vivalearn.com")}</li>
-                            <li>${_("Téléphone : +225 01 51 54 48 89")}</li>
-                            <li>${_("WhatsApp : +225 01 51 54 48 89")}</li>
-                            <li>${_("Groupe Telegram : ")} <a href="https://t.me/+votre_groupe" target="_blank">${_("Rejoignez notre communauté")}</a></li>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- Colonne de droite avec le formulaire -->
-                <h2 class="text-center">${_("Formulaire de contact")}</h2>
-
                 <div class="contact-form-wrapper">
                     <form action="/submit-contact" method="post" class="contact-form" style="max-width: 800px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                         <div class="form-group mb-4">
                             <label for="nom" class="form-label h5 mb-2">${_("Votre nom")}</label>
                             <input type="text" id="nom" name="nom" class="form-control form-control-lg" placeholder="${_("Votre nom")}" style="height: 50px; font-size: 16px;" required>
                         </div>
-
                         <div class="form-group mb-4">
                             <label for="email" class="form-label h5 mb-2">${_("Votre adresse e-mail")}</label>
                             <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="${_("Votre email")}" style="height: 50px; font-size: 16px;" required>
                         </div>
-
                         <div class="form-group mb-4">
                             <label for="type" class="form-label h5 mb-2">${_("Type de demande")}</label>
                             <select id="type" name="type" class="form-select form-select-lg" style="height: 50px; font-size: 16px;" required>
@@ -78,14 +59,15 @@
                             <textarea id="message" name="message" class="form-control" rows="6" placeholder="${_("Votre message...")}" style="font-size: 16px;" required></textarea>
                         </div>
 
+                            <!--
                         <div class="form-group mb-4">
                             <div class="form-check">
                                 <input type="checkbox" id="conditions" name="conditions" class="form-check-input" required>
                                 <label class="form-check-label" for="conditions" style="font-size: 14px;">
-                                    ${_("Je suis d'accord avec les")} <a href="/conditions-generales">${_("conditions générales")}</a>
-                                </label>
+                                    ${_("Je suis d'accord avec les")} <a href="/conditions-generales">${_("conditions générales")}</a>   
                             </div>
-                        </div>
+                            </div>
+                                </label> -->                      
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg px-5 py-3" style="font-size: 18px;">${_("Envoyer Votre Message")}</button>
@@ -95,73 +77,33 @@
             </div>
         </div>
     </section>
-    <section class="container faq">
-        <h2>${_("Questions fréquentes")}</h2>
-        <p>${_("Consultez notre FAQ pour trouver rapidement des réponses aux questions les plus courantes.")}</p>
-        <a href="/faq.html" class="cta-button">${_("Accéder à la FAQ")}</a>
-<h2>Foire Aux Questions</h2>
-<p>Consultez les réponses aux questions les plus courantes.</p>
-<ul>
-    <li><strong>Comment s'inscrire à un cours ?</strong> <br> Cliquez sur "Découvrir les cours", choisissez un programme et suivez les étapes d'inscription.</li>
-    <li><strong>Comment contacter un formateur ?</strong> <br> Utilisez l'onglet "Messages" après vous être connecté.</li>
-    <li><strong>Quels sont les moyens de paiement disponibles ?</strong> <br> Nous acceptons les cartes bancaires, PayPal et mobile money.</li>
-</ul>
-   
- </section>
-    <!-- Section Événements -->
+
+    <!-- Section Événements
     <section class="container events">
-        <h2>${_("Événements et webinaires")}</h2>
+        <h3>${_("Événements et webinaires")}</h2>
         <p>${_("Participez à nos événements mensuels pour découvrir les nouveautés et échanger avec la communauté éducative.")}</p>
-        <a href="/events.html" class="cta-button">${_("Voir le calendrier des événements")}</a>
-    </section>
+        <a href="/events.html" class="cta-button">${_("Voir le ca9+lendrier des événements")}</a>
+    </section>  -->
 
-    <div class="container graphic-grid">
-        <div class="grid-row">
-            <div class="grid-item">
-                <h2 class="h2">${_("Support technique")}</h2>
-                <p>${_("Une assistance technique disponible pour vous accompagner.")}</p>
-                <div class="graphic-img">
-                    <img src="${static.url('images/vivalearn_support.png')}" alt="Support technique" />
-                </div>
-            </div>
-        </div>
+    <div class="container-bis">
+        <h3>${_("Nos canaux de communication")}</h3>
+        <ul>
+            <li>${_("E-mail : contact@vivalearn.com")}</li>
+            <li>${_("Groupe Telegram : ")} <a href="https://t.me/+votre_groupe" target="_blank">${_("Rejoignez notre communauté")}</a></li>
+        </ul>
     </div>
 
-    <!-- Autres sections -->
-<h2>Nos ressources pour réussir</h2>
-<ul>
-    <li><a href="">Comment prendre un cours sur VivaLearn ?</a></li>
-    <li><a href="">Comment créer un cours sur VivaLearn ?</a></li>
-</ul>
     
-   
-  <div class="graphic-img">
-        <img src="${static.url('images/vivalearn_feu.png')}" alt="FAQ"/>
+    <div class="container-bis">
+      
+        <h3>Foire Aux Questions</h2>
+        <p>Consultez notre FAQ pour trouver rapidement des réponses aux questions les plus courantes. <a href="/faq.html" class="cta-button">Accéder à la FAQ</a></p>
+        
     </div>
+   
 
-    <section class="container cta">
-        <p><em>“Le savoir, quand il est partagé, devient une flamme qui ne s’éteint jamais.”</em></p>
-        <h2>Besoin de plus d'informations ?</h2>
-        <button>Contactez-nous</button>
-    </section>
-    <!-- Script pour intégrer la carte Google Maps -->
-    <script>
-        function initMap() {
-            var location = {lat: 5.345317, lng: -4.024429}; // Coordonnées d'Abidjan
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: location
-            });
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-        }
+<div class="graphic-img">
+        <img src="${static.url('images/vivalearn_pres2.png')}" alt="Image illustrative pour la section de termes"/>
+          </div>
 
-        document.getElementById('map-link').addEventListener('click', function(event) {
-            event.preventDefault();
-            initMap();
-            document.getElementById('map').scrollIntoView({behavior: 'smooth'});
-        });
-    </script>
 </main>
