@@ -33,20 +33,15 @@
 
 <%block name="pagetitle">${_("Cours")}</%block>
 
-<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
-
-<section class="header-image">
-    <img src="${static.url('images/vivalearn_banner3.png')}" alt="Image illustrative pour l'en-tête" class="full-width" />
-    <div class="header-text">
-        <h1>Gagnez en Compétences avec nos Formations</h1>
-        <p>Explorez une variété de MOOCs, webinaires et formations pour exceller dans votre domaine</p>
-    </div>
-</section>
-
-
+<main id="main" aria-label="Content" tabindex="-1">
     <section class="find-courses">
       <section class="courses-container">
-       
+        <!-- NEW IN INDIGO Heading was added. -->
+        <div class="course-heading-area">
+          <h2>${_("Gagnez en Compétences avec nos Formations")}</h2>
+            <p>${_("Explorez une variété de MOOCs, webinaires et formations pour exceller dans votre domaine.")}</p>
+         
+        </div>
         <!-- NEW IN INDIGO Modified search bar and filters. -->
         % if course_discovery_enabled:
           <div class="saerch-bar-discover">

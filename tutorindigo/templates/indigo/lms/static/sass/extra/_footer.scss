@@ -3,8 +3,8 @@
     padding: 25px 0;
     border-top: 1px solid #E5E7EB;
  background-color: $color-olive;
- color: white;  
- @include media-breakpoint-up(md) {
+ color: $color-cream;  
+    @include media-breakpoint-up(md) {
         padding: 45px 0;
     }
 }
@@ -47,7 +47,7 @@ footer.tutor-container {
             position: relative;
             font-size: 12px;
             line-height: 18px;
-            color: white;
+ 	    color: color-creamsoft;
             &:first-child {
                 padding-left: 0;
             }
@@ -61,7 +61,6 @@ footer.tutor-container {
                     width: 1px;
                     height: 29px;
                     margin: -14px 0 0;
-                    background: white;
                 }
             }
         }
@@ -83,11 +82,11 @@ footer.tutor-container {
                     line-height: 24px;
                 }
                 a {
-                    color: white;
+                    color: $color-creamsoft;
                     text-decoration: none;
                     &:hover {
                         color: $color-orange;
-                        text-decoration: none;
+                        text-decoration: underline;
                     }
                 }
             }
@@ -97,15 +96,8 @@ footer.tutor-container {
         display: block;
         font-size: 12px;
         line-height: 16px;
-        color: white;
+        color: $color-creamsoft;
     }
-
-.social-icon{
-         &:hover {
-                 color: $color-orange;
-                 text-decoration: none;
-                 }
-	     }
 }
 
 body.indigo-dark-theme {

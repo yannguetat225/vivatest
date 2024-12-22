@@ -84,7 +84,7 @@ section.home {
                                 position: static;
                                 margin: 0 0 0 16px;
                                 min-width: 90px;
-                                color: #fff;
+                                color: $color-creamsoft;
                                 font-size: 16px;
                                 font-weight: 500;
                                 line-height: 26px;
@@ -100,7 +100,6 @@ section.home {
                                 }
                                 &:hover {
                                     background: $color-orange;
-                                    opacity: .8;
                                 }
                             }
                         }

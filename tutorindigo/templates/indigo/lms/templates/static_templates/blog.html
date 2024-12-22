@@ -15,16 +15,20 @@
     </div>
 </section>
 
-<section class="container-bis">
-    <h2>Notre Service de Certification</h2>
-    <p>
-        Nos certificats sont ancrés dans un registre de base de données décentralisé, garantissant une traçabilité, une sécurité, et une immuabilité inégalées. Chaque certificat est infalsifiable et accessible à tout moment, assurant une confiance totale.
-    </p>
+<section class="learning-section">
+    <div class="container">
+        <!-- Titre principal -->
+        <h2 class="section-title">Notre Service de Certification</h2>
 
+        <!-- Sous-titre -->
+        <p class="section-subtitle">
+            Nos certificats sont ancrés dans un registre de base de données décentralisé, garantissant une traçabilité, une sécurité, et une immuabilité inégalées. Chaque certificat est infalsifiable et accessible à tout moment, assurant une confiance totale.
+        </p>
+    </div>
 </section>
 
-<div class="graphic-img-bis">
-    <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences"/>
+<div class="image-section">
+    <img src="${static.url('images/vivalearn_certif3.png')}" alt="Illustration des différences" />
 </div>
 
 <section class="puissanci">
@@ -38,7 +42,7 @@
             </p>     
         </div>
         <div class="banner-image">
-            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Illustration des différences"/>
+            <img src="${static.url('images/vivalearn_certif1.png')}" alt="Illustration des différences" class="banner banner-image img"/>
 
            </div>
     </div>
@@ -99,7 +103,7 @@
         <div style="max-width: 800px; margin: 20px auto; display: flex; align-items: center;">
             <form method="post" action="/verify-certificate" style="flex: 1;">
                 <div class="form-group mb-3">
-                    <input type="text" name="code" class="form-control form-control-lg" placeholder="Code du certificat (ex: 18122024)" style="height: 50px; font-size: 16px;" required>
+                    <input type="text" name="code" class="form-control form-control-lg" placeholder="Code Certificat (ex:18122024)" style="height: 50px; font-size: 16px;" required>
                 </div>
             </form>
             <div style="flex: 1; text-align: right;">
@@ -114,7 +118,7 @@
         <div style="max-width: 800px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
             <div class="text-center mb-4" style="padding: 10px; background: #f8f9fa; border-radius: 10px;">
                 <p class="text-muted mb-0" style="font-style: italic;">
-                    Zone d'affichage des informations du certificat
+                    Zone d'affichage des informations
                 </p>
             </div>
 
@@ -173,10 +177,10 @@
   
 
    
-    <h2 class="section-title">Besoin de plus d'informations sur notre service de certification ?</h2>
+    <h2 class="section-title-bis">Besoin de plus d'informations sur notre service de certification ?</h2>
 
 
-    <div class="graphic-img-bis">
+    <div class="graphic-img">
       <img src="${static.url('images/vivalearn_contact3.png')}" alt="FAQ"/>
         <button class="contact-button">CONTACTEZ-NOUS</button>
     </div>

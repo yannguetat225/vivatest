@@ -32,24 +32,22 @@
         <li>Powered by:</li>
         <li>
           <a href="https://docs.tutor.edly.io" rel="noopener" target="_blank">
-            <img src="${static.url('images/tutor-logo.png')}" alt="Runs on Tutor" width="57" />
+            <img src="${static.url('images/logo_guetbest.png')}" alt="Runs on Tutor" width="57" />
           </a>
         </li>
-        <li>
+<!--        <li>
           <a href="${footer['openedx_link']['url']}" rel="noopener" target="_blank">
             <img src="${static.url('images/openedx-logo.png')}" alt="${footer['openedx_link']['title']}" width="79" />
           </a>
         </li>
-      </ul>
+ -->     </ul>
     </div>
     {% if INDIGO_FOOTER_NAV_LINKS %}
     <nav class="nav-colophon" aria-label="${_('About')}">
       <ol>
-          {% for link in INDIGO_FOOTER_NAV_LINKS %}
-          <li>
-            <a href="{{ link['url'] }}">{{ link['title'] }}</a>
-          </li>
-          {% endfor %}
+      <li>  <a href="/">Accueil  </a>  </li>
+      <li>   <a href="/tos">CGU   </a> </li>
+      <li>  <a href="/privacy">Politique de Confidentialité</a>  </li>
       </ol>
     </nav>
     {% endif %}
@@ -96,25 +94,23 @@
           <li>Powered by:</li>
           <li>
             <a href="https://www.growlearnconnect.org/user/1135" rel="noopener" target="_blank">
-              <img src="${static.url('images/tutor-logo.png')}" alt="Guetbest & Associés" width="57" />
+              <img src="${static.url('images/logo_guetbest.png')}" alt="Guetbest & Associés" width="57" />
             </a>
           </li>
-          <li>
+<!--          <li>
             <a href="${footer['openedx_link']['url']}" rel="noopener" target="_blank">
               <img src="${static.url('images/openedx-logo.png')}" alt="${footer['openedx_link']['title']}" width="79" />
             </a>
           </li>
-        </ul>
+-->        </ul>
       </div>
       {% if INDIGO_FOOTER_NAV_LINKS %}
       <nav class="nav-colophon" aria-label="${_('About')}">
-        <ol>
-            {% for link in INDIGO_FOOTER_NAV_LINKS %}
-            <li>
-              <a href="{{ link['url'] }}">{{ link['title'] }}</a>
-            </li>
-            {% endfor %}
-        </ol>
+          <ol>
+            <li>  <a href="/">Accueil  </a>  </li>
+            <li>   <a href="/tos">CGU   </a> </li>
+            <li>  <a href="/privacy">Politique de Confidentialité</a>  </li>
+            </ol>
       </nav>
       {% endif %}
     </div>
@@ -135,19 +131,6 @@
                 </a>
               % endif
           </p>
-
-<div class="footer-links">
-    <!-- Liens vers les réseaux sociaux -->
-    <a href="https://facebook.com" class="social-icon" target="_blank">
-      <img src="${static.url('images/facebook-icon.png')}" alt="Facebook">
-    </a>
-    <a href="https://linkedin.com" class="social-icon" target="_blank">
-      <img src="${static.url('images/linkedin-icon.png')}" alt="Twitter">
-    </a>
-    <a href="https://instagram.com" class="social-icon" target="_blank">
-      <img src="${static.url('images/instagram-icon.png')}" alt="Instagram">
-    </a>
- </div>
       </div>
     </footer>
   </div>
