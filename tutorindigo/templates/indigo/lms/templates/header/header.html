@@ -48,13 +48,13 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
         ${static.renderReact(
             component="CookiePolicyBanner",
             id="frontend-component-cookie-policy-banner",
-            props={}
+            props={},
         )}
     % endif
     <div class="main-header">
         <%include file="navbar-logo-header.html" args="online_help_token=online_help_token"/>
-        <div class="hamburger-menu" role="button" aria-label=${_("Options Menu")} aria-expanded="false" aria-controls="mobile-menu" tabindex="0">
-            <span class="line"   style="background-color: #D4903D;"></span>
+        <div class="hamburger-menu" role="button" aria-label="${_('Options Menu')}" aria-expanded="false" aria-controls="mobile-menu" tabindex="0">
+        <span class="line"   style="background-color: #D4903D;"></span>
             <span class="line"   style="background-color: #D4903D;"></span>
             <span class="line"   style="background-color: #D4903D;"></span>
             <span class="line"   style="background-color: #D4903D;"></span>
@@ -65,8 +65,8 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
             <%include file="navbar-not-authenticated.html" args="online_help_token=online_help_token"/>
         % endif
     </div>
-    <div class="mobile-menu hidden" aria-label=${_("More Options")} role="menu" id="mobile-menu"></div>
-    </div>
+    <div class="mobile-menu hidden" aria-label="${_('More Options')}" role="menu" id="mobile-menu"></div>
+</div>
 </header>
 
 % if course:

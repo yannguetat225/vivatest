@@ -21,13 +21,13 @@
         <h2 class="section-title">Qui sommes-nous ?</h2>
 
         <!-- Sous-titre -->
-        <p class="section-subtitle">
+        <p class="section-subtitle-bis">
     VIVALEARN est une entreprise né de la conviction que l'apprentissage doit être accessible, engageant et pertinent pour tous, en particulier pour les formateurs qui jouent un rôle crucial dans la transmission des connaissances. Depuis notre création, notre mission a été de créer une plateforme qui non seulement démocratise l'accès au savoir, mais qui le fait de manière innovante et efficace. Notre vision est d'étre un acteur majeur dans la transformation de l'éducation en ligne, en mettant l'accent sur des méthodes d'apprentissage éprouvées et innovantes.      
         </p>
     </div>
 </section>
 
-    <div class="graphic-img-bis" style="margin-bottom: 2rem;">
+    <div class="graphic-img-bis">
        <img src="${static.url('images/vivalearn_banner1.png')}" alt="Qui sommes-nous ?"/>
     </div>
 
@@ -100,8 +100,39 @@
   <img src="${static.url('images/vivalearn_join1.png')}" alt="Rejoignez-nous"/>
     <button class="contact-button">REJOIGNEZ-NOUS</button>
 </div>
-<p class=" learning-section section-subtitle action-text">
-    Rejoignez VivaLearn pour devenir acteur du changement et participer à la révolution de l'Apprentissage en Ligne.
+<p class=" action-text section-subtitle">
+    Rejoignez VivaLearn pour révolutionner l'Apprentissage en Ligne.
 </p>
 
+<!-- Chatbot -->
+<section class="chat-window">
+    <button class="close">x Fermer</button>
+    <div class="chat">
+        <div class="model">
+            <p>Hello, comment puis-je vous aider ?</p>
+        </div>
+    </div>
+    <div class="input-area">
+        <input placeholder="Posez votre question..." type="text">
+        <button>
+            <img src="${static.url('images/send-icon.png')}" alt="send">
+        </button>
+    </div>
+</section>
+
+<div class="chat-button">
+    <img src="${static.url('images/chat-icon.png')}" alt="start chat">
+</div>
+
 </main>
+
+<%block name="js_extra">
+<script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+</script>
+<script src="${static.url('js/scriptbis.js')}"></script>
+</%block>

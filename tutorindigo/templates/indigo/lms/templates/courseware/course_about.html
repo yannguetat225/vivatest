@@ -41,7 +41,7 @@ from openedx.core.lib.courses import course_image_url
         location.replace("${reverse('signin_user') | n, js_escaped_string}?next=" + encodeURIComponent("${request.path | n, js_escaped_string}"));
       } else {
         $('#register_error').text(
-            (xhr.responseText ? xhr.responseText : "${_("An error occurred. Please try again later.") | n, js_escaped_string}")
+            (xhr.responseText ? xhr.responseText : "${_('An error occurred. Please try again later.') | n, js_escaped_string}")
         ).css("display", "block");
       }
     });
@@ -124,9 +124,6 @@ from openedx.core.lib.courses import course_image_url
             else:
               href_class = "register"
           %>
-          <a href="${reg_href}" class="${href_class}">
-            ${_("Enroll Now")}
-          </a>
           <div id="register_error"></div>
         %endif
         </div>

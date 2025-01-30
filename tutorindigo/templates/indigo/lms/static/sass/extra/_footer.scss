@@ -1,9 +1,9 @@
-// Include custom Footer
+ // Include custom Footer
 .wrapper-footer {
     padding: 25px 0;
-    border-top: 1px solid #E5E7EB;
+    border-top: 1px solid $color-creamsoft;
  background-color: $color-olive;
- color: $color-cream;  
+ color: $color-creamsoft;  
     @include media-breakpoint-up(md) {
         padding: 45px 0;
     }
@@ -47,7 +47,8 @@ footer.tutor-container {
             position: relative;
             font-size: 12px;
             line-height: 18px;
- 	    color: color-creamsoft;
+            font-weight: 500;
+ 	    color: $color-creamsoft;
             &:first-child {
                 padding-left: 0;
             }

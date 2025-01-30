@@ -3,86 +3,93 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Pour Entreprises")}</%block>
+<%block name="pagetitle">${_("Librairie")}</%block>
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <!-- Section Héros -->
-    <section class="container business-hero">
-        <header class="hero-header">
-            <div class="hero-content">
-                <h1>${_("Vivons l'Apprentissage, Façonnons l'Avenir !")}</h1>
-                <p>${_("Gagnez en Productivité, en Compétences et en Performances grâce à des cours en ligne accessibles à tous.")}</p>
-                <a href="#" class="cta-button">${_("Découvrez nos formations")}</a>
-            </div>
-        </header>
-    </section>
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
+ 
+   <!-- <div class="container about resource-container">
+        <h1 class="section-title">${_("Librairie de Ressources")}</h1>
+        <p class="section-subtitle">${_("Découvrez notre collection d'ebooks et de ressources pour enrichir votre apprentissage.")}</p>
+    </div>
+     -->
+    
+    <div class="container-bis resource-librairie">
+        <section class="resources-section">
+            <h2 class="section-title">${_("Ressources Gratuites")}</h2>
+            <div class="resource-list">
+                <div class="resource-card">
+                    <img src="${static.url('images/test_ebook4.png')}" alt="${_('Ebook Gratuit 1')}">
+                    <h3>${_("Introduction à la Programmation")}</h3>
+                    <p>${_("Un guide complet pour débutants en programmation.")}</p>
+                    <div class="resource-meta">
+                        <span class="pages">${_("150 pages")}</span>
+                        <span class="format">PDF</span>
+                    </div>
+                    <a href="ebook1.pdf" download class="btn btn-download">${_("Télécharger")}</a>
+                </div>
 
-    <!-- Section Avantages pour les Entreprises -->
-    <section class="container advantages-section">
-        <h2>${_("Avantages pour les Entreprises")}</h2>
-        <div class="advantage-item">
-            <img src="${static.url('images/customized-learning.png')}" alt="${_("Apprentissage Personnalisé")}">
-            <div class="advantage-content">
-                <h3>${_("Apprentissage Personnalisé")}</h3>
-                <p>${_("Offrez à vos employés un parcours de formation adapté à leurs besoins spécifiques, permettant un développement continu et ciblé des compétences.")}</p>
+                <div class="resource-card">
+                    <img src="${static.url('images/test_ebook4.png')}" alt="${_('Ebook Gratuit 2')}">
+                    <h3>${_("Les Fondamentaux du Marketing")}</h3>
+                    <p>${_("Maîtrisez les bases du marketing digital.")}</p>
+                    <div class="resource-meta">
+                        <span class="pages">${_("180 pages")}</span>
+                        <span class="format">PDF</span>
+                    </div>
+                    <a href="ebook2.pdf" download class="btn btn-download">${_("Télécharger")}</a>
+                </div>
             </div>
-        </div>
-        <div class="advantage-item reverse">
-            <img src="${static.url('images/employee-engagement.png')}" alt="${_("Engagement des Employés")}">
-            <div class="advantage-content">
-                <h3>${_("Engagement des Employés")}</h3>
-                <p>${_("Améliorez la rétention et la satisfaction de vos employés grâce à des formations engageantes et interactives qui stimulent leur motivation.")}</p>
-            </div>
-        </div>
-        <div class="advantage-item">
-            <img src="${static.url('images/cost-effective.png')}" alt="${_("Solution Rentable")}">
-            <div class="advantage-content">
-                <h3>${_("Solution Rentable")}</h3>
-                <p>${_("Réduisez les coûts de formation en offrant une solution en ligne flexible qui permet à vos employés d'apprendre à leur propre rythme.")}</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Section Avantages pour les Employés -->
-    <section class="container employee-perks-section">
-        <h2>${_("Avantages pour les Employés")}</h2>
-        <div class="perk-item">
-            <img src="${static.url('images/skills-development.png')}" alt="${_("Développement des Compétences")}">
-            <div class="perk-content">
-                <h3>${_("Développement des Compétences")}</h3>
-                <p>${_("Accédez à un large éventail de formations qui couvrent des compétences techniques, soft skills, et bien plus encore.")}</p>
-            </div>
-        </div>
-        <div class="perk-item reverse">
-            <img src="${static.url('images/career-growth.png')}" alt="${_("Évolution de Carrière")}">
-            <div class="perk-content">
-                <h3>${_("Évolution de Carrière")}</h3>
-                <p>${_("Préparez votre prochaine étape professionnelle avec des formations qui vous aident à évoluer et à atteindre vos objectifs de carrière.")}</p>
-            </div>
-        </div>
-        <div class="perk-item">
-            <img src="${static.url('images/flexible-learning.png')}" alt="${_("Apprentissage Flexible")}">
-            <div class="perk-content">
-                <h3>${_("Apprentissage Flexible")}</h3>
-                <p>${_("Apprenez à votre propre rythme, selon votre emploi du temps, grâce à une plateforme accessible 24/7 depuis n'importe quel appareil.")}</p>
-            </div>
-        </div>
-    </section>
+        <section class="resources-section">
+            <h2 class="section-title">${_("Ressources Premium")}</h2>
+            <div class="resource-list">
+                <div class="resource-card">
+                    <img src="${static.url('images/test_ebook2.png')}" alt="${_('Ebook Premium 1')}">
+                    <h3>${_("Maîtriser Python")}</h3>
+                    <p>${_("Formation avancée pour devenir expert en Python.")}</p>
+                    <div class="resource-meta">
+                        <span class="pages">${_("250 pages")}</span>
+                        <span class="format">PDF</span>
+                        <span class="price">9,99€</span>
+                    </div>
+                    <a href="checkout.html?product=python" class="btn btn-buy">${_("Acheter")}</a>
+                </div>
 
-    <!-- Section Témoignages (Optionnelle) -->
-    <section class="container testimonials-section">
-        <h2>${_("Ce que disent nos partenaires")}</h2>
-        <div class="testimonial-item">
-            <blockquote>
-                <p>${_("La plateforme VivaLearn a transformé notre approche de la formation en entreprise. Nos employés sont plus engagés et leurs compétences ont considérablement évolué.")}</p>
-                <footer>${_("Jean Dupont, Directeur RH chez TechCorp")}</footer>
-            </blockquote>
-        </div>
-        <div class="testimonial-item">
-            <blockquote>
-                <p>${_("Les outils proposés par VivaLearn sont exceptionnels. Nos équipes sont désormais autonomes dans leur apprentissage et leur développement personnel.")}</p>
-                <footer>${_("Marie Curie, Responsable Formation chez Innovatech")}</footer>
-            </blockquote>
-        </div>
-    </section>
+                <div class="resource-card">
+                    <img src="${static.url('images/test_ebook2.png')}" alt="${_('Ebook Premium 2')}">
+                    <h3>${_("Marketing Digital Pro")}</h3>
+                    <p>${_("Stratégies avancées pour professionnels.")}</p>
+                    <div class="resource-meta">
+                        <span class="pages">${_("300 pages")}</span>
+                        <span class="format">PDF</span>
+                        <span class="price">12,99€</span>
+                    </div>
+                    <a href="checkout.html?product=marketing" class="btn btn-buy">${_("Acheter")}</a>
+                </div>
+            </div>
+        </section>
+
+ <!-- 
+
+        <section class="resources-section">
+            <h2 class="section-title">${_("FAQ")}</h2>
+            <div class="resource-list">
+                <div class="resource-card faq-card">
+                    <h3>Est-ce que je dois créer un compte pour télécharger un ebook gratuit ?</h3>
+                    <p> Oui, vous devez créer un compte pour télécharger des ebooks gratuits. Votre compte vous permettra de profiter de nos MOOCs gratuits et de personnaliser votre expérience d’apprentissage.</p>
+                </div>
+                <div class="resource-card faq-card">
+                    <h3>Comment créer un compte sur la plateforme ?</h3>
+                    <p>Cliquez sur le bouton "S'inscrire" en haut de la page, remplissez le formulaire d'inscription, et validez votre compte en suivant le lien envoyé par email.</p>
+                </div>
+                <div class="resource-card faq-card">
+                    <h3>Quels modes de paiement sont acceptés pour les ebooks payants ?</h3>
+                    <p>Nous acceptons les cartes de crédit et PayPal. D'autres options peuvent être ajoutées bientôt.</p>
+                </div>
+             </div>
+        </section>
+
+         -->
+    </div>
 </main>

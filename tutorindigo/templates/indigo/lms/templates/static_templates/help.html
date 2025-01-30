@@ -3,20 +3,86 @@
 <%! from django.utils.translation import gettext as _ %>
 <%inherit file="../main.html" />
 
-<%block name="pagetitle">${_("Help")}</%block>
+<%block name="pagetitle">${_("Assistant Pédagogique - Votre compagnon d'apprentissage")}</%block>
 
-<main id="main" aria-label="Content" tabindex="-1">
-    <section class="container about">
-        <h1>
-            <%block name="pageheader">${page_header or _("Help")}</%block>
-        </h1>
-        <p>
-            <%block name="pagecontent">${page_content or _("This page left intentionally blank. Feel free to add your own content.")}</%block>
-        </p>
-        <!-- NEW IN INDIGO: add graphic image -->
-        <div class="graphic-img">
-            <img src="${static.url('images/help.svg')}" alt="Runs on Tutor" />
-            <img class="dark" src="${static.url('images/help-dark.svg')}" alt="Runs on Tutor" />
+<%block name="headextra">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</%block>
+
+<main id="main" aria-label="Content" tabindex="-1" class="viva-main">
+    <nav class="navbar">
+        <h3 class="navbar__logo">Viva AI</h3>
+        <button class="navbar__button" id="themeToggler"><i class='bx bx-sun'></i></button>
+    </nav>
+
+    <section class="header">
+        <div class="header__title">
+            <h1>Comment puis-je vous accompagner aujourd'hui ?</h1>
+        </div>
+        <div class="suggests">
+            <div class="suggests__item">
+                <p class="suggests__item-text">
+                    Découvrez nos formations et parcours d'apprentissage personnalisés
+                </p>
+                <div class="suggests__item-icon">
+                    <i class='bx bx-book-open'></i>
+                </div>
+            </div>
+            <div class="suggests__item">
+                <p class="suggests__item-text">
+                    Besoin d'aide pour organiser votre planning de formation ?
+                </p>
+                <div class="suggests__item-icon">
+                    <i class='bx bx-calendar'></i>
+                </div>
+            </div>
+            <div class="suggests__item">
+                <p class="suggests__item-text">
+                    Explorer les ressources pédagogiques disponibles
+                </p>
+                <div class="suggests__item-icon">
+                    <i class='bx bx-library'></i>
+                </div>
+            </div>
+            <div class="suggests__item">
+                <p class="suggests__item-text">
+                    Contactez un tuteur pour un accompagnement personnalisé
+                </p>
+                <div class="suggests__item-icon">
+                    <i class='bx bx-user-voice'></i>
+                </div>
+            </div>
         </div>
     </section>
+
+   <!-- NEW IN INDIGO update footer -->
+ <section class="chats"></section>
+
+    <section>
+        <form action="#" class="prompt__form" novalidate>
+            <div class="prompt__input-wrapper">
+                <input type="text" placeholder="Posez votre question ici" class="prompt__form-input" required>
+                <button class="prompt__form-button" id="sendButton">
+                    <i class='bx bx-send'></i>
+                </button>
+                <button class="prompt__form-button" id="deleteButton">
+                    <i class='bx bx-trash'></i>
+                </button>
+            </div>
+        </form>
+        <p class="prompt__disclaim">
+            Cet assistant est là pour vous guider. Pour toute information officielle, veuillez vous référer à notre équipe pédagogique.
+        </p>
+    </section>
 </main>
+
+<%block name="js_extra">
+<script>
+    window.VIVA_ICON_URL = "${static.url('images/logo_viva4.svg')}";
+    window.PROFILE_IMAGE_URL = "${static.url('images/Guetbest.png')}";
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="${static.url('js/script.js')}"></script>
+</%block>
