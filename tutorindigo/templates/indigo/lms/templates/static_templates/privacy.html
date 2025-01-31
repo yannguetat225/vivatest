@@ -162,5 +162,35 @@
     <div class="graphic-img">
         <img src="${static.url('images/vivalearn_sec2.png')}" alt="Illustration de la politique de confidentialité" />
      </div>
+<!-- Chatbot -->
+<section class="chat-window">
+    <button class="close">x Fermer</button>
+    <div class="chat">
+        <div class="model">
+            <p>Hello, comment puis-je vous aider ?</p>
+        </div>
+    </div>
+    <div class="input-area">
+        <input placeholder="Posez votre question..." type="text">
+        <button>
+            <img src="${static.url('images/send-icon.png')}" alt="send">
+        </button>
+    </div>
+</section>
+
+<div class="chat-button">
+    <img src="${static.url('images/chat-icon.png')}" alt="start chat">
+</div>
 
 </main>
+
+<%block name="js_extra">
+<script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+</script>
+<script type="module" src="${static.url('js/scriptbis.js')}"></script>
+</%block>

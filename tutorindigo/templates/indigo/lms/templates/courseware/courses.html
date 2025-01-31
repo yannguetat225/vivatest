@@ -12,7 +12,15 @@
 <%namespace name='static' file='../static_content.html'/>
 <%block name="js_extra">
   <script type="text/javascript" src="${static.url('common/js/vendor/bootstrap.bundle.js')}"></script>
-</%block>
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+  <script type="module" src="${static.url('js/scriptbis.js')}"></script>
+  </%block>
 % if course_discovery_enabled:
 <%block name="header_extras">
   % for template_name in ["course_card", "filter_bar", "filter", "facet", "facet_option"]:
@@ -33,7 +41,7 @@
 
 <%block name="pagetitle">${_("Cours")}</%block>
 
-<main id="main" aria-label="Content" tabindex="-1">
+<main id="main" class="main-beige" aria-label="Content" tabindex="-1">
     <section class="find-courses">
       <section class="courses-container">
         <!-- NEW IN INDIGO Heading was added. -->
@@ -101,4 +109,24 @@
         </div>
       </section>
     </section>
+<!-- Chatbot -->
+<section class="chat-window">
+  <button class="close">x Fermer</button>
+  <div class="chat">
+      <div class="model">
+          <p>Hello, comment puis-je vous aider ?</p>
+      </div>
+  </div>
+  <div class="input-area">
+      <input placeholder="Posez votre question..." type="text">
+      <button>
+          <img src="${static.url('images/send-icon.png')}" alt="send">
+      </button>
+  </div>
+</section>
+
+<div class="chat-button">
+  <img src="${static.url('images/chat-icon.png')}" alt="start chat">
+</div>
+
 </main>

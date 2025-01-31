@@ -705,11 +705,13 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
 body.chat-open {
   .chat-window {
       display: flex;
+      flex-direction: column;
+      z-index: 10000; /* S'assurer que la fenêtre reste au-dessus */
   }
 }
 
 .chat-button {
-  position: absolute;
+  position: fixed;
   bottom: 60px;
   right: 20px;
   z-index: 998;
@@ -742,8 +744,8 @@ body.chat-open {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: white;
   border-radius: 20px;
-  position: absolute;
-  z-index: 999;
+  position: fixed;
+  z-index: 10000;
   bottom: 60px;
   right: 20px;
   height: 400px;
@@ -778,7 +780,7 @@ body.chat-open {
 
           p {
               background-color: #FAF3E0;
-              color: #4B5563;
+              color: $text-color-dark;
           }
 
           
@@ -828,7 +830,7 @@ body.chat-open {
           border-radius: 100%;
           border: none;
           margin-left: 12px;
-          background-color: #808C48;
+          background-color: $color-orange-bis;
           color: white;
           display: flex;
           justify-content: center;

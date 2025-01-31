@@ -234,6 +234,15 @@ const handleOutgoingMessage = () => {
     setTimeout(displayLoadingAnimation, 500); // Show loading animation after delay
 };
 
+// Ajouter un gestionnaire d'événement pour la touche Entrée
+const inputField = document.querySelector('.prompt__form-input');
+inputField.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Empêcher le comportement par défaut
+        document.querySelector('.prompt__form').dispatchEvent(new Event('submit')); // Simuler le clic sur le bouton d'envoi
+    }
+});
+
 // Toggle between light and dark themes
 themeToggleButton.addEventListener('click', () => {
     const isLightTheme = document.body.classList.toggle("light_mode");

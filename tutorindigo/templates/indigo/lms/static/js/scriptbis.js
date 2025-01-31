@@ -87,80 +87,143 @@ const model = genAI.getGenerativeModel({
 
 let messages = {
     history: [],
+};
+
+// Fonction pour logger les z-index
+function logZIndexes() {
+    const elements = {
+        header: '.header-global',
+        chatButton: '.chat-button',
+        chatWindow: '.chat-window'
+    };
+
+    Object.entries(elements).forEach(([name, selector]) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            console.log(`${name} z-index:`, getComputedStyle(element).zIndex);
+        } else {
+            console.log(`${name} not found`);
+        }
+    });
 }
 
-async function sendMessage() {
-
-    console.log(messages);
-    const userMessage = document.querySelector(".chat-window input").value;
+// Fonction pour ouvrir le chat
+function openChat(e) {
+    if (e) e.preventDefault();
+    console.log("Opening chat...");
     
-    if (userMessage.length) {
-
-        try {
-            document.querySelector(".chat-window input").value = "";
-            document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend",`
-                <div class="user">
-                    <p>${userMessage}</p>
-                </div>
-            `);
-
-            document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend",`
-                <div class="loader"></div>
-            `);
-
-            const chat = model.startChat(messages);
-
-            let result = await chat.sendMessageStream(userMessage);
-            
-            document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend",`
-                <div class="model">
-                    <p></p>
-                </div>
-            `);
-            
-            let modelMessages = '';
-
-            for await (const chunk of result.stream) {
-              const chunkText = chunk.text();
-              modelMessages = document.querySelectorAll(".chat-window .chat div.model");
-              modelMessages[modelMessages.length - 1].querySelector("p").insertAdjacentHTML("beforeend",`
-                ${chunkText}
-            `);
-            }
-
-            messages.history.push({
-                role: "user",
-                parts: [{ text: userMessage }],
-            });
-
-            messages.history.push({
-                role: "model",
-                parts: [{ text: modelMessages[modelMessages.length - 1].querySelector("p").innerHTML }],
-            });
-
-        } catch (error) {
-            document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend",`
-                <div class="error">
-                    <p>The message could not be sent. Please try again.</p>
-                </div>
-            `);
-        }
-
-        document.querySelector(".chat-window .chat .loader").remove();
-        
+    const chatWindow = document.querySelector(".chat-window");
+    if (chatWindow) {
+        chatWindow.style.display = "flex";
+        chatWindow.style.flexDirection = "column";
+        chatWindow.style.zIndex = "10000";
+        document.body.classList.add("main-beige", "chat-open");
+        logZIndexes();
+    } else {
+        console.error("Chat window not found");
     }
 }
 
-document.querySelector(".chat-window .input-area button")
-.addEventListener("click", ()=>sendMessage());
+// Fonction pour fermer le chat
+function closeChat(e) {
+    if (e) e.preventDefault();
+    console.log("Closing chat...");
+    
+    const chatWindow = document.querySelector(".chat-window");
+    if (chatWindow) {
+        chatWindow.style.display = "none";
+        document.body.classList.remove("main-beige", "chat-open");
+    } else {
+        console.error("Chat window not found");
+    }
+}
 
-document.querySelector(".chat-button")
-.addEventListener("click", ()=>{
-    document.querySelector("body").classList.add("chat-open");
+// Fonction pour envoyer un message
+async function sendMessage() {
+    const chatInput = document.querySelector(".chat-window input");
+    const userMessage = chatInput?.value;
+    
+    if (!userMessage?.trim()) {
+        console.log("Empty message, ignoring...");
+        return;
+    }
+
+    try {
+        // Effacer l'input
+        chatInput.value = "";
+
+        // Ajouter le message utilisateur
+        const chatContainer = document.querySelector(".chat-window .chat");
+        chatContainer.insertAdjacentHTML("beforeend", `
+            <div class="user">
+                <p>${userMessage}</p>
+            </div>
+            <div class="loader"></div>
+        `);
+
+        // Faire défiler vers le bas
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        // Envoyer le message
+        const chat = model.startChat(messages);
+        const result = await chat.sendMessageStream(userMessage);
+        
+        // Préparer la zone de réponse
+        chatContainer.insertAdjacentHTML("beforeend", `
+            <div class="model">
+                <p></p>
+            </div>
+        `);
+        
+        // Afficher la réponse par morceaux
+        let modelMessages = '';
+        for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            modelMessages = document.querySelectorAll(".chat-window .chat div.model");
+            const lastMessage = modelMessages[modelMessages.length - 1];
+            if (lastMessage) {
+                lastMessage.querySelector("p").insertAdjacentHTML("beforeend", chunkText);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        // Mettre à jour l'historique
+        messages.history.push(
+            { role: "user", parts: [{ text: userMessage }] },
+            { role: "model", parts: [{ text: modelMessages[modelMessages.length - 1].querySelector("p").innerHTML }] }
+        );
+
+    } catch (error) {
+        console.error("Error sending message:", error);
+        document.querySelector(".chat-window .chat").insertAdjacentHTML("beforeend", `
+            <div class="error">
+                <p>The message could not be sent. Please try again.</p>
+            </div>
+        `);
+    } finally {
+        // Nettoyer le loader
+        const loader = document.querySelector(".chat-window .chat .loader");
+        if (loader) loader.remove();
+    }
+}
+
+// Initialisation quand le DOM est chargé
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Initializing chat...");
+    logZIndexes();
+
+    // Event listeners pour le chat
+    const chatButton = document.querySelector(".chat-button");
+    const closeButton = document.querySelector(".chat-window .close");
+    const sendButton = document.querySelector(".chat-window .input-area button");
+    const chatInput = document.querySelector(".chat-window input");
+
+    if (chatButton) chatButton.addEventListener("click", openChat);
+    if (closeButton) closeButton.addEventListener("click", closeChat);
+    if (sendButton) sendButton.addEventListener("click", sendMessage);
+    if (chatInput) {
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+    }
 });
-
-document.querySelector(".chat-window button.close")
-.addEventListener("click", ()=>{
-    document.querySelector("body").classList.remove("chat-open");
-});
-
