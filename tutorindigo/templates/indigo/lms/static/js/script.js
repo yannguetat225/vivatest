@@ -2,7 +2,6 @@ const messageForm = document.querySelector(".prompt__form");
 const chatHistoryContainer = document.querySelector(".chats");
 const suggestionItems = document.querySelectorAll(".suggests__item");
 
-const themeToggleButton = document.getElementById("themeToggler");
 const clearChatButton = document.getElementById("deleteButton");
 
 // State variables
@@ -15,10 +14,6 @@ const API_REQUEST_URL = `https://generativelanguage.googleapis.com/v1/models/gem
 // Load saved data from local storage
 const loadSavedChatHistory = () => {
     const savedConversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
-    const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
-
-    document.body.classList.toggle("light_mode", isLightTheme);
-    themeToggleButton.innerHTML = isLightTheme ? '<i class="bx bx-moon"></i>' : '<i class="bx bx-sun"></i>';
 
     chatHistoryContainer.innerHTML = '';
 
@@ -241,16 +236,6 @@ inputField.addEventListener('keypress', function(event) {
         event.preventDefault(); // Empêcher le comportement par défaut
         document.querySelector('.prompt__form').dispatchEvent(new Event('submit')); // Simuler le clic sur le bouton d'envoi
     }
-});
-
-// Toggle between light and dark themes
-themeToggleButton.addEventListener('click', () => {
-    const isLightTheme = document.body.classList.toggle("light_mode");
-    localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
-
-    // Update icon based on theme
-    const newIconClass = isLightTheme ? "bx bx-moon" : "bx bx-sun";
-    themeToggleButton.querySelector("i").className = newIconClass;
 });
 
 // Clear all chat history

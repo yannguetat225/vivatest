@@ -86,25 +86,99 @@ const model = genAI.getGenerativeModel({
 });
 
 let messages = {
-    history: [],
+    history: []
 };
 
-// Fonction pour logger les z-index
-function logZIndexes() {
-    const elements = {
-        header: '.header-global',
-        chatButton: '.chat-button',
-        chatWindow: '.chat-window'
-    };
+// Fonction pour sauvegarder l'historique
+function saveHistory() {
+    const savedConversations = messages.history.map(msg => {
+        if (msg.role === "user") {
+            return {
+                userMessage: msg.parts[0].text,
+                apiResponse: null
+            };
+        } else if (msg.role === "model") {
+            return {
+                userMessage: messages.history[messages.history.indexOf(msg) - 1].parts[0].text,
+                apiResponse: {
+                    candidates: [{
+                        content: {
+                            parts: [{
+                                text: msg.parts[0].text
+                            }]
+                        }
+                    }]
+                }
+            };
+        }
+    }).filter(msg => msg !== undefined);
 
-    Object.entries(elements).forEach(([name, selector]) => {
-        const element = document.querySelector(selector);
-        if (element) {
-            console.log(`${name} z-index:`, getComputedStyle(element).zIndex);
-        } else {
-            console.log(`${name} not found`);
+    localStorage.setItem("saved-api-chats", JSON.stringify(savedConversations));
+}
+
+// Fonction pour charger l'historique
+function loadHistory() {
+    const chatContainer = document.querySelector(".chat-window .chat");
+    if (!chatContainer) return;
+
+    // Effacer le contenu actuel
+    chatContainer.innerHTML = '';
+
+    // Charger l'historique depuis localStorage
+    const savedConversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
+    
+    // Convertir le format de l'historique
+    messages.history = [];
+    savedConversations.forEach(conversation => {
+        // Ajouter le message utilisateur
+        messages.history.push({
+            role: "user",
+            parts: [{ text: conversation.userMessage }]
+        });
+
+        // Afficher le message utilisateur
+        chatContainer.insertAdjacentHTML("beforeend", `
+            <div class="user">
+                <p>${conversation.userMessage}</p>
+            </div>
+        `);
+        
+        // Ajouter et afficher la réponse du modèle si elle existe
+        if (conversation.apiResponse?.candidates?.[0]?.content?.parts?.[0]?.text) {
+            const modelResponse = conversation.apiResponse.candidates[0].content.parts[0].text;
+            messages.history.push({
+                role: "model",
+                parts: [{ text: modelResponse }]
+            });
+
+            chatContainer.insertAdjacentHTML("beforeend", `
+                <div class="model">
+                    <p></p>
+                </div>
+            `);
+            
+            const lastMessage = chatContainer.querySelector(".model:last-child p");
+            updateMessageDisplay(lastMessage, modelResponse);
         }
     });
+
+    // Faire défiler vers le bas
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// Fonction pour effacer l'historique
+function clearHistory(e) {
+    if (e) e.preventDefault();
+    localStorage.removeItem("saved-api-chats");
+    messages.history = [];
+    const chatContainer = document.querySelector(".chat-window .chat");
+    if (chatContainer) {
+        chatContainer.innerHTML = `
+            <div class="model">
+                <p>Hello, comment puis-je vous aider ?</p>
+            </div>
+        `;
+    }
 }
 
 // Fonction pour ouvrir le chat
@@ -117,8 +191,17 @@ function openChat(e) {
         chatWindow.style.display = "flex";
         chatWindow.style.flexDirection = "column";
         chatWindow.style.zIndex = "10000";
-        document.body.classList.add("main-beige", "chat-open");
-        logZIndexes();
+        document.body.classList.add("chat-open");
+        
+        // Ajouter le message d'accueil si le chat est vide
+        const chatContainer = chatWindow.querySelector(".chat");
+        if (chatContainer && chatContainer.children.length === 0) {
+            chatContainer.innerHTML = `
+                <div class="model">
+                    <p>Hello, comment puis-je vous aider ?</p>
+                </div>
+            `;
+        }
     } else {
         console.error("Chat window not found");
     }
@@ -132,7 +215,7 @@ function closeChat(e) {
     const chatWindow = document.querySelector(".chat-window");
     if (chatWindow) {
         chatWindow.style.display = "none";
-        document.body.classList.remove("main-beige", "chat-open");
+        document.body.classList.remove("chat-open");
     } else {
         console.error("Chat window not found");
     }
@@ -165,7 +248,7 @@ async function sendMessage() {
         chatContainer.scrollTop = chatContainer.scrollHeight;
 
         // Envoyer le message
-        const chat = model.startChat(messages);
+        const chat = model.startChat({ history: messages.history });
         const result = await chat.sendMessageStream(userMessage);
         
         // Préparer la zone de réponse
@@ -176,22 +259,24 @@ async function sendMessage() {
         `);
         
         // Afficher la réponse par morceaux
-        let modelMessages = '';
+        let fullResponse = '';
+        const lastMessage = chatContainer.querySelector(".model:last-child p");
+        
         for await (const chunk of result.stream) {
             const chunkText = chunk.text();
-            modelMessages = document.querySelectorAll(".chat-window .chat div.model");
-            const lastMessage = modelMessages[modelMessages.length - 1];
-            if (lastMessage) {
-                lastMessage.querySelector("p").insertAdjacentHTML("beforeend", chunkText);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
+            fullResponse += chunkText;
+            updateMessageDisplay(lastMessage, fullResponse);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
         // Mettre à jour l'historique
-        messages.history.push(
-            { role: "user", parts: [{ text: userMessage }] },
-            { role: "model", parts: [{ text: modelMessages[modelMessages.length - 1].querySelector("p").innerHTML }] }
-        );
+        const userMessageObj = { role: "user", parts: [{ text: userMessage }] };
+        const modelMessageObj = { role: "model", parts: [{ text: fullResponse }] };
+        
+        messages.history.push(userMessageObj, modelMessageObj);
+
+        // Sauvegarder l'historique dans le format de script.js
+        saveHistory();
 
     } catch (error) {
         console.error("Error sending message:", error);
@@ -201,29 +286,126 @@ async function sendMessage() {
             </div>
         `);
     } finally {
-        // Nettoyer le loader
+        // Supprimer le loader
         const loader = document.querySelector(".chat-window .chat .loader");
         if (loader) loader.remove();
+    }
+}
+
+// Fonction pour logger les z-index
+function logZIndexes() {
+    const elements = {
+        header: '.header-global',
+        chatButton: '.chat-button',
+        chatWindow: '.chat-window'
+    };
+
+    Object.entries(elements).forEach(([name, selector]) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            console.log(`${name} z-index:`, getComputedStyle(element).zIndex);
+        } else {
+            console.log(`${name} not found`);
+        }
+    });
+}
+
+// Fonction pour ajouter des boutons de copie aux blocs de code
+function addCopyButtonToCodeBlocks() {
+    const codeBlocks = document.querySelectorAll('pre');
+    codeBlocks.forEach((block) => {
+        // Éviter d'ajouter des boutons en double
+        if (block.querySelector('.code__copy-btn')) return;
+        
+        const codeElement = block.querySelector('code');
+        if (!codeElement) return;
+        
+        let language = [...codeElement.classList]
+            .find(cls => cls.startsWith('language-'))
+            ?.replace('language-', '') || 'Text';
+
+        const languageLabel = document.createElement('div');
+        languageLabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
+        languageLabel.classList.add('code__language-label');
+        block.appendChild(languageLabel);
+
+        const copyButton = document.createElement('button');
+        copyButton.innerHTML = '<i class="bx bx-copy"></i>';
+        copyButton.classList.add('code__copy-btn');
+        block.appendChild(copyButton);
+
+        copyButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(codeElement.innerText).then(() => {
+                copyButton.innerHTML = '<i class="bx bx-check"></i>';
+                setTimeout(() => copyButton.innerHTML = '<i class="bx bx-copy"></i>', 2000);
+            }).catch(err => {
+                console.error("Copy failed:", err);
+                alert("Unable to copy text!");
+            });
+        });
+    });
+}
+
+// Fonction pour formater le texte avec Markdown
+function formatText(text) {
+    if (!text) return '';
+    try {
+        // Nettoyer le texte avant de le formater
+        const cleanText = text
+            .replace(/\\n/g, '\n') // Remplacer les \n littéraux par des retours à la ligne
+            .replace(/\\/g, '\\\\') // Échapper les backslashes restants
+            .trim();
+            
+        return marked.parse(cleanText);
+    } catch (error) {
+        console.error('Error formatting text:', error);
+        return text;
+    }
+}
+
+// Fonction pour mettre à jour l'affichage du message
+function updateMessageDisplay(element, text) {
+    if (!element || !text) return;
+    try {
+        const formattedHtml = formatText(text);
+        element.innerHTML = formattedHtml;
+        
+        // S'assurer que highlight.js traite tous les blocs de code
+        element.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        
+        addCopyButtonToCodeBlocks();
+    } catch (error) {
+        console.error('Error updating message display:', error);
+        element.textContent = text;
     }
 }
 
 // Initialisation quand le DOM est chargé
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Initializing chat...");
-    logZIndexes();
-
-    // Event listeners pour le chat
+    
+    // Charger l'historique au démarrage
+    loadHistory();
+    
+    // Ajouter les event listeners
     const chatButton = document.querySelector(".chat-button");
-    const closeButton = document.querySelector(".chat-window .close");
+    const closeButton = document.querySelector(".chat-window .chat-icon-button:last-child"); 
     const sendButton = document.querySelector(".chat-window .input-area button");
     const chatInput = document.querySelector(".chat-window input");
+    const deleteButton = document.getElementById("deleteButton");
 
     if (chatButton) chatButton.addEventListener("click", openChat);
     if (closeButton) closeButton.addEventListener("click", closeChat);
     if (sendButton) sendButton.addEventListener("click", sendMessage);
     if (chatInput) {
-        chatInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") sendMessage();
+        chatInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                sendMessage();
+            }
         });
     }
+    if (deleteButton) deleteButton.addEventListener("click", clearHistory);
 });

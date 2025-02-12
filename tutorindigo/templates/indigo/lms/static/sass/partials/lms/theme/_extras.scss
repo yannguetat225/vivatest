@@ -170,22 +170,67 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
     z-index: 1;
 }
 
-.prompt {
-  position: fixed; /* Changé de sticky à fixed */
-        bottom: 125.5px; /* Hauteur du footer */
-        left: 0;
-        right: 0;
-        background: var(--primary-color);
-        padding: 1rem;
-        z-index: 100;
-        border-top: 1px solid var(--secondary-color);
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+.prompt-container {
+    position: fixed;
+    bottom: $footer-height; 
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+    z-index: 1000;
+}
 
-        &__form {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
+.prompt__form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.prompt__input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f0f4f9;
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.prompt__form-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.prompt__form-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.prompt__disclaim {
+    text-align: center;
+    font-size: 12px;
+    color: #585858;
+}
+
+.chats {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: calc(120px + #{$footer-height}); 
+    overflow-y: auto;
 }
 
   *{
@@ -753,6 +798,53 @@ body.chat-open {
   flex-direction: column;
   justify-content: space-between;
 
+  .chat-header {
+    background-color: #4a5d23;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    
+    span {
+        color: $color-orange-bis;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 500;
+        position: absolute;
+    }
+    
+    .chat-icon-button {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #ff6b00;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: background-color 0.2s;
+        margin-left: auto; /* Pour pousser les boutons à droite */
+        
+        & + .chat-icon-button {
+            margin-left: 12px; /* Espace entre les deux boutons */
+        }
+        
+        i {
+            color: white;
+            font-size: 18px;
+            line-height: 1;
+        }
+        
+        &:hover {
+            background-color: darken(#ff6b00, 10%);
+        }
+    }
+  }
+
   .close {
       border: none;
       padding: 8px 0;
@@ -845,6 +937,23 @@ body.chat-open {
               box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
           }
       }
+  }
+  .delete-history {
+    border: none;
+    background: #f5f5f5;
+    padding: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px;
+    border-radius: 20px;
+    
+    &:hover {
+        background: #e5e5e5;
+    }
   }
 }
 
@@ -1008,7 +1117,7 @@ body.chat-open {
   }
 
   .resource-card {
-    background: #fdfdfd;
+    background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
@@ -1088,14 +1197,8 @@ body.chat-open {
     margin-top: 1rem;
     transition: background 0.3s ease;
 
-    @media (max-width: $mobile) {
-      width: 100%;
-      padding: 0.75rem 1rem;
-    }
-  }
-
-  .btn-download {
-    background-color: $color-orange;
+    &.btn-download {
+      background-color: $color-orange;
       color: $color-creamsoft;
       &:hover {
           background-color: $color-olive;
@@ -1103,16 +1206,22 @@ body.chat-open {
           border-color: $color-orange-bis;
 
         }
-  }
+    }
 
-  .btn-buy {
-    background: $color-orange;
-     color: #fff;
+    &.btn-buy {
+      background: $color-orange;
+      color: #fff;
 
-    &:hover {
-      background: $color-orange-bis;
-      color: $hover-olive
-     }
+      &:hover {
+        background: $color-orange-bis;
+        color: $hover-olive
+      }
+    }
+
+    @media (max-width: $mobile) {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
   }
 
   .faq-card {
@@ -1499,9 +1608,8 @@ body.chat-open {
       color: $color-creamsoft;
       &:hover {
           background-color: $color-orange;
-          color: $hover-olive;
-          border-color: $hover-olive;
-        }
+          color: $hover-olive
+      }
     }
 
     @media (max-width: $mobile) {
@@ -2150,113 +2258,7 @@ ul, li {
   padding-left: 1rem !important;
 }
 
-// Styles spécifiques pour la page Privacy
-.privacy-content {
-  .graphic-grid {
-      margin-bottom: 30px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-
-      @media (max-width: $tablet) {
-          margin-bottom: 25px;
-      }
-
-      @media (max-width: $mobile) {
-          margin-bottom: 20px;
-          border-radius: 8px;
-      }
-
-      .grid-item {
-        background-color: white;
-        line-height: 1.6;
-          padding: 25px;
-          border-radius: 8px;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-          max-width: 700px;
-          @media (max-width: $tablet) {
-              padding: 20px;
-          }
-
-          @media (max-width: $mobile) {
-              padding: 15px;
-          }
-          a {
-            color: $color-olive;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        
-            &:hover {
-                color: $color-orange-bis;
-            }
-        }
-          p:first-of-type {
-            text-indent: 2em;  // Pour l'indentation du premier paragraphe uniquement
-        }
-        p {
-          margin-bottom: 1rem;  // Augmente l'espace après le paragraphe
-      }
-          h2.h2 {
-              font-size: 1.6rem;
-              font-weight: 600;
-              color: $hover-olive;
-              margin-bottom: 1.2rem;
-              padding-bottom: 0.8rem;
-              border-bottom: 2px solid $color-olive;
-
-              @media (max-width: $tablet) {
-                  font-size: 1.4rem;
-                  margin-bottom: 1rem;
-              }
-
-              @media (max-width: $mobile) {
-                  font-size: 1.2rem;
-                  margin-bottom: 0.8rem;
-              }
-          }
-
-          ul.list-unstyled {
-              margin: 0;
-              padding-left: 0;
-              list-style: none;
-              text-indent: 0;
-              li {
-                  position: relative;
-                  padding-left: 20px;
-                  margin-bottom: 12px;
-                  font-size: 1.05rem;
-                  line-height: 1.6;
-
-                  @media (max-width: $tablet) {
-                      font-size: 1rem;
-                      margin-bottom: 10px;
-                  }
-
-                  @media (max-width: $mobile) {
-                      font-size: 0.95rem;
-                      margin-bottom: 8px;
-                  }
-
-                  &:before {
-                      content: "•";
-                      color: $color-olive;
-                      position: absolute;
-                      left: 0;
-                      font-size: 1.2em;
-                  }
-              }
-          }
-      }
-  }
-}
-// Utilitaires de texte
-.text-center {
-  text-align: center !important;
-  line-height: 1.6;
-}
-
-// Styles pour la page de contact
+// Styles spécifiques pour la page de contact
 // Styles spécifiques pour la page de contact
 .contact-form-section {
   max-width: 1200px;
@@ -3294,11 +3296,12 @@ body.indigo-dark-theme {
         .directory-toolbar {
           background: $primary-light-d;
           a.btn {
-            background: $primary-d !important;
-            border-color: $primary-d !important;
-            box-shadow: none !important;
-            color: $btn-color-d !important;
-            text-shadow: none;
+            background: $primary-d;
+            border-color: $primary-d;
+            color: $btn-color-d;
+            &:hover, &:focus {
+              color: $btn-color-d;
+            }
           }
         }
       }
@@ -3527,13 +3530,6 @@ body.indigo-dark-theme {
       text-shadow: none;
       color: $text-color-d;
     }
-    section.idash-section#cohort_management .wrapper-tabs .tab.is-selected .toggle-button {
-      background: $primary-d;
-      border-color: $primary-d;
-      color: $btn-color-d;
-      text-decoration: none;
-    }
-    section.idash-section#cohort_management .cohort-management-settings .form-submit,
     section.idash-section#cohort_management .cohort-management-nav .action-create,
     section.idash-section#cohort_management .file-upload-form .action-submit {
       background: $primary-d !important;
@@ -3702,5 +3698,68 @@ body.indigo-dark-theme {
   
   @media (max-width: $mobile) {
       padding: 10px;
+  }
+}
+
+.chat-window {
+  pre {
+    position: relative;
+    background: #f6f8fa;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 8px 0;
+    overflow-x: auto;
+    
+    code {
+      font-family: 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    
+    .code__language-label {
+      position: absolute;
+      top: 4px;
+      right: 40px;
+      font-size: 11px;
+      color: #666;
+      background: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+    
+    .code__copy-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      padding: 4px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      cursor: pointer;
+      
+      &:hover {
+        background: #f0f0f0;
+      }
+      
+      i {
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+  
+  .model {
+    p {
+      line-height: 1.5;
+      
+      code {
+        background: #f6f8fa;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+        font-size: 12px;
+      }
+    }
   }
 }
