@@ -20,56 +20,53 @@
             <div class="header__title">
                 <h1>Comment puis-je vous accompagner aujourd'hui ?</h1>
             </div>
-            <div class="suggests">
-                <div class="suggests__item">
-                    <p class="suggests__item-text">
-                        Découvrez nos formations et parcours d'apprentissage personnalisés
-                    </p>
-                    <div class="suggests__item-icon">
-                        <i class='bx bx-book-open'></i>
-                    </div>
-                </div>
-                <div class="suggests__item">
-                    <p class="suggests__item-text">
-                        Besoin d'aide pour organiser votre planning de formation ?
-                    </p>
-                    <div class="suggests__item-icon">
-                        <i class='bx bx-calendar'></i>
-                    </div>
-                </div>
-                <div class="suggests__item">
-                    <p class="suggests__item-text">
-                        Explorer les ressources pédagogiques disponibles
-                    </p>
-                    <div class="suggests__item-icon">
-                        <i class='bx bx-library'></i>
-                    </div>
-                </div>
-                <div class="suggests__item">
-                    <p class="suggests__item-text">
-                        Contactez un tuteur pour un accompagnement personnalisé
-                    </p>
-                    <div class="suggests__item-icon">
-                        <i class='bx bx-user-voice'></i>
-                    </div>
-                </div>
-            </div>
+
         </section>
 
         <!-- NEW IN INDIGO update footer -->
-        <section class="chats"></section>
+        <section class="chats">
+             <!-- Message de l'utilisateur (sortant) -->
+  <div class="message message--outgoing">
+    <div class="message__content">
+      <p class="message__text">Bonjour, j'aimerais avoir plus d'informations.</p>
+    </div>
+  </div>
+
+  <!-- Message de l'IA (entrant) -->
+  <div class="message message--incoming">
+    <div class="message__content">
+      <p class="message__text">Bonjour ! Comment puis-je vous aider aujourd'hui ?</p>
+    </div>
+  </div>
+
+  <!-- Ajoutez ici d'autres messages générés dynamiquement -->
+        </section>
+
     </div>
 
     <section class="prompt-container">
         <form action="#" class="prompt__form" novalidate>
             <div class="prompt__input-wrapper">
+        
+      <!-- Bouton pour l'input audio -->
+      <button class="prompt__form-button" id="audioButton">
+        <i class='bx bx-microphone'></i>
+      </button>
+
+      <!-- Bouton pour le fichier -->
+      <button class="prompt__form-button" id="uploadButton">
+        <i class='bx bx-upload'></i>
+      </button>
                 <input type="text" placeholder="Posez votre question ici" class="prompt__form-input" required>
-                <button class="prompt__form-button" id="sendButton">
-                    <i class='bx bx-send'></i>
-                </button>
-                <button class="prompt__form-button" id="deleteButton">
-                    <i class='bx bx-trash'></i>
-                </button>
+                 <!-- Bouton pour envoyer -->
+      <button class="prompt__form-button" id="sendButton">
+        <i class='bx bx-send'></i>
+      </button>
+
+      <!-- Bouton pour effacer -->
+      <button class="prompt__form-button" id="deleteButton">
+        <i class='bx bx-trash'></i>
+      </button>
             </div>
             <p class="prompt__disclaim">
                 Cet assistant est là pour vous guider. Pour toute information officielle, veuillez vous référer à notre équipe pédagogique.
