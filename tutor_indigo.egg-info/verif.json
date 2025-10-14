@@ -1,0 +1,3379 @@
+{
+  "name": "Gandas_225_V1",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3df077e2-6ecd-4caf-a5ec-e6fd070faddc",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -1216,
+        32
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "bRVEWUs21J6CDX3k",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "firebase-storage-webhook",
+        "authentication": "headerAuth",
+        "options": {
+          "allowedOrigins": "https://gandas.ai,http://localhost:3000"
+        }
+      },
+      "id": "234f283d-aacb-4a24-ac39-d70329c5efc0",
+      "name": "Firebase Storage Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -4688,
+        208
+      ],
+      "webhookId": "firebase-storage-webhook-id",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "liCpo32FSyul2yBu",
+          "name": "Header Auth account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10646eae-ae46-4327-a4dc-9987c2d76173",
+              "name": "file_id",
+              "value": "={{ $json.data.fileId }}",
+              "type": "string"
+            },
+            {
+              "id": "77d782de-169d-4a46-8a8e-a3831c04d90f",
+              "name": "file_title",
+              "value": "={{ $json.data.fileName }}",
+              "type": "string"
+            },
+            {
+              "id": "user-id-assignment",
+              "name": "user_id",
+              "value": "={{ $json.data.userId }}",
+              "type": "string"
+            },
+            {
+              "id": "file-path-assignment",
+              "name": "file_path",
+              "value": "={{ $json.data.path }}",
+              "type": "string"
+            },
+            {
+              "id": "download-url-assignment",
+              "name": "download_url",
+              "value": "={{ $json.data.downloadUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "upload-source-assignment",
+              "name": "upload_source",
+              "value": "={{ $json.data.metadata.uploadSource }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "263c6474-b61f-476d-aa13-a369efb8201c",
+      "name": "Set File Info from Firebase",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -4256,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Set File Info from Firebase').item.json.download_url }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "a264053b-8d60-4f96-820e-7f3340689104",
+      "name": "Download File from Firebase Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3008,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "8395c1db-ed4f-46b5-ad05-fcfcae4d903e",
+      "name": "Extract Text from Firebase File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Prepare Agent Input').item.json.chatInput }}",
+        "options": {
+          "systemMessage": "=You are MEDO, a personal assistant for the GANDAS platform who helps users manage and analyze their documents.\n\n  {{ $('Prepare Agent Input').item.json.isFirstMessage ? 'This is the user\\'s first interaction. Be welcoming and explain your capabilities briefly.' : '' }}\n\n  Here is some additional information known about the user:\n  {{ ($('Merge Zep Context').item?.json?.facts || []).join(\"\\n\") }}\n\n  Here are the 5 most recent interactions:\n  {{ ($('Merge Zep Context').item?.json?.conversations || []).join(\"\\n\\n\") }}\n\n  Available capabilities:\n  - Analyze uploaded documents (PDF, Word, Excel, etc.)\n  - Answer questions based on document content\n  - Help organize and search through information\n  - Provide summaries and insights"
+        }
+      },
+      "id": "4ed3db13-534f-4a50-a42a-3af5beef8ced",
+      "name": "RAG AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        -1104,
+        -384
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool to fetch all available documents stored in Firebase Storage via GANDAS platform...",
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": "document_metadata",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.5,
+      "position": [
+        -1040,
+        -160
+      ],
+      "id": "d51871ee-dfea-49e4-97a6-465ba1333171",
+      "name": "List Documents",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Given a Firebase file ID, fetches the text from the document stored in GANDAS.",
+        "operation": "executeQuery",
+        "query": "SELECT string_agg(content, ' ') as document_text FROM documents WHERE metadata->>'file_id' = $1 GROUP BY metadata->>'file_id';",
+        "options": {
+          "queryReplacement": "={{ $fromAI('file_id') }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.5,
+      "position": [
+        -1168,
+        -800
+      ],
+      "id": "c799055f-1e36-4e8b-867c-9a1780dfca58",
+      "name": "Get Firebase File Contents",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Run a SQL query on documents stored via Firebase Storage in GANDAS...",
+        "operation": "executeQuery",
+        "query": "{{ $fromAI('sql_query') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.5,
+      "position": [
+        -976,
+        -736
+      ],
+      "id": "800e35b4-2654-459d-8374-f14e2e8308a3",
+      "name": "Query Document Rows",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "documents",
+        "toolDescription": "Use RAG to look up information from documents stored in Firebase Storage...",
+        "tableName": "documents",
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -688
+      ],
+      "id": "29506b70-549d-4816-9b8b-a78c0ca18575",
+      "name": "Supabase RAG Tool",
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -720,
+        -544
+      ],
+      "id": "94477a02-ea77-416d-87b7-41a9a1c5fe3d",
+      "name": "Embeddings OpenAI for RAG",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRVEWUs21J6CDX3k",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "user_channels",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "channel_type",
+              "keyValue": "telegram"
+            },
+            {
+              "keyName": "channel_id",
+              "keyValue": "={{ String($('Unified Bot Webhook').item.json.body.telegram_id) }}"
+            }
+          ]
+        }
+      },
+      "id": "29cf01e6-f005-4e21-a4d4-2f5b7c93ec41",
+      "name": "Find User",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -3824,
+        -1040
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "chatInput",
+              "value": "={{ $('Unified Bot Webhook').item.json.body.message.text || $('Unified Bot Webhook').item.json.body.message.caption || \"Message vide\" }}",
+              "type": "string",
+              "id": "d64e373f-5a64-43d6-af63-13403a549f71"
+            },
+            {
+              "id": "f127f8ad-e04f-4ba6-b86c-4326f6a1c6b7",
+              "name": "isFirstMessage",
+              "value": "={{ $('Check First Time User').item.json.is_first_time }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "aa3327c7-a11e-4b0f-89de-210ffaae9363",
+      "name": "Prepare Agent Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1920,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT message, role, created_at FROM conversations\n    WHERE user_id = get_user_id_from_telegram($1)\n    ORDER BY created_at DESC LIMIT 10",
+        "options": {
+          "queryReplacement": "= {{ $('Unified Bot Webhook').item.json.body.message.from.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        -1728,
+        -1040
+      ],
+      "id": "e0334db1-841e-4b63-a1d1-a2948eeef5f3",
+      "name": "PostgreSQL - Get History",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT fact FROM user_facts WHERE user_id = get_user_id_from_telegram($1) ORDER BY updated_at DESC LIMIT 5",
+        "options": {
+          "queryReplacement": "= {{ $('Unified Bot Webhook').item.json.body.message.from.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        -2080,
+        -1280
+      ],
+      "id": "1a84c8c0-85e2-4b24-a6b6-2c45d89f0e75",
+      "name": "PostgreSQL - Get Facts",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Adaptation pour PostgreSQL - les facts viennent directement de la requête\nconst facts = $input.all().map(item => item.json.fact).filter(fact => fact);\nreturn { json: { facts } };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1840,
+        -1280
+      ],
+      "id": "4173d548-7ba6-402d-bf5c-41f4d34e720e",
+      "name": "Format Facts"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Adaptation pour PostgreSQL - structure simplifiée avec votre schéma\nconst messages = $input.all();\nconst messagePairs = [];\n\nfor (const item of messages) {\n    const message = item.json;\n    const humanText = message.message || \"\";\n    const aiText = message.response || \"\";\n    \n    if (humanText && aiText) {\n        messagePairs.push(`Human: ${humanText}\\nAI: ${aiText}`);\n    } else if (humanText) {\n        messagePairs.push(`Human: ${humanText}`);\n    }\n}\n\nreturn { json: { conversations: messagePairs } };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1520,
+        -1040
+      ],
+      "id": "feb23b8b-7ff9-4a92-bd5a-59da1cf66723",
+      "name": "Format History"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {
+          "includeUnpaired": true
+        }
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1392,
+        -864
+      ],
+      "id": "5dc54bab-135e-4dd6-a374-542457640852",
+      "name": "Merge Zep Context"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": " INSERT INTO conversations (user_id, message, response, role)\n    VALUES (\n      get_user_id_from_telegram($1),\n      $2,\n      $3,\n      'human'\n    )",
+        "options": {
+          "queryReplacement": "= {{ $('Unified Bot Webhook').item.json.body.message.from.id }}, {{ JSON.stringify($('Prepare Agent Input').item.json.chatInput || 'Message vide') }}, {{ JSON.stringify($('RAG AI Agent').item.json.output) }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [
+        -720,
+        -352
+      ],
+      "id": "d7da7a6f-3af2-4aa1-acbb-05f0bd205340",
+      "name": "PostgreSQL - Add Memory",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ▼▼▼ COLLEZ L'URL DE VOTRE MICRO-SERVICE ICI ▼▼▼\nconst webhookUrl = 'https://gandas.ai/n8n/webhook/context-generator';\n// ▲▲▲ COLLEZ L'URL DE VOTRE MICRO-SERVICE ICI ▲▲▲\n\nif (!webhookUrl.startsWith('http')) {\n  throw new Error(\"ERREUR : Veuillez coller l'URL de votre webhook de production dans le code.\");\n}\n\nconst item = $input.item.json;\n\n// Use 'data' from Firebase flow or 'text' from Telegram flow\nconst fullText = item.data || item.text;\nconst fileId = item.file_id;\nconst fileTitle = item.file_title;\nconst userId = item.user_id; // Firebase user ID\nconst uploadSource = item.upload_source || 'unknown'; // web, telegram, api\nconst chatId = item.chat_id; // Pass through chat_id if exists\nconst chunkSize = 500;\nconst chunks = [];\n\n// Handle cases where fullText might be null or undefined\nif (fullText) {\n    for (let i = 0; i < fullText.length; i += chunkSize) {\n        chunks.push(fullText.substring(i, i + chunkSize));\n    }\n}\n\nconst enrichedData = [];\n\nfor (const chunk of chunks) {\n  try {\n    const response = await fetch(webhookUrl, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({ chunk: chunk }),\n    });\n\n    if (!response.ok) {\n      console.error(`Error from webhook: ${response.statusText}`);\n      continue;\n    }\n\n    const hypotheticalQuestion = await response.json();\n    const finalContent = `${hypotheticalQuestion.data}\\n---\\n${chunk}`;\n\n    enrichedData.push({\n      pageContent: finalContent,\n      metadata: { \n        file_id: fileId, \n        file_title: fileTitle,\n        user_id: userId,\n        upload_source: uploadSource,\n        processed_via: 'firebase_storage'\n      }\n    });\n  } catch (error) {\n    console.error(`Error calling webhook: ${error.message}`);\n  }\n}\n\nconst result = { \n  enrichedData: enrichedData,\n  file_title: fileTitle, // Pass through file_title for confirmation message\n  upload_source: uploadSource\n}; \n\n// Pass through chat_id if it exists for the confirmation message\nif (chatId) {\n  result.chat_id = chatId;\n}\n\n// La ligne importante : tout retourner dans un seul champ\nreturn [{ json: result }];"
+      },
+      "id": "cabf508b-50a9-4e86-ab1d-a70da5249160",
+      "name": "Enrich Chunks via API (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2192,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://supabase-mcp-143187622139.europe-west1.run.app/mcp",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"insert_docs_with_embeddings_{{ $runIndex }}\",\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"insert_documents_with_embeddings\",\n    \"arguments\": {\n      \"documents\": {{ JSON.stringify($json.enrichedData) }},\n      \"openai_api_key\": \"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\"\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1984,
+        -416
+      ],
+      "id": "5889f583-62bd-4dfd-a12d-784bb99607cf",
+      "name": "Insert into Supabase (HTTP)"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telegram-unified-bot",
+        "options": {}
+      },
+      "id": "7411bff3-d693-43d7-a302-92a5a8ea2e0e",
+      "name": "Unified Bot Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        -4272,
+        -624
+      ],
+      "webhookId": "464f0a75-56d1-402f-8b12-b358452e9736",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "start-command-check",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.body?.message?.text }}",
+                    "rightValue": "/start"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "OTP Command"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "contact-check",
+                    "operator": {
+                      "type": "object",
+                      "operation": "notEmpty"
+                    },
+                    "leftValue": "={{ $json.body?.message?.contact }}"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Contact Share"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "document-check",
+                    "operator": {
+                      "type": "object",
+                      "operation": "notEmpty"
+                    },
+                    "leftValue": "={{ $json.body?.message?.document }}"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "File Upload"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "text-message-check",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.body?.message?.text }}"
+                  },
+                  {
+                    "id": "not-start-command",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notStartsWith",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.body?.message?.text }}",
+                    "rightValue": "/start"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "RAG Message"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none",
+          "allMatchingOutputs": false
+        }
+      },
+      "id": "34e4e602-244f-4c4e-99d5-556405c782d8",
+      "name": "Route Message Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -4048,
+        -656
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "6c2e6740-1ecd-4ac7-9a81-57c0a2b40eba",
+      "name": "Extract Text from TG File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -2896,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1fcf819-33fd-44d4-9f26-fd02e3b2e3e7",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.chat_id }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9a3e4a37-4310-42db-8d55-ffebe705a71e",
+      "name": "Check if from Telegram",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1760,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "merge",
+        "options": {}
+      },
+      "id": "02eac93f-a3ca-414a-ba86-dbac94953585",
+      "name": "Merge Ingestion Flows",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        -2416,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2cd0101-52f1-487b-a169-00ed43b236d9",
+              "name": "file_id",
+              "type": "string",
+              "value": "={{ $json.body.message.document.file_id }}"
+            },
+            {
+              "id": "58957803-e8d7-402a-9e75-817887e22134",
+              "name": "file_title",
+              "type": "string",
+              "value": "={{ $json.body.message.document.file_name }}"
+            },
+            {
+              "id": "673f3248-c842-4f05-8e7c-87d81cc56f3e",
+              "name": "chat_id",
+              "type": "string",
+              "value": "={{ $json.body.message.chat.id }}"
+            },
+            {
+              "id": "81f1823e-0010-44ec-b8f9-46c98c199042",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.text || $json.body.message.caption || $json.body.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "196a9b00-9038-4219-bb9a-155169dfec9c",
+      "name": "Set File Info from TG",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2720,
+        -464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const supportedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.json', '.xml', '.txt', '.md'];\nconst fileName = $input.item.json.body.message.document.file_name || '';\nconst lowerName = fileName.toLowerCase();\n\nconst isSupported = supportedExtensions.some(ext => lowerName.endsWith(ext));\n\n$input.item.json.is_supported = isSupported;\n\nreturn $input.item;"
+      },
+      "id": "96da1bd8-4f4b-4049-ad7b-e0bbf9fb3683",
+      "name": "Check Supported File Type",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4064,
+        -400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "a9d8cb1f-d10a-484d-9284-0e9e43f3acdf",
+      "name": "Merge QA Flows",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        -2240,
+        -688
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "9c8829ef-31f0-4fa8-b2ed-861012d26d83",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.is_supported }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1c6fe655-b7de-4ab4-8ba3-da53aee8bc10",
+      "name": "If Supported Type?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3872,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "firebase-event-check",
+              "operator": {
+                "type": "string",
+                "operation": "equal",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.eventType }}",
+              "rightValue": "firebase.storage.file.uploaded"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1636f46a-5308-42bb-b000-fac22abd2b24",
+      "name": "Filter Firebase Upload Events",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4528,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ \"https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/\" + $json.result.file_path }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3072,
+        -464
+      ],
+      "id": "7a0908d1-566d-4c30-b373-94ac2736aa25",
+      "name": "Download File From Tg",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"file_id\": {{ JSON.stringify($json.body.message.document.file_id) }}\n  }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3232,
+        -464
+      ],
+      "id": "98f2ed34-fe7d-4bef-a02a-36d06a95e178",
+      "name": "Get File Info",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 3,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n{\n  chat_id: $json.chat_id,\n  text: `Votre document '${$json.file_title}' a été intégré à la base de connaissances. Source: ${$json.upload_source}.\\nPosez-moi une question dessus !`,\n  parse_mode: 'HTML'\n}\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1648,
+        -96
+      ],
+      "id": "b3328878-28a3-4b98-ae10-47a4531e059f",
+      "name": "Send Ingestion Confirmation1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"chat_id\": {{ $json.body.message.chat.id }},\n    \"text\": \"❌ Le type de fichier n'est pas supporté. Formats acceptés : .jpg, .jpeg, .png, .webp, .pdf, .doc, .docx, .xls, .xlsx, .json, .xml, .txt, .md\",\n    \"parse_mode\": \"HTML\"\n  }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3728,
+        -256
+      ],
+      "id": "e75efabb-1819-4ca7-bcc1-cf5880ec166e",
+      "name": "Send Unsupported Type Error1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n    \"text\": {{ JSON.stringify($('RAG AI Agent').item.json.output) }}\n  }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -496,
+        -352
+      ],
+      "id": "600ebb81-51a7-4cbc-9112-09ccdb042f40",
+      "name": "Send Response to Telegram"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n    \"status\": \"forwarded_to_otp\",\n    \"message\": \"Message transféré au workflow OTP\"\n  }",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -2848,
+        -1632
+      ],
+      "id": "07d19794-862e-4bd2-b794-e475d34de712",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://africarevelations.net/n8n/webhook/api/auth/telegram/initiate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ {\n    \"telegram_id\": \"{{ $json.body.message.from.id }}\",\n    \"chat_id\": \"{{ $json.body.message.chat.id }}\",\n    \"message_text\": \"{{ $json.body.message.text }}\",\n    \"first_name\": \"{{ $json.body.message.from.first_name }}\",\n    \"username\": \"{{ $json.body.message.from.username }}\"\n  }\n    \"token\": \"{{ $json.body.message.text.split(' ')[1] }}\",\n    \"command\": \"/start\",\n    \"has_token\": \"{{ $json.body.message.text.includes(' ') }}\"\n  }",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "http-otp-webhook",
+      "name": "Forward to OTP Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3840,
+        -1632
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f8b19168-6f64-471d-867b-ba7b27a04617",
+              "leftValue": "={{ Number($json.message_count) }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1424,
+        -400
+      ],
+      "id": "61b29002-cb47-41bf-99bc-7433a1a1aeab",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n    \"chatInput\": \"Bonjour ! Je suis MEDO, votre assistant personnel GANDAS. Je peux vous aider à analyser vos documents, répondre à vos questions et organiser vos informations. Pour commencer, vous pouvez me poser une question ou télécharger un document !\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1248,
+        -544
+      ],
+      "id": "d880a6aa-8679-403a-8bc8-0d3f84637fa9",
+      "name": "Set Welcome Message"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) as message_count,\n           CASE WHEN COUNT(*) = 0 THEN TRUE ELSE FALSE END as is_first_time\n    FROM conversations\n    WHERE user_id = get_user_id_from_telegram($1)",
+        "options": {
+          "queryReplacement": "={{ $('Unified Bot Webhook').item.json.body.message.from.id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1392,
+        -1280
+      ],
+      "id": "1da202b3-ce95-4073-a7d9-a37d0356ee31",
+      "name": "Check First Time User",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO telegram_messages (telegram_id, role, content) VALUES ($1, 'user', $2)",
+        "options": {
+          "queryReplacement": "={{ $('Unified Bot Webhook').item.json.body.message.from.id }} {{ JSON.stringify($('Prepare Agent Input').item.json.chatInput || 'Message vide') }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1680,
+        -800
+      ],
+      "id": "5ffbba56-f926-44b4-be72-830e6f912ad0",
+      "name": "Save User Message",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "users",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $('Find User').item.json.user_id }}"
+            }
+          ]
+        }
+      },
+      "id": "role-check-node",
+      "name": "Check User Role",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -3488,
+        -1056
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "admin-role-check",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equal",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.role }}",
+                    "rightValue": "admin"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Admin User"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "moderator-role-check",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equal",
+                      "singleValue": true
+                    },
+                    "leftValue": "={{ $json.role }}",
+                    "rightValue": "moderator"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Moderator User"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Regular User",
+          "allMatchingOutputs": true
+        }
+      },
+      "id": "route-by-role-node",
+      "name": "Route by User Role",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -3296,
+        -976
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"chat_id\": \"{{ $('Unified Bot Webhook').item.json.body.message.chat.id }}\",\n  \"text\": \"🔧 Commandes Admin disponibles:\\n/users - Lister les utilisateurs\\n/promote <user_id> - Promouvoir en modérateur\\n/demote <user_id> - Rétrograder utilisateur\\n/ban <user_id> - Bannir utilisateur\\n/analytics - Voir les statistiques\",\n  \"parse_mode\": \"HTML\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3168,
+        -1152
+      ],
+      "id": "339862ef-9dda-458c-a182-6f149abdf5f4",
+      "name": "Send Admin Commands"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json[\"body\"][\"message\"][\"text\"]}}",
+                    "rightValue": "/users",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "01343504-96cd-4371-b33c-5331d50de557"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "05bf7e51-65d2-4f10-8ffb-c438092aaa12",
+                    "leftValue": "={{$json[\"body\"][\"message\"][\"text\"]}}",
+                    "rightValue": "/promote",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "65a2bf89-7560-4fc5-b638-63c5fa481a5b",
+                    "leftValue": "={{$json[\"body\"][\"message\"][\"text\"]}}",
+                    "rightValue": "/demote",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a4442700-f5d6-45c0-8a47-bf16f08da079",
+                    "leftValue": "={{$json[\"body\"][\"message\"][\"text\"]}}",
+                    "rightValue": "/ban",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f38d8939-7e83-446e-8726-1d4c1f84c70f",
+                    "leftValue": "={{$json[\"body\"][\"message\"][\"text\"]}}",
+                    "rightValue": "/analytics",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -3008,
+        -1216
+      ],
+      "id": "01961b79-1173-47fe-97ef-9b241983ec04",
+      "name": "Detect Admin Commands"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "telegram_users",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telegram_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.message.text.split(' ')[1] }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "role",
+              "fieldValue": "user"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        -1168
+      ],
+      "id": "a8a94b78-c484-4491-a157-7fbe38912350",
+      "name": "Demote User to Regular",
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "telegram_users",
+        "returnAll": true,
+        "filterType": "none"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        -1472
+      ],
+      "id": "9bca4f59-448a-463d-81b3-7d2c3b629f00",
+      "name": "List All Users",
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "telegram_users",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telegram_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.message.text.split(' ')[1] }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "role",
+              "fieldValue": "moderator"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        -1328
+      ],
+      "id": "bccd93b4-a892-40a4-b2cc-e52af54dd4ca",
+      "name": "Promote User to Moderator",
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "telegram_users",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telegram_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.message.text.split(' ')[1] }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "role",
+              "fieldValue": "banned"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        -1008
+      ],
+      "id": "eaa1d31d-aeb3-4f5c-ae70-42c9b4fcfd89",
+      "name": "Ban User",
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    role,\n    COUNT(*) as count,\n    MAX(created_at) as last_registration\n  FROM telegram_users\n  GROUP BY role\n  ORDER BY count DESC",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2736,
+        -864
+      ],
+      "id": "aab8911b-a742-4418-b6ce-7d7826651f8e",
+      "name": "Get User Analytics",
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": \"👥 **Liste des {{ $input.all().length }} utilisateurs:**\\n\\n{{ $input.all().map(user => `${user.json.role === 'admin' ? '👑' : user.json.role === 'moderator' ? '🛡️' : user.json.role === 'banned' ? '🚫' : '👤'} ID: ${user.json.telegram_id}\\n   Rôle: ${user.json.role || 'user'}\\n   Inscrit: ${user.json.created_at.split('T')[0]}`).join('\\n\\n') }}\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "send-users-list-node",
+      "name": "Send Users List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2560,
+        -1472
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": \"✅ **Promotion réussie!**\\n\\nUtilisateur **{{ $('Unified Bot Webhook').item.json.body.message.text.split(' ')[1] }}** promu au rang de **modérateur**.\\n\\n🛡️ Il peut maintenant modérer le contenu et gérer les documents.\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "send-promotion-confirmation-node",
+      "name": "Send Promotion Confirmation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2560,
+        -1328
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": \"⬇️ **Rétrogradation effectuée!**\\n\\nUtilisateur **{{ $('Unified Bot Webhook').item.json.body.message.text.split(' ')[1] }}** rétrogradé au rang d'**utilisateur standard**.\\n\\n👤 Privilèges de modération retirés.\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "send-demotion-confirmation-node",
+      "name": "Send Demotion Confirmation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2560,
+        -1168
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": \"🚫 **Utilisateur banni!**\\n\\nUtilisateur **{{ $('Unified Bot Webhook').item.json.body.message.text.split(' ')[1] }}** a été banni du système.\\n\\n⛔ Accès révoqué définitivement.\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "send-ban-confirmation-node",
+      "name": "Send Ban Confirmation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2576,
+        -1008
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": \"📊 **Rapport Analytique GANDAS**\\n\\n**Distribution des rôles:**\\n{{ $input.all().map(stat => `${stat.json.role === 'admin' ? '👑' : stat.json.role === 'moderator' ? '🛡️' : stat.json.role === 'banned' ? '🚫' : '👤'} **${stat.json.role || 'users'}**: ${stat.json.count} utilisateurs`).join('\\n') }}\\n\\n📅 **Dernière inscription:** {{ $input.all()[0]?.json.last_registration?.split('T')[0] || 'N/A' }}\\n\\n📈 **Total:** {{ $input.all().reduce((sum, stat) => sum + stat.json.count, 0) }} utilisateurs\",\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {}
+      },
+      "id": "send-analytics-report-node",
+      "name": "Send Analytics Report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2560,
+        -864
+      ]
+    },
+    {
+      "parameters": {
+        "tableId": "users",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "role",
+              "fieldValue": "user"
+            },
+            {
+              "fieldId": "first_name",
+              "fieldValue": "={{ $('Unified Bot Webhook').item.json.body.message.from.first_name }}"
+            },
+            {
+              "fieldId": "last_name",
+              "fieldValue": "={{ $('Unified Bot Webhook').item.json.body.message.from.last_name }}"
+            },
+            {
+              "fieldId": "display_name",
+              "fieldValue": "={{ $('Unified Bot Webhook').item.json.body.message.from.first_name + ' ' + ($('Unified Bot Webhook').item.json.body.message.from.last_name || '') }}"
+            }
+          ]
+        }
+      },
+      "id": "b51e1d51-d5e2-40c9-8469-7f046964b073",
+      "name": "Create User in Users Table",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -3056,
+        -608
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "user_channels",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "user_id",
+              "fieldValue": "={{ $('Create User in Users Table').item.json.id }}"
+            },
+            {
+              "fieldId": "channel_type",
+              "fieldValue": "telegram"
+            },
+            {
+              "fieldId": "channel_id",
+              "fieldValue": "={{ $('Unified Bot Webhook').item.json.body.message.from.id }}"
+            },
+            {
+              "fieldId": "channel_username",
+              "fieldValue": "={{ $('Unified Bot Webhook').item.json.body.message.from.username }}"
+            },
+            {
+              "fieldId": "is_primary",
+              "fieldValue": "true"
+            }
+          ]
+        }
+      },
+      "id": "29f9bbc8-7579-431e-b718-c85b6d211645",
+      "name": "Create User Channel",
+      "type": "n8n-nodes-base.supabase",
+      "position": [
+        -2864,
+        -608
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "supabaseApi": {
+          "id": "w6RmlWJZEUjNafxI",
+          "name": "My credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.id }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "id": "05893c57-8cf1-4671-804f-936b91f6b1d9"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f4039be9-0782-49bb-955c-6aba6ffa8669",
+      "name": "If User exists1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -3664,
+        -1040
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    u.auth_user_id,\n    inter.can_process as is_subscribed,\n    inter.can_process as can_upload,\n    inter.remaining_free_interactions,\n    inter.requires_subscription,\n    u.subscription_status,\n    u.firebase_storage_quota_mb as quota_mb,\n    u.firebase_storage_used_mb as used_mb,\n    (u.firebase_storage_quota_mb - COALESCE(u.firebase_storage_used_mb, 0)) as remaining_mb\n  FROM users u\n  JOIN user_channels uc ON u.id = uc.user_id\n  CROSS JOIN LATERAL check_and_increment_interaction(u.telegram_id) inter\n  WHERE uc.channel_type = 'telegram'\n  AND uc.channel_id = CAST({{ $json.telegram_user_id || $json.user_id }} AS TEXT)",
+        "options": {
+          "queryReplacement": "={{ $json.data.userId }}"
+        }
+      },
+      "id": "check-subscription-node-1",
+      "name": "Check User Subscription - Firebase",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -4048,
+        544
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": " SELECT\n    u.auth_user_id,\n    inter.can_process as is_subscribed,\n    inter.can_process as can_upload,\n    inter.remaining_free_interactions,\n    inter.requires_subscription,\n    u.subscription_status,\n    u.firebase_storage_quota_mb as quota_mb,\n    u.firebase_storage_used_mb as used_mb,\n    (u.firebase_storage_quota_mb - COALESCE(u.firebase_storage_used_mb, 0)) as remaining_mb\n  FROM users u\n  JOIN user_channels uc ON u.id = uc.user_id\n  CROSS JOIN LATERAL check_and_increment_interaction(u.telegram_id) inter\n  WHERE uc.channel_type = 'telegram'\n  AND uc.channel_id = CAST({{ $json.message.from.id }} AS TEXT)\n",
+        "options": {
+          "queryReplacement": "={{ $('Unified Bot Webhook').item.json.body.telegram_id || $('Unified Bot Webhook').item.json.body.message.from.id }}"
+        }
+      },
+      "id": "check-subscription-telegram-node",
+      "name": "Check User Subscription - Telegram",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -3680,
+        -496
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "klctBzFjIGHkY1Q3",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "subscription-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.is_subscribed }}",
+              "rightValue": ""
+            },
+            {
+              "id": "quota-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.can_upload }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "validate-subscription-firebase",
+      "name": "Validate Firebase Subscription",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3856,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "firebase-linked-check",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.auth_user_id }}",
+              "rightValue": ""
+            },
+            {
+              "id": "subscription-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.is_subscribed }}",
+              "rightValue": ""
+            },
+            {
+              "id": "quota-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.can_upload }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "validate-subscription-telegram",
+      "name": "Validate Telegram Subscription",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3456,
+        -448
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "❌ Inscription requise!\n\nPour utiliser ce service, vous devez:\n1. Vous inscrire sur notre application web\n2. Lier votre compte Telegram à votre profil Firebase\n\nRendez-vous sur notre plateforme pour créer votre compte gratuit.",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "registration_required",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error_firebase_not_registered",
+      "name": "Error - Firebase Not Registered",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2896,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "⏰ Abonnement expiré!\n\nVotre abonnement a expiré. Veuillez renouveler votre abonnement pour continuer à utiliser ce service.\n\nConnectez-vous à votre compte pour voir les options de renouvellement.",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "subscription_expired",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error_subscription_expired",
+      "name": "Error - Subscription Expired",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2960,
+        -288
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "📊 Quota de stockage dépassé!\n\nVous avez atteint votre limite de stockage. Pour continuer:\n1. Supprimez des fichiers anciens de votre espace Firebase\n2. Ou passez à un abonnement premium\n\nEspace restant: 0 MB",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "quota_exceeded",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "error_quota_exceeded",
+      "name": "Error - Quota Exceeded",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2976,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "send_error_response",
+      "name": "Send Error Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2752,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "firebase-verified-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.is_firebase_verified || false }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "18f88065-83ea-4fa8-82bc-c74869b731ce",
+      "name": "Check Firebase Registration1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3248,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "subscription-expired-check",
+              "operator": {
+                "type": "string",
+                "operation": "equal",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.subscription_status }}",
+              "rightValue": "expired"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "40950df0-493c-42ae-a8af-162c967e9961",
+      "name": "Check Subscription Expired1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3248,
+        -224
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "quota-exceeded-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.can_upload || false }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c8c7776b-7b4d-4726-9579-42fc50c3646e",
+      "name": "Check Quota Exceeded1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3232,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "0ddaaa53-375b-456c-bdbb-278e47092a68",
+      "name": "Send Error Response1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2720,
+        -272
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "c8f67597-1ece-4884-b144-3b4907c4e067",
+      "name": "Send Error Response2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2672,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "❌ Inscription requise!\n\nPour utiliser ce service, vous devez:\n1. Vous inscrire sur notre application web\n2. Lier votre compte Telegram à votre profil Firebase\n\nRendez-vous sur notre plateforme pour créer votre compte gratuit.",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "registration_required",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "da4ddbcf-5300-4402-b010-d9f5af8a3024",
+      "name": "Error - Firebase Not Registered1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3216,
+        816
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "⏰ Abonnement expiré!\n\nVotre abonnement a expiré. Veuillez renouveler votre abonnement pour continuer à utiliser ce service.\n\nConnectez-vous à votre compte pour voir les options de renouvellement.",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "subscription_expired",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0156dea1-bea7-46fd-adb7-cdae9585d006",
+      "name": "Error - Subscription Expired1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3232,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "error_message",
+              "name": "error_message",
+              "value": "📊 Quota de stockage dépassé!\n\nVous avez atteint votre limite de stockage. Pour continuer:\n1. Supprimez des fichiers anciens de votre espace Firebase\n2. Ou passez à un abonnement premium\n\nEspace restant: 0 MB",
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "value": "quota_exceeded",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "211abd48-83c1-49f2-b83b-adc7df340086",
+      "name": "Error - Quota Exceeded1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3184,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "0d4668f3-434e-4902-8b79-e562ade928e9",
+      "name": "Send Error Response3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2960,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "firebase-verified-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.is_firebase_verified || false }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "56478e30-91d1-459d-a2f7-6c770587ea67",
+      "name": "Check Firebase Registration2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3456,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "subscription-expired-check",
+              "operator": {
+                "type": "string",
+                "operation": "equal",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.subscription_status }}",
+              "rightValue": "expired"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "49ebd2d0-e07b-40e8-a1ec-829d477e3cdd",
+      "name": "Check Subscription Expired2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3488,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "quota-exceeded-check",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.can_upload || false }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ff374c3e-5153-4ac5-9df7-5d17b480fe3d",
+      "name": "Check Quota Exceeded2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3440,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "2a72fb21-aa37-408a-ae5b-3f93fa03a0e4",
+      "name": "Send Error Response4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3040,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8365144365:AAENUYDq_Df8EHkRDi_lhjC6CplXnwiBsdc/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": {{ $('Unified Bot Webhook').item.json.body.message.chat.id }},\n  \"text\": {{ JSON.stringify($json.error_message) }},\n  \"parse_mode\": \"HTML\"\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "15264bfc-41b1-4359-aa72-587245b2d568",
+      "name": "Send Error Response5",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3040,
+        816
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Firebase Storage Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter Firebase Upload Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Firebase Upload Events": {
+      "main": [
+        [
+          {
+            "node": "Set File Info from Firebase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set File Info from Firebase": {
+      "main": [
+        [
+          {
+            "node": "Check User Subscription - Firebase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File from Firebase Storage": {
+      "main": [
+        [
+          {
+            "node": "Extract Text from Firebase File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text from Firebase File": {
+      "main": [
+        [
+          {
+            "node": "Merge Ingestion Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Documents": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Firebase File Contents": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Query Document Rows": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Supabase RAG Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "ai_tool",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI for RAG": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase RAG Tool",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find User": {
+      "main": [
+        [
+          {
+            "node": "If User exists1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Facts": {
+      "main": [
+        [
+          {
+            "node": "Check First Time User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format History": {
+      "main": [
+        [
+          {
+            "node": "Merge Zep Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Zep Context": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Chunks via API (Code)": {
+      "main": [
+        [
+          {
+            "node": "Insert into Supabase (HTTP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert into Supabase (HTTP)": {
+      "main": [
+        [
+          {
+            "node": "Check if from Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unified Bot Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Message Type": {
+      "main": [
+        [
+          {
+            "node": "Forward to OTP Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Forward to OTP Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Supported File Type",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Find User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text from TG File": {
+      "main": [
+        [
+          {
+            "node": "Set File Info from TG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if from Telegram": {
+      "main": [
+        [
+          {
+            "node": "Send Ingestion Confirmation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge QA Flows": {
+      "main": [
+        [
+          {
+            "node": "PostgreSQL - Get Facts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Ingestion Flows": {
+      "main": [
+        [
+          {
+            "node": "Enrich Chunks via API (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set File Info from TG": {
+      "main": [
+        [
+          {
+            "node": "Merge Ingestion Flows",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Check Supported File Type": {
+      "main": [
+        [
+          {
+            "node": "If Supported Type?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Supported Type?": {
+      "main": [
+        [
+          {
+            "node": "Check User Subscription - Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Unsupported Type Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PostgreSQL - Add Memory": {
+      "main": [
+        [
+          {
+            "node": "Send Response to Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG AI Agent": {
+      "main": [
+        [
+          {
+            "node": "PostgreSQL - Add Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Agent Input": {
+      "main": [
+        [
+          {
+            "node": "PostgreSQL - Get History",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save User Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PostgreSQL - Get Facts": {
+      "main": [
+        [
+          {
+            "node": "Format Facts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PostgreSQL - Get History": {
+      "main": [
+        [
+          {
+            "node": "Format History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File Info": {
+      "main": [
+        [
+          {
+            "node": "Download File From Tg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File From Tg": {
+      "main": [
+        [
+          {
+            "node": "Extract Text from TG File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Response to Telegram": {
+      "main": [
+        []
+      ]
+    },
+    "Send Ingestion Confirmation1": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Forward to OTP Workflow": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Set Welcome Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Welcome Message": {
+      "main": [
+        [
+          {
+            "node": "RAG AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check First Time User": {
+      "main": [
+        [
+          {
+            "node": "Prepare Agent Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User Role": {
+      "main": [
+        [
+          {
+            "node": "Route by User Role",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by User Role": {
+      "main": [
+        [
+          {
+            "node": "Send Admin Commands",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Admin Commands": {
+      "main": [
+        [
+          {
+            "node": "Detect Admin Commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Admin Commands": {
+      "main": [
+        [
+          {
+            "node": "List All Users",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Promote User to Moderator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Demote User to Regular",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ban User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get User Analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get User Analytics": {
+      "main": [
+        [
+          {
+            "node": "Send Analytics Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ban User": {
+      "main": [
+        [
+          {
+            "node": "Send Ban Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Demote User to Regular": {
+      "main": [
+        [
+          {
+            "node": "Send Demotion Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Promote User to Moderator": {
+      "main": [
+        [
+          {
+            "node": "Send Promotion Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List All Users": {
+      "main": [
+        [
+          {
+            "node": "Send Users List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Analytics Report": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Ban Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Demotion Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Promotion Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Users List": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save User Message": {
+      "main": [
+        [
+          {
+            "node": "Merge Zep Context",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Create User in Users Table": {
+      "main": [
+        [
+          {
+            "node": "Create User Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create User Channel": {
+      "main": [
+        [
+          {
+            "node": "Merge QA Flows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If User exists1": {
+      "main": [
+        [
+          {
+            "node": "Check User Role",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create User in Users Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User Subscription - Firebase": {
+      "main": [
+        [
+          {
+            "node": "Validate Firebase Subscription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check User Subscription - Telegram": {
+      "main": [
+        [
+          {
+            "node": "Validate Telegram Subscription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Telegram Subscription": {
+      "main": [
+        [
+          {
+            "node": "Get File Info",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Subscription Expired1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Firebase Registration1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Quota Exceeded1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Subscription Expired1": {
+      "main": [
+        [
+          {
+            "node": "Error - Subscription Expired",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Firebase Registration1": {
+      "main": [
+        [
+          {
+            "node": "Error - Firebase Not Registered",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Quota Exceeded1": {
+      "main": [
+        [
+          {
+            "node": "Error - Quota Exceeded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Quota Exceeded": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Subscription Expired": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Firebase Not Registered": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Firebase Not Registered1": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Subscription Expired1": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - Quota Exceeded1": {
+      "main": [
+        [
+          {
+            "node": "Send Error Response3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Firebase Registration2": {
+      "main": [
+        [
+          {
+            "node": "Error - Firebase Not Registered1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Subscription Expired2": {
+      "main": [
+        [
+          {
+            "node": "Error - Subscription Expired1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Quota Exceeded2": {
+      "main": [
+        [
+          {
+            "node": "Error - Quota Exceeded1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Firebase Subscription": {
+      "main": [
+        [
+          {
+            "node": "Download File from Firebase Storage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Subscription Expired2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Firebase Registration2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Quota Exceeded2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "815b10db-837b-45d4-8d82-c1bcd81c95f2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f2e06bc4ce09ce10d0d4dd2f1d1167c369f26d2c1ce0e4be584db25d104d5f05"
+  },
+  "id": "KiuYiez6WlgAmWBH",
+  "tags": []
+}
